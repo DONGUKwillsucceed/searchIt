@@ -5,7 +5,6 @@ import PrinterList from "./PrinterList";
 
 export default function App() {
   const [naver, setNaver] = React.useState<any>(null);
-  const navermap = naver.map;
 
   return (
     <>
