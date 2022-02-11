@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../Images/Logo.svg";
+import Logo from "../Images/Logo.svg";
 import PrinterList from "./PrinterList";
 
 export default function App() {
-  const [naver, setNaver] = React.useState<any>(null);
-
   return (
     <>
       <header>

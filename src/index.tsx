@@ -8,8 +8,8 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 import "./index.css";
-import App from "./pages/Landing/App";
-import Test from "./pages/map/map";
+import App from "./Landing/App";
+import Test from "./map/map";
 
 ReactDOM.render(
   <React.StrictMode>
