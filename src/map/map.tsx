@@ -17,37 +17,20 @@ export default function Test() {
       lat: 37.566,
       lng: 126.9784,
     },
-    errMsg: "",
-    isLoading: true,
   });
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLoc((prev) => ({
-            ...prev,
-            center: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            },
-            isLoading: false,
-          }));
-        },
-        (err) => {
-          setUserLoc((prev) => ({
-            ...prev,
-            errMsg: err.message,
-            isLoading: false,
-          }));
-        }
-      );
-    } else {
-      setUserLoc((prev) => ({
-        ...prev,
-        errMsg: "geolocation을 사용할수 없어요..",
-        isLoading: false,
-      }));
+      navigator.geolocation.getCurrentPosition((position) => {
+        setUserLoc((prev) => ({
+          ...prev,
+          center: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+          isLoading: false,
+        }));
+      });
     }
   }, []);
 
@@ -62,19 +45,10 @@ export default function Test() {
       </header>
       <main>
         <Map
-          center={{ lat: 33.5563, lng: 126.79581 }}
+          center={userLoc.center}
           style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
         >
-          {!userLoc.isLoading && (
-            <MapMarker
-              position={userLoc.center}
-              image={{
-                options: {
-                  className: "w-10 h-10 bg-red-500 rounded-full",
-                },
-              }}
-            ></MapMarker>
-          )}
+          <MapMarker position={userLoc.center}></MapMarker>
         </Map>
       </main>
 
