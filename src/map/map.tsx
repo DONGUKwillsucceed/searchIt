@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import Logo from "../Images/Logo.svg";
+import { IUserLoc } from "../Interfaces";
+import UserMarker from "./UserMarker";
+import { fetchData } from "../Data/PrinterInfo";
 
-export default function Test() {
+export default function PrinterMap() {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 
@@ -12,12 +15,14 @@ export default function Test() {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
 
-  const [userLoc, setUserLoc] = React.useState({
+  const [userLoc, setUserLoc] = React.useState<IUserLoc>({
     center: {
       lat: 37.566,
-      lng: 126.9784,
+      lng: 126.978,
     },
   });
+
+  fetchData();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -28,7 +33,6 @@ export default function Test() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           },
-          isLoading: false,
         }));
       });
     }
@@ -48,7 +52,7 @@ export default function Test() {
           center={userLoc.center}
           style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
         >
-          <MapMarker position={userLoc.center}></MapMarker>
+          <UserMarker userLoc={userLoc} />
         </Map>
       </main>
 
