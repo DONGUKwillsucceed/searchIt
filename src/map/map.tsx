@@ -4,7 +4,7 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import Logo from "../Images/Logo.svg";
 import { IUserLoc } from "../Interfaces";
 import UserMarker from "./UserMarker";
-import { fetchData } from "../Data/PrinterInfo";
+import { FetchPrinterData } from "../API/PrinterInfo";
 
 export default function PrinterMap() {
   let vh = window.innerHeight * 0.01;
@@ -15,14 +15,13 @@ export default function PrinterMap() {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
 
+  const [PrinterData, setPrinterData] = React.useState([]);
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
     center: {
       lat: 37.566,
       lng: 126.978,
     },
   });
-
-  fetchData();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -36,8 +35,14 @@ export default function PrinterMap() {
         }));
       });
     }
+    async function getPrinterData() {
+      const res = await FetchPrinterData();
+      setPrinterData(res);
+    }
   }, []);
 
+  FetchPrinterData();
+  console.log(PrinterData);
   return (
     <div>
       <header>
