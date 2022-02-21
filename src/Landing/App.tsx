@@ -1,34 +1,26 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../Images/Logo.svg";
+import Advertism from "./Advertisment";
 import PrinterList from "./PrinterList";
+import Header_logo from "../components/Header_Logo";
+import Menu from "../components/Menu";
 
 export default function App() {
   return (
     <>
-      <header>
-        <nav className="absolute inset-x-0 top-0 flex h-9 w-full items-center justify-center shadow-md">
-          <Link to="/" className="text-xl text-gray-800">
-            <img src={Logo}></img>
-          </Link>
-        </nav>
-      </header>
-
+      <Header_logo />
       <main className="mx-auto flex h-screen max-w-md flex-col pt-9">
-        <div className="mx-auto my-4 flex h-12 w-11/12 items-center rounded-md bg-gray-100 p-4 sm:w-full">
-          프린터 찾기
+        <Advertism />
+        <div className="my-7 flex h-12 w-11/12 flex-col rounded-md text-lg font-bold sm:w-full">
+          <div className="">프린터 찾기</div>
+          <div className="flex w-full justify-between px-8">
+            <button>District</button>
+            <button>Unis</button>
+          </div>
         </div>
         <PrinterList></PrinterList>
       </main>
-
-      <footer className="absolute inset-x-0 bottom-0 flex h-12 w-full justify-evenly border-t-2 p-2">
-        <Link to="/" className="text-gray-500">
-          홈
-        </Link>
-        <Link to="/test" className="text-gray-500">
-          지도
-        </Link>
-      </footer>
+      <Menu />
     </>
   );
 }

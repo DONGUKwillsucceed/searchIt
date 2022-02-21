@@ -6,6 +6,13 @@ module.exports = {
     extend: {
       colors:{
         'primary': '#59c5c8',
+        'primary-light':'#F0FFFF',
+      },
+      width:{
+        'image': '120px',
+      },
+      height:{
+        'image': '120px',
       }
     },
   },

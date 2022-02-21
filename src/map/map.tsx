@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker, MapTypeControl } from "react-kakao-maps-sdk";
 import Logo from "../Images/Logo.svg";
-import { IUserLoc } from "../Interfaces";
+import { IPrinterData, IUserLoc } from "../Interfaces";
 import UserMarker from "./UserMarker";
-import { FetchPrinterData } from "../API/PrinterInfo";
+import { FetchPrinterData } from "../Api/PrinterInfo";
+import PrinterMarker from "./PrinterMarker";
+import { MyLocationButton } from "./MyLocationButton";
+import { KakaoMapContext } from "react-kakao-maps-sdk/lib/@types/components/Map";
+import Header_logo from "../components/Header_Logo";
+import Menu from "../components/Menu";
 
 export default function PrinterMap() {
   let vh = window.innerHeight * 0.01;
@@ -15,12 +20,15 @@ export default function PrinterMap() {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
 
-  const [PrinterData, setPrinterData] = React.useState([]);
+  const [PrinterData, setPrinterData] = React.useState<
+    IPrinterData[] | never[]
+  >([]);
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
     center: {
       lat: 37.566,
       lng: 126.978,
     },
+    changedCenter: false,
   });
 
   useEffect(() => {
@@ -39,36 +47,34 @@ export default function PrinterMap() {
       const res = await FetchPrinterData();
       setPrinterData(res);
     }
+    getPrinterData();
   }, []);
 
-  FetchPrinterData();
-  console.log(PrinterData);
+  // console.log(userLoc);
   return (
     <div>
-      <header>
-        <nav className="absolute inset-x-0 top-0 z-10 flex h-9 w-full items-center justify-center bg-white shadow-md">
-          <Link to="/" className="text-xl text-gray-800">
-            <img src={Logo}></img>
-          </Link>
-        </nav>
-      </header>
+      <Header_logo />
       <main>
         <Map
           center={userLoc.center}
           style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
+          onCenterChanged={() => {
+            setUserLoc(() => ({
+              ...userLoc,
+              changedCenter: true,
+            }));
+          }}
+          onCreate={(map) => {
+            console.log(map);
+          }}
         >
+          <MyLocationButton userLoc={userLoc} setUserLoc={setUserLoc} />
+          <PrinterMarker printerData={PrinterData}></PrinterMarker>
           <UserMarker userLoc={userLoc} />
         </Map>
       </main>
 
-      <footer className="absolute inset-x-0 bottom-0 z-10 flex h-12 w-full justify-evenly border-t-2 bg-white p-2">
-        <Link to="/" className="text-gray-500">
-          홈
-        </Link>
-        <Link to="/test" className="text-gray-500">
-          지도
-        </Link>
-      </footer>
+      <Menu />
     </div>
   );
 }

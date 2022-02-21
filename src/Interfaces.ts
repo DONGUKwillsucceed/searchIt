@@ -1,4 +1,3 @@
-
 export interface IUserLoc {
   center: {
     lat: number;
@@ -6,14 +5,14 @@ export interface IUserLoc {
     x?: number;
     y?: number;
   };
+  changedCenter: boolean;
 }
 
 export interface IPrinterData {
-  config:any,
-  data:any,
-  headers:any,
-  request:any,
-  status:number,
-  statusText:string,
-
-} 
+  c: boolean;
+  id: string;
+  lat: number;
+  lon: number;
+  name: string;
+  stat: string;
+}
