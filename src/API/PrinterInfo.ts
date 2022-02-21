@@ -8,7 +8,6 @@ function correctRes(res: AxiosResponse | never[]): res is AxiosResponse {
 }
 
 export async function FetchPrinterData() {
-  let response_data: any = {};
   const response: AxiosResponse<IPrinterData[]> | never[] = await axios
     .get(PrinterURL)
     .catch((err) => {

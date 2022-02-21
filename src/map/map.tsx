@@ -4,7 +4,7 @@ import { Map, MapMarker, MapTypeControl } from "react-kakao-maps-sdk";
 import Logo from "../Images/Logo.svg";
 import { IPrinterData, IUserLoc } from "../Interfaces";
 import UserMarker from "./UserMarker";
-import { FetchPrinterData } from "../Api/PrinterInfo";
+import { FetchPrinterData } from "../API/PrinterInfo";
 import PrinterMarker from "./PrinterMarker";
 import { MyLocationButton } from "./MyLocationButton";
 import { KakaoMapContext } from "react-kakao-maps-sdk/lib/@types/components/Map";
