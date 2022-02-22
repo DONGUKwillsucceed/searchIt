@@ -18,10 +18,10 @@ export default function PrinterList() {
   }
   return (
     <>
-      <div className=" max-h-72 w-full rounded-md text-lg font-bold">
+      <div className=" font-Suit max-h-72 w-full rounded-md p-4 text-lg font-bold">
         <div className="mb-3 flex w-full items-center justify-between">
           <div className="mb-1 font-bold">내 주변 프린터</div>
-          <div className="bg-primary-light text-primary rounded-md p-1 text-sm hover:bg-blue-200">
+          <div className="bg-primary-light text-primary rounded-md py-1 px-3 text-sm hover:bg-blue-200">
             <Link to="/test">지도 보기</Link>
           </div>
         </div>

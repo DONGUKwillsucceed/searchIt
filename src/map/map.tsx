@@ -74,7 +74,7 @@ export default function PrinterMap() {
         </Map>
       </main>
 
-      <Menu />
+      <Menu currentPage="Map" />
     </div>
   );
 }

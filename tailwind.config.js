@@ -10,10 +10,15 @@ module.exports = {
       },
       width:{
         'image': '120px',
+        '10/21': '47%'
       },
       height:{
         'image': '120px',
+      },
+      fontFamily:{
+        'Suit': ['Suit'],
       }
+
     },
   },
   plugins: [
