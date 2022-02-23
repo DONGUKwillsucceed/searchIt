@@ -6,8 +6,8 @@ export default function PrinterList() {
   for (let i = 0; i < 10; i++) {
     test.push(
       <div key={i}>
-        <div className="w-image mr-2 mb-2 h-full justify-center rounded-sm">
-          <div className="bg-primary w-image h-image rounded-md"></div>
+        <div className="mr-2 mb-2 h-full w-full snap-start snap-always justify-center rounded-sm">
+          <div className="bg-primary h-image w-image rounded-md"></div>
           <div>
             <div>장소 이름</div>
             <div className="text-xs">거리</div>
@@ -25,7 +25,7 @@ export default function PrinterList() {
             <Link to="/test">지도 보기</Link>
           </div>
         </div>
-        <div className="scrollbar-thin sm:scrollbar-thumb-gray-400  flex h-auto overflow-x-auto">
+        <div className="scrollbar-thin sm:scrollbar-thumb-gray-400  flex h-auto snap-x snap-mandatory overflow-x-auto">
           {test}
         </div>
       </div>
