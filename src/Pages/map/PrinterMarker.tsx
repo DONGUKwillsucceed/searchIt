@@ -1,6 +1,6 @@
-import { IPrinterData } from "../Interfaces";
+import { IPrinterData } from "../../Interfaces";
 import { MapMarker } from "react-kakao-maps-sdk";
-import mapPin from "../Images/map-pin.png";
+import mapPin from "../../Images/map-pin.png";
 
 export default function PrinterMarker(props: {
   printerData: IPrinterData[] | never[];

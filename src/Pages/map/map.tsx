@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Map, MapMarker, MapTypeControl } from "react-kakao-maps-sdk";
-import Logo from "../Images/Logo.svg";
-import { IPrinterData, IUserLoc } from "../Interfaces";
+import { Map } from "react-kakao-maps-sdk";
+import { IPrinterData, IUserLoc } from "../../Interfaces";
 import UserMarker from "./UserMarker";
-import { FetchPrinterData } from "../API/PrinterInfo";
+import { FetchPrinterData } from "../../API/PrinterInfo";
 import PrinterMarker from "./PrinterMarker";
 import { MyLocationButton } from "./MyLocationButton";
-import { KakaoMapContext } from "react-kakao-maps-sdk/lib/@types/components/Map";
-import Header_logo from "../components/Header_Logo";
-import Menu from "../components/Menu";
+import Header_logo from "../../components/Header_Logo";
+import Menu from "../../components/Menu";
 
 export default function PrinterMap() {
   let vh = window.innerHeight * 0.01;
@@ -50,7 +47,7 @@ export default function PrinterMap() {
     getPrinterData();
   }, []);
 
-  // console.log(userLoc);
+  console.log(PrinterData);
   return (
     <div>
       <Header_logo />

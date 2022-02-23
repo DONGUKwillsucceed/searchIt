@@ -15,7 +15,7 @@ export default function (props: { currentPage: string }) {
         </div>
         <div className="text-center">홈</div>
       </Link>
-      <Link to="/test" className="items-center text-gray-500">
+      <Link to="map" className="items-center text-gray-500">
         <div className="flex justify-center">
           <img
             src={props.currentPage === "Map" ? map_active : map_disabled}

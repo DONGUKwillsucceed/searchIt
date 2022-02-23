@@ -1,5 +1,5 @@
-import { IUserLoc } from "../Interfaces";
-import MyLocation from "../Images/MyLocation.svg";
+import { IUserLoc } from "../../Interfaces";
+import MyLocation from "../../Images/MyLocation.svg";
 
 export function MyLocationButton(props: {
   userLoc: IUserLoc;
