@@ -1,24 +1,27 @@
-export default function Slider() {
-  const slider: Element | null = document.querySelector(".items");
-  let isDown: Boolean = false;
-  let startX;
-  let scrollLeft;
+import { ISlider } from "../Interfaces";
 
-  slider.addEventListener("mousedown", (e) => {
+export default function Slider() {
+  const slider: HTMLElement | null = document.getElementById("slider");
+  let isDown = false;
+  let startX: number;
+  let scrollLeft: number;
+
+  slider?.addEventListener("mousedown", (e) => {
     isDown = true;
     slider.classList.add("active");
     startX = e.pageX - slider.offsetLeft;
     scrollLeft = slider.scrollLeft;
+    console.log("yes");
   });
-  slider.addEventListener("mouseleave", () => {
+  slider?.addEventListener("mouseleave", () => {
     isDown = false;
     slider.classList.remove("active");
   });
-  slider.addEventListener("mouseup", () => {
+  slider?.addEventListener("mouseup", () => {
     isDown = false;
     slider.classList.remove("active");
   });
-  slider.addEventListener("mousemove", (e) => {
+  slider?.addEventListener("mousemove", (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;

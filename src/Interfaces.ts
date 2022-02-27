@@ -8,6 +8,13 @@ export interface IUserLoc {
   changedCenter: boolean;
 }
 
+export interface ISlider {
+  top: number;
+  left: number;
+  x: number;
+  y: number;
+}
+
 export interface IPrinterData {
   c: boolean;
   id: string;
