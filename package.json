@@ -17,6 +17,7 @@
     "react-kakao-maps-sdk": "^1.0.4",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "tw-elements": "^1.0.0-alpha11",
     "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
   },

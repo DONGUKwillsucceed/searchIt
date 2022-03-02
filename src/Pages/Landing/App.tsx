@@ -8,15 +8,17 @@ import Slider from "../../components/Slider";
 
 export default function App() {
   useEffect(() => {
-    Slider();
+    // Slider();
   }, []);
   return (
     <>
       <Header_logo />
-      <main className="mx-auto flex h-screen max-w-md flex-col pt-14">
-        <Advertism />
-        <FindPrinter />
-        <PrinterList />
+      <main className="flex flex-col items-center justify-between overflow-y-auto pt-14">
+        <div className="w-full md:max-w-md ">
+          <Advertism />
+          <FindPrinter />
+          <PrinterList />
+        </div>
       </main>
       <Menu currentPage="Home" />
     </>

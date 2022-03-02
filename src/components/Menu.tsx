@@ -6,7 +6,7 @@ import map_disabled from "../Images/map_disabled.svg";
 
 export default function (props: { currentPage: string }) {
   return (
-    <footer className="font-Suit absolute inset-x-0 bottom-0 z-10 flex h-fit w-full justify-evenly border-t-2 bg-white p-2">
+    <footer className="font-Suit fixed inset-x-0 bottom-0 z-10 mx-auto flex h-fit w-full justify-evenly border-t-2 bg-white p-2">
       <Link to="/" className="items-center text-gray-500">
         <div>
           <img

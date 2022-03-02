@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
@@ -9,7 +10,7 @@ module.exports = {
         'primary-light':'#F0FFFF',
       },
       width:{
-        'advertisement':'448px',
+        'advertisement':'416px',
         'image': '120px',
         '10/21': '47%'
       },
@@ -24,6 +25,7 @@ module.exports = {
   },
   plugins: [
     require('tailwind-scrollbar'),
+    require('tw-elements/dist/plugin'),
   ],
   variants:{
     scrollbar:['rounded']

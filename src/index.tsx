@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "tw-elements";
 import {
   BrowserRouter as Router,
   Routes,
