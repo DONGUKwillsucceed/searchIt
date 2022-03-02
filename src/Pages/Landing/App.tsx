@@ -13,7 +13,7 @@ export default function App() {
   return (
     <>
       <Header_logo />
-      <main className="flex flex-col items-center justify-between overflow-y-auto pt-14">
+      <main className="flex flex-col items-center overflow-y-auto pt-14">
         <div className="w-full md:max-w-md ">
           <Advertism />
           <FindPrinter />

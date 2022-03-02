@@ -15,6 +15,7 @@ module.exports = {
         '10/21': '47%'
       },
       height:{
+        'advertisment':'70px',
         'image': '120px',
       },
       fontFamily:{
