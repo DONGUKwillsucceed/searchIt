@@ -12,7 +12,7 @@ module.exports = {
       width:{
         'advertisement':'416px',
         'image': '120px',
-        '10/21': '47%'
+        '49p': '49%'
       },
       height:{
         'advertisment':'70px',
@@ -23,6 +23,10 @@ module.exports = {
       }
 
     },
+    screens:{
+      'sm': '460px',
+      'xsm':'330px',
+    }
   },
   plugins: [
     require('tailwind-scrollbar'),

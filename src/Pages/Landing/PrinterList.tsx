@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import Printer from "../../Images/Printer.svg";
 
 export default function PrinterList() {
-  let test: JSX.IntrinsicAttributes[] = [];
+  let Locations: JSX.IntrinsicAttributes[] = [];
+  const testAmount = 6;
 
-  for (let i = 0; i < 10; i++) {
-    test.push(
+  for (let i = 0; i < testAmount; i++) {
+    Locations.push(
       <div key={i}>
         <div className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2 py-2">
           <div className="flex">
@@ -37,7 +38,7 @@ export default function PrinterList() {
           className="scrollbar-thin sm:scrollbar-thumb-gray-400 flex h-auto snap-x snap-normal flex-col hover:cursor-pointer"
           id="slider"
         >
-          {test}
+          {Locations}
         </div>
       </div>
     </>

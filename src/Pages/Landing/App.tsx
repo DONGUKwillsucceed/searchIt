@@ -13,14 +13,13 @@ export default function App() {
   return (
     <>
       <Header_logo />
-      <main className="flex flex-col items-center overflow-y-auto pt-14">
-        <div className="w-full md:max-w-md ">
+      <main className="flex flex-col items-center overflow-y-auto">
+        <div className="mt-9 flex w-full flex-col items-center pt-5 sm:max-w-3xl ">
           <Advertism />
           <FindPrinter />
           <PrinterList />
         </div>
       </main>
-      <Menu currentPage="Home" />
     </>
   );
 }
