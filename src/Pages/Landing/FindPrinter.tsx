@@ -5,7 +5,7 @@ import map_active from "../../Images/map_active.svg";
 
 export default function FindPrinter() {
   return (
-    <div className="mt-8 flex h-fit w-full flex-col justify-between rounded-md p-4 text-lg font-bold sm:w-full">
+    <div className="mt-2 flex h-fit w-full flex-col justify-between rounded-md p-4 text-lg font-bold sm:w-full">
       <div className="pb-4">프린터 찾기</div>
       <div className="">
         <div className="mb-3 w-full">
@@ -20,14 +20,14 @@ export default function FindPrinter() {
         <div className="flex w-full justify-between">
           <Link
             to="findByDistrict"
-            className="font-Suit w-49p flex h-10 items-center justify-center rounded-md border-2 p-1 text-gray-500"
+            className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500"
           >
             <img src={District} className="pr-2"></img>
             <div className="text-xs">행정구역별</div>
           </Link>
           <Link
             to="findByUni"
-            className="font-Suit w-49p flex h-10 items-center justify-center rounded-md border-2 p-1 text-gray-500"
+            className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500"
           >
             <img src={University} className="pr-2"></img>
             <div className="text-xs">대학별</div>

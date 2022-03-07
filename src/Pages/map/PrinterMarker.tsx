@@ -1,18 +1,20 @@
 import { IPrinterData } from "../../Interfaces";
 import { MapMarker } from "react-kakao-maps-sdk";
-import mapPin from "../../Images/map-pin.png";
+import colorMapPin from "../../Images/colorMapPin.svg";
+import monoMapPin from "../../Images/monoMapPin.svg";
 
 export default function PrinterMarker(props: {
   printerData: IPrinterData[] | never[];
 }) {
   const markerList = props.printerData.map((printer) => {
+    const mapPin = printer.c === true ? colorMapPin : monoMapPin;
     return (
       <MapMarker
         image={{
           src: mapPin,
           size: {
-            width: 32,
-            height: 36.5,
+            width: 38,
+            height: 45,
           },
         }}
         key={printer.id}

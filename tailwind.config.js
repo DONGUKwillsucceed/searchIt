@@ -8,6 +8,8 @@ module.exports = {
       colors:{
         'primary': '#68c9cb',
         'primary-light':'#F0FFFF',
+        'Location-text' :'#595959',
+        'secondary': '#FAFAFA',
       },
       width:{
         'advertisement':'416px',

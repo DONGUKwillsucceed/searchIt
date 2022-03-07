@@ -6,7 +6,7 @@ export function MyLocationButton(props: {
   setUserLoc: React.Dispatch<React.SetStateAction<IUserLoc>>;
 }) {
   return (
-    <div className="absolute bottom-24 right-6 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md">
+    <div className="fixed bottom-10 right-6 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md">
       <button
         className="text-xl text-gray-800"
         onClick={() =>

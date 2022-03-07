@@ -7,6 +7,7 @@ import PrinterMarker from "./PrinterMarker";
 import { MyLocationButton } from "./MyLocationButton";
 import Header_logo from "../../components/Header_Logo";
 import Menu from "../../components/Menu";
+import Map_search from "../../components/Map_search";
 
 export default function PrinterMap() {
   let vh = window.innerHeight * 0.01;
@@ -47,31 +48,32 @@ export default function PrinterMap() {
     getPrinterData();
   }, []);
 
-  console.log(PrinterData);
+  // console.log(PrinterData);
   return (
     <div>
-      <Header_logo />
+      <header></header>
       <main>
-        <Map
-          center={userLoc.center}
-          style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
-          onCenterChanged={() => {
-            setUserLoc(() => ({
-              ...userLoc,
-              changedCenter: true,
-            }));
-          }}
-          onCreate={(map) => {
-            console.log(map);
-          }}
-        >
-          <MyLocationButton userLoc={userLoc} setUserLoc={setUserLoc} />
-          <PrinterMarker printerData={PrinterData}></PrinterMarker>
-          <UserMarker userLoc={userLoc} />
-        </Map>
+        <div className="mx-auto max-w-3xl">
+          <Map_search />
+          <Map
+            center={userLoc.center}
+            style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
+            onCenterChanged={() => {
+              setUserLoc(() => ({
+                ...userLoc,
+                changedCenter: true,
+              }));
+            }}
+            onCreate={(map) => {
+              // console.log(map);
+            }}
+          >
+            <MyLocationButton userLoc={userLoc} setUserLoc={setUserLoc} />
+            <PrinterMarker printerData={PrinterData}></PrinterMarker>
+            <UserMarker userLoc={userLoc} />
+          </Map>
+        </div>
       </main>
-
-      <Menu currentPage="Map" />
     </div>
   );
 }

@@ -14,7 +14,7 @@ export default function App() {
     <>
       <Header_logo />
       <main className="flex flex-col items-center overflow-y-auto">
-        <div className="mt-9 flex w-full flex-col items-center pt-5 sm:max-w-3xl ">
+        <div className=" flex w-full flex-col items-center sm:max-w-3xl ">
           <Advertism />
           <FindPrinter />
           <PrinterList />
