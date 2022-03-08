@@ -51,7 +51,6 @@ export default function PrinterMap() {
   // console.log(PrinterData);
   return (
     <div>
-      <header></header>
       <main>
         <div className="mx-auto max-w-3xl">
           <Map_search />

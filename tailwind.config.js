@@ -12,7 +12,8 @@ module.exports = {
         'secondary': '#FAFAFA',
       },
       width:{
-        'advertisement':'416px',
+        'advertisement':'448x',
+        '3xl':'768px',
         'image': '120px',
         '49p': '49%'
       },

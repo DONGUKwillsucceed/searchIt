@@ -14,7 +14,7 @@ import Map from "./Pages/map/map";
 import FindByUni from "./Pages/FindPrinter/FindByUni";
 import FindByDistrict from "./Pages/FindPrinter/FindByDistrict";
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
