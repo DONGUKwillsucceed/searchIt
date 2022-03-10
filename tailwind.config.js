@@ -12,14 +12,18 @@ module.exports = {
         'secondary': '#FAFAFA',
       },
       width:{
-        'advertisement':'448x',
+        'advertisement':'338px',
         '3xl':'768px',
         'image': '120px',
         '49p': '49%'
       },
       height:{
-        'advertisment':'70px',
+        'advertisment':'80px',
         'image': '120px',
+        'printerList':'576px',
+      },
+      maxHeight:{
+        'printerList':'666px',
       },
       fontFamily:{
         'Suit': ['Suit'],

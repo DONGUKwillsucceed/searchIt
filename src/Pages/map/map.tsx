@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { IPrinterData, IUserLoc } from "../../Interfaces";
-import UserMarker from "./UserMarker";
 import { FetchPrinterData } from "../../API/PrinterInfo";
-import PrinterMarker from "./PrinterMarker";
-import { MyLocationButton } from "./MyLocationButton";
-import Header_logo from "../../components/Header_Logo";
-import Menu from "../../components/Menu";
+import UserMarker from "../../components/UserMarker";
+import PrinterMarker from "../../components/PrinterMarker";
+import { MyLocationButton } from "../../components/MyLocationButton";
 import Map_search from "../../components/Map_search";
 
 export default function PrinterMap() {
@@ -18,7 +16,7 @@ export default function PrinterMap() {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
 
-  const [PrinterData, setPrinterData] = React.useState<
+  const [printerData, setPrinterData] = React.useState<
     IPrinterData[] | never[]
   >([]);
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
@@ -68,7 +66,7 @@ export default function PrinterMap() {
             }}
           >
             <MyLocationButton userLoc={userLoc} setUserLoc={setUserLoc} />
-            <PrinterMarker printerData={PrinterData}></PrinterMarker>
+            <PrinterMarker printerData={printerData}></PrinterMarker>
             <UserMarker userLoc={userLoc} />
           </Map>
         </div>

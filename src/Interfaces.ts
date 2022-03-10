@@ -5,7 +5,7 @@ export interface IUserLoc {
     x?: number;
     y?: number;
   };
-  changedCenter: boolean;
+  changedCenter?: boolean;
 }
 
 export interface ISlider {

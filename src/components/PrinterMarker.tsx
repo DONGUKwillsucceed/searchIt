@@ -1,7 +1,7 @@
-import { IPrinterData } from "../../Interfaces";
+import { IPrinterData } from "../Interfaces";
 import { MapMarker } from "react-kakao-maps-sdk";
-import colorMapPin from "../../Images/colorMapPin.svg";
-import monoMapPin from "../../Images/monoMapPin.svg";
+import colorMapPin from "../Images/colorMapPin.svg";
+import monoMapPin from "../Images/monoMapPin.svg";
 
 export default function PrinterMarker(props: {
   printerData: IPrinterData[] | never[];
@@ -19,6 +19,9 @@ export default function PrinterMarker(props: {
         }}
         key={printer.id}
         position={{ lat: printer.lat, lng: printer.lon }}
+        onClick={() => {
+          console.log(printer.id);
+        }}
       ></MapMarker>
     );
   });

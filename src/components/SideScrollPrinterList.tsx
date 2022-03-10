@@ -22,7 +22,9 @@ export default function SideScrollPrinterList() {
   return (
     <div className="mx-4 mb-9">
       <div className="font-Suit mb-4 text-xl font-bold ">행정구역</div>
-      <div className="flex snap-x snap-mandatory overflow-x-auto">{test}</div>
+      <div className="scrollbar-none flex snap-x snap-mandatory overflow-x-auto">
+        {test}
+      </div>
     </div>
   );
 }
