@@ -4,7 +4,6 @@ import backArrow from "../Images/backArrow.svg";
 
 export default function Header_District() {
   const currentPageUrl = window.location.href.split("/")[3];
-  console.log(currentPageUrl);
   const headerTitle = currentPageUrl === "findByUni" ? "대학별" : "행정구역별";
   return (
     <header>

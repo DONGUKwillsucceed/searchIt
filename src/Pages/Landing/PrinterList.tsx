@@ -6,12 +6,8 @@ import { FetchPrinterData } from "../../API/PrinterInfo";
 import { IPrinterData } from "../../Interfaces";
 
 export default function PrinterList() {
-  // let Locations: JSX.IntrinsicAttributes[] = [];
-  const testAmount = 20;
-
   const [dropDownActive, setDropDownActive] = useState<boolean>(false);
   const [printerData, setPrinterData] = useState<IPrinterData[] | never[]>([]);
-
   useEffect(() => {
     async function getPrinterData() {
       const res = await FetchPrinterData();
@@ -19,7 +15,7 @@ export default function PrinterList() {
     }
 
     getPrinterData();
-  });
+  }, []);
 
   const Locations: JSX.IntrinsicAttributes[] = printerData.map((printer) => {
     return (

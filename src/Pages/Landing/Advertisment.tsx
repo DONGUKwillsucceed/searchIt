@@ -1,14 +1,21 @@
 import bannerAd from "../../Images/PrinterAd.svg";
 import nextArrow from "../../Images/nextArrow.svg";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Advertism() {
-  const sliderRef = useRef(null);
+  const testSlider = useRef(null);
+  useEffect(() => {
+    if (testSlider) {
+    }
+  });
 
   return (
     <>
       <div className="relative flex max-w-3xl items-center justify-center">
-        <div className="scrollbar-none flex max-w-3xl snap-x snap-mandatory overflow-x-scroll">
+        <div
+          ref={testSlider}
+          className="scrollbar-none flex max-w-3xl snap-x snap-mandatory overflow-x-scroll"
+        >
           <img src={bannerAd} className="mx-3 w-full snap-center"></img>
           <img src={bannerAd} className="mx-3 w-full snap-center"></img>
           <img src={bannerAd} className="mx-3 w-full snap-center"></img>
