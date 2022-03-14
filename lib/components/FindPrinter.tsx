@@ -1,6 +1,6 @@
 import Link from "next/link";
 import District from "../../public/district.svg";
-import University from "../../public/University.svg";
+import University from "../../public/university.svg";
 import map_active from "../../public/map_active.svg";
 import Image from "next/image";
 

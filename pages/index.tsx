@@ -2,7 +2,6 @@ import Advertism from "../lib/components/Advertisment";
 import PrinterList from "../lib/components/PrinterList";
 import FindPrinter from "../lib/components/FindPrinter";
 import Header_logo from "../lib/components/Header_Logo";
-import monoMapPin from "../public/monoMapPin.svg";
 import Slider from "../lib/functions/Slider";
 import DistanceOption from "../lib/components/DistanceOption";
 
