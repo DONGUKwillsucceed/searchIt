@@ -6,7 +6,9 @@ export default function Map_search() {
     <div className="absolute z-10 w-full p-5 sm:max-w-3xl ">
       <div className="flex h-12 w-full items-center rounded-md bg-white p-5 shadow-md">
         <Link href="/" passHref>
-          <Image src={backArrow} className="hover:cursor-pointer" />
+          <a className="h-6">
+            <Image src={backArrow} className="hover:cursor-pointer" />
+          </a>
         </Link>
       </div>
     </div>

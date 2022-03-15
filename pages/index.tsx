@@ -3,7 +3,7 @@ import PrinterList from "../lib/components/PrinterList";
 import FindPrinter from "../lib/components/FindPrinter";
 import Header_logo from "../lib/components/Header_Logo";
 import Slider from "../lib/functions/Slider";
-import DistanceOption from "../lib/components/DistanceOption";
+import DistanceOptionButtons from "../lib/components/DistanceOptionButtons";
 
 export default function Index() {
   return (
@@ -22,7 +22,7 @@ export default function Index() {
             <div className="mb-3 flex w-full items-center justify-between">
               <div className="mb-1 text-xl font-bold">내 주변 프린터</div>
             </div>
-            <DistanceOption />
+            <DistanceOptionButtons />
             <PrinterList />
           </div>
         </div>

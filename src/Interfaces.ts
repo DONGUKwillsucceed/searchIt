@@ -15,6 +15,10 @@ export interface ISlider {
   y: number;
 }
 
+export interface IDistanceOptions {
+  option: string;
+}
+
 export interface IPrinterData {
   c: boolean;
   id: string;
