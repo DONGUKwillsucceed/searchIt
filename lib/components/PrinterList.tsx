@@ -1,6 +1,6 @@
 import downArrow from "../../public/downArrow.svg";
-import mono from "../../public/Mono.svg";
-import color from "../../public/Color.svg";
+import mono from "../../public/mono.svg";
+import color from "../../public/color.svg";
 import { useState } from "react";
 import GetPrinterCoords from "../functions/GetPrinterCoords";
 import Image from "next/image";

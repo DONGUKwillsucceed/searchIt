@@ -1,6 +1,6 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { IUserLoc } from "../../src/Interfaces";
-import User from "../../public/User.svg";
+import User from "../../public/user.svg";
 import Image from "next/image";
 
 export default function UserMarker(props: { userLoc: IUserLoc }) {
