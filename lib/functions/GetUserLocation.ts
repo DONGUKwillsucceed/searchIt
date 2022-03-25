@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { IUserLoc } from "../../src/interfaces";
+import { IUserLoc } from "../../src/Interfaces";
 
 export default function GetUserLocation() {
-  const [userLoc, setUserLoc] = React.useState<IUserLoc>({
-    center: {
-      lat: 37.566,
-      lng: 126.978,
-    },
-  });
+  const [userLoc, setUserLoc] = React.useState<IUserLoc>();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -22,4 +17,6 @@ export default function GetUserLocation() {
       });
     }
   }, []);
+
+  return userLoc;
 }

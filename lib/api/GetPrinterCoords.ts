@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { IPrinterData } from "../../src/Interfaces";
-import { FetchPrinterCoords } from "../api/PrinterCoords";
 
 export default function () {
   const [printerCoords, setPrinterCoords] = React.useState<
@@ -8,13 +7,15 @@ export default function () {
   >([]);
 
   useEffect(() => {
-    async function GetPrinterCoords() {
-      const res = await FetchPrinterCoords();
-      setPrinterCoords(res);
-    }
+    const fetchPCoords = async () => {
+      const data = await fetch(
+        "https://api.printitcloud.com/PrintZone/coordinate"
+      );
+      const json = await data.json();
+      setPrinterCoords(json);
+    };
 
-    GetPrinterCoords();
+    fetchPCoords();
   }, []);
-
   return printerCoords;
 }

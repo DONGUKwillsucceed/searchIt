@@ -1,9 +1,11 @@
 import { IPrinterData } from "../../src/Interfaces";
 import { MapMarker } from "react-kakao-maps-sdk";
-import GetPrinterCoords from "../functions/GetPrinterCoords";
+import FetchPrinterCoords from "../api/GetPrinterCoords";
+import { useRouter } from "next/router";
 
 export default function PrinterMarker() {
-  const markerList = GetPrinterCoords().map((printer) => {
+  const router = useRouter();
+  const markerList = FetchPrinterCoords().map((printer) => {
     const mapPin = printer.c === true ? "/colorMapPin.svg" : "/monoMapPin.svg";
     return (
       <MapMarker
@@ -17,7 +19,7 @@ export default function PrinterMarker() {
         key={printer.id}
         position={{ lat: printer.lat, lng: printer.lon }}
         onClick={() => {
-          console.log(printer.id);
+          router.push(`/printers/${printer.id}`);
         }}
       ></MapMarker>
     );

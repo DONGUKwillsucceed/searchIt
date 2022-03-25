@@ -3,9 +3,32 @@ import PrinterList from "../lib/components/PrinterList";
 import FindPrinter from "../lib/components/FindPrinter";
 import Header_logo from "../lib/components/Header_Logo";
 import Slider from "../lib/functions/Slider";
+import { IUserLoc, INearPrinter } from "../src/Interfaces";
+import { useEffect, useState } from "react";
+import GetUserLocation from "../lib/functions/GetUserLocation";
 import DistanceOptionButtons from "../lib/components/DistanceOptionButtons";
+import GetNearbyPrinter from "../lib/api/GetNearbyPrinter";
 
 export default function Index() {
+  const [distance, setDistance] = useState<string>("5000");
+  const [nearbyPrinter, setNearbyPrinter] = useState<INearPrinter[]>([]);
+
+  const userLoc = GetUserLocation();
+
+  useEffect(() => {
+    if (userLoc) {
+      GetNearbyPrinter(userLoc, distance).then((res) => {
+        setNearbyPrinter(res);
+      });
+    }
+  }, [distance, userLoc]);
+
+  // console.log(nearbyPrinter);
+  // console.log("distance = " + distance);
+  // if (userLoc) {
+  //   console.log("User loc = ", userLoc.center);
+  // }
+
   return (
     <>
       <Header_logo />
@@ -22,11 +45,36 @@ export default function Index() {
             <div className="mb-3 flex w-full items-center justify-between">
               <div className="mb-1 text-xl font-bold">내 주변 프린터</div>
             </div>
-            <DistanceOptionButtons />
-            <PrinterList />
+            <DistanceOptionButtons
+              distance={distance}
+              setDistance={setDistance}
+            />
+            <PrinterList loc={userLoc} nearbyPrinters={nearbyPrinter} />
           </div>
         </div>
       </main>
     </>
   );
 }
+
+// export async function getServerSideProps() {
+//   const [userLoc, setUserLoc] = useState<any>();
+
+//   useEffect(() => {
+//     navigator.geolocation.getCurrentPosition((position) => {
+//       setUserLoc(position.coords);
+//     });
+//   });
+//   // const nearPrinters: any = GetNearbyPrinter(
+//   //   userLoc.center.lat.toString(),
+//   //   userLoc.center.lng.toString(),
+//   //   "20000"
+//   // );
+
+//   return {
+//     props: {
+//       IUserLoc: userLoc,
+//       // INearPrinter: nearPrinters,
+//     },
+//   };
+// }

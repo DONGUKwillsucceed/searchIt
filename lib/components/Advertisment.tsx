@@ -15,12 +15,8 @@ export default function Advertism() {
       <div className="relative flex max-w-3xl items-center justify-center">
         <div className="scrollbar-none flex max-w-3xl snap-x snap-mandatory overflow-x-scroll">
           <div className="flex">
-            <div className="w-3xl bg-primary h-20"></div>
-            <div className="w-3xl h-20 bg-red-300"></div>
+            <div className="bg-primary w-advertisement h-20"></div>
           </div>
-          {/* <Image src={bannerAd} className="mx-3 w-full snap-center"></Image>
-          <Image src={bannerAd} className="mx-3 w-full snap-center"></Image>
-          <Image src={bannerAd} className="mx-3 w-full snap-center"></Image> */}
         </div>
         {/* Next arrows */}
         <div className="absolute left-2 flex h-6 w-6 items-center justify-center rounded-full bg-black opacity-100 hover:opacity-30">
