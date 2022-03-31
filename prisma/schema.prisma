@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("PRISMA_DATABASE_URL")
+}
+
+model PrintZoneReplies {
+  PrintZoneReplyID String     @id @db.VarChar(64)
+  CreatedAt        DateTime?  @default(now()) @db.DateTime(0)
+  PriceA4Color     Int?       @db.UnsignedInt
+  PriceA4Mono      Int?       @db.UnsignedInt
+  Comment          String?    @db.VarChar(400)
+  PrintZoneID      String     @db.VarChar(64)
+  PrintZones       PrintZones @relation(fields: [PrintZoneID], references: [PrintZoneID], onDelete: NoAction, onUpdate: NoAction, map: "PrintZoneReplies_FK")
+
+  @@index([PrintZoneID], map: "PrintZoneReplies_FK")
+}
+
+model PrintZone_Tag {
+  PrintZoneID String     @db.VarChar(64)
+  TagID       String     @db.VarChar(64)
+  PrintZones  PrintZones @relation(fields: [PrintZoneID], references: [PrintZoneID], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK")
+  Tag         Tag        @relation(fields: [TagID], references: [TagID], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK_1")
+
+  @@unique([PrintZoneID, TagID], map: "PrintZone_Tag_UN")
+  @@index([TagID], map: "PrintZone_Tag_FK_1")
+}
+
+model PrintZones {
+  PrintZoneID       String             @id @db.VarChar(64)
+  CreatedAt         DateTime           @default(now()) @db.DateTime(0)
+  UpdatedAt         DateTime           @db.DateTime(0)
+  Company           String             @db.VarChar(200)
+  Latitude          Float
+  Longitude         Float
+  PriceA4Black      Int?               @db.UnsignedInt
+  PriceA4Color      Int?               @db.UnsignedInt
+  PhoneNumber       String?            @db.VarChar(100)
+  Description       String?            @db.VarChar(800)
+  PrinterCustomHTML String?            @db.MediumText
+  Priority          String             @default("basic") @db.VarChar(50)
+  Status            String             @default("scrapped") @db.VarChar(50)
+  AddressKeyID      String?            @db.VarChar(64)
+  PrintZoneReplies  PrintZoneReplies[]
+  PrintZone_Tag     PrintZone_Tag[]
+}
+
+model Tag {
+  TagID         String          @id @db.VarChar(64)
+  Value         String          @db.VarChar(40)
+  PrintZone_Tag PrintZone_Tag[]
+}
