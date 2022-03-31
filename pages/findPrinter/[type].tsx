@@ -4,13 +4,11 @@ export default function FindByDistrict() {
   return (
     <>
       <Header_FindPrinter />
-      <main className="mx-auto flex h-screen max-w-3xl flex-col">
-        <div className="mt-9 w-full items-center pt-5 sm:max-w-3xl">
-          <SideScrollPrinterList />
-          <SideScrollPrinterList />
-          <SideScrollPrinterList />
-          <SideScrollPrinterList />
+      <main className="mx-auto flex max-w-3xl flex-col">
+        <div className="flex h-32 w-full items-center justify-center bg-gray-200">
+          printer
         </div>
+        <div className="scrollbar-thin mt-9 h-36 w-full items-center overflow-y-scroll pt-5 sm:max-w-3xl"></div>
       </main>
     </>
   );

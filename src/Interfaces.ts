@@ -26,6 +26,7 @@ export interface IPrinterDetail {
     latitue?: number;
     longitude?: number;
   };
+
   description?: string;
   id: string;
   imageUrl?: string;
