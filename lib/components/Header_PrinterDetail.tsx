@@ -9,6 +9,16 @@ export default function Header_PrinterDetail(props: {
 }) {
   const router = useRouter();
 
+  let prevUrl: string = "/";
+  if (
+    router.query.prevPage === "FindByUni" ||
+    router.query.prevPage === "FindByDistrict"
+  ) {
+    prevUrl = `/findPrinter/${router.query.prevPage}`;
+  } else if (router.query.prevPage === "map") {
+    prevUrl = "/map";
+  }
+
   return (
     <header>
       <nav className="font-Suit fixed inset-x-0 top-0 z-10 mx-auto flex max-w-3xl flex-col bg-white px-5 py-3">
@@ -18,7 +28,7 @@ export default function Header_PrinterDetail(props: {
             width={32}
             height={32}
             onClick={() => {
-              router.push("/");
+              router.push(prevUrl);
             }}
             className="hover:cursor-pointer"
           ></Image>

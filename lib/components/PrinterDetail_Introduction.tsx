@@ -4,8 +4,6 @@ export default function PrinterDetail_Introduction(props: {
   printerDetail: IPrinterDetail;
   dropDownActive: boolean;
 }) {
-  console.log(props.dropDownActive);
-
   return (
     <div className="font-Suit mx-auto mt-4 w-10/12">
       <div className="font-Suit mb-3 text-xs font-bold text-gray-500">

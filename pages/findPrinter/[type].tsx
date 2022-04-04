@@ -29,9 +29,11 @@ export default function (
           {props.data.map((printer: IPrinterData) => (
             <div
               key={printer.id}
-              className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2"
+              className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2 hover:cursor-pointer"
+              onClick={() => {
+                router.push(`/printers/${currentPageUrl}/${printer.id}`);
+              }}
             >
-              {console.log(CoordsToAddress(printer.lat, printer.lon))}
               <div className="flex">
                 <div className="my-5 ml-1 mr-3 flex w-6 items-center justify-center rounded-md">
                   {printer.c ? (

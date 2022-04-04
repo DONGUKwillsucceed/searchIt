@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 import GetUserLocation from "../lib/functions/GetUserLocation";
 import DistanceOptionButtons from "../lib/components/DistanceOptionButtons";
 import GetNearbyPrinter from "../lib/api/GetNearbyPrinter";
+import { useRouter } from "next/router";
 
 export default function Index() {
   const [distance, setDistance] = useState<string>("300000");
   const [nearbyPrinter, setNearbyPrinter] = useState<INearPrinter[]>([]);
-
+  const router = useRouter();
   const userLoc = GetUserLocation();
 
   useEffect(() => {
