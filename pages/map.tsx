@@ -44,7 +44,7 @@ export default function PrinterMap() {
             }));
           }}
         >
-          <PrinterMarker />
+          ;<PrinterMarker />
           <UserMarker userLoc={userLoc} />
         </Map>
       </div>

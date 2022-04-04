@@ -81,3 +81,8 @@ export interface IPrinterData {
   name: string;
   stat: string;
 }
+
+export interface IMousePosition {
+  lat: number;
+  lng: number;
+}

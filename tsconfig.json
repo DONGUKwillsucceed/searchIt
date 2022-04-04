@@ -29,8 +29,9 @@
     "lib/components",
     "src/custom.d.ts",
     "Pages",
-    "lib/api"
-, "lib/functions/Slider.ts", "lib/functions/geolocation.ts", "lib/functions/DistantFilter.ts"  ],
+    "lib/api",
+    "lib/functions",
+  ],
   "exclude": [
     "node_modules"
   ]
