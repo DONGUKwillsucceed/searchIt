@@ -1,15 +1,8 @@
-import bannerAd from "../../public/printerAd.svg";
-import nextArrow from "../../public/nextArrow.svg";
-import { useEffect, useRef } from "react";
+import bannerAd from "../../../public/printerAd.svg";
+import nextArrow from "../../../public/nextArrow.svg";
 import Image from "next/image";
 
 export default function Advertism() {
-  // const testSlider = useRef(null);
-  // useEffect(() => {
-  //   if (testSlider) {
-  //   }
-  // });
-
   return (
     <>
       <div className="relative flex max-w-3xl items-center justify-center">

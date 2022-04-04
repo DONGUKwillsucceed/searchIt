@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { IPrinterDetail } from "../../../src/Interfaces";
+import { IPrinterDetail } from "../../../src/common/types/Interfaces";
 import Image from "next/image";
-import Header_PrinterDetail from "../../../lib/components/Header_PrinterDetail";
-import PrinterDetail_Introduction from "../../../lib/components/PrinterDetail_Introduction";
-import { GetPrinterDetail } from "../../../lib/api/GetPrinterDetail";
+import Header_PrinterDetail from "../../../src/common/components/Header_PrinterDetail";
+import PrinterDetail_Introduction from "../../../src/common/components/PrinterDetail_Introduction";
+import { GetPrinterDetail } from "../../../src/common/api/GetPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import PrinterDetail_Price from "../../../lib/components/PrinterDetail_Price";
+import PrinterDetail_Price from "../../../src/common/components/PrinterDetail_Price";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>

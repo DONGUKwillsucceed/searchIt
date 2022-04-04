@@ -1,4 +1,4 @@
-import backArrow from "../../public/backArrow.svg";
+import backArrow from "../../../public/backArrow.svg";
 import Image from "next/image";
 import { useRouter } from "next/router";
 

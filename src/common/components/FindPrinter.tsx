@@ -1,6 +1,6 @@
-import District from "../../public/district.svg";
-import University from "../../public/university.svg";
-import map_active from "../../public/map_active.svg";
+import District from "../../../public/district.svg";
+import University from "../../../public/university.svg";
+import map_active from "../../../public/map_active.svg";
 import { useRouter } from "next/router";
 import Image from "next/image";
 

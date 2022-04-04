@@ -1,10 +1,9 @@
 import Image from "next/image";
-import Header_FindPrinter from "../../lib/components/Header_FindPrinter";
+import Header_FindPrinter from "../../src/common/components/Header_FindPrinter";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import GetPrinterCoords from "../../lib/api/GetPrinterCoords";
-import { IPrinterData } from "../../src/Interfaces";
+import GetPrinterCoords from "../../src/common/api/GetPrinterCoords";
+import { IPrinterData } from "../../src/common/types/Interfaces";
 import { useRouter } from "next/router";
-import CoordsToAddress from "../../lib/functions/CoordsToAddress";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { IUserLoc } from "../src/Interfaces";
-import UserMarker from "../lib/components/UserMarker";
-import PrinterMarker from "../lib/components/PrinterMarker";
-import { MyLocationButton } from "../lib/components/MyLocationButton";
-import Map_search from "../lib/components/Map_search";
+import { IUserLoc } from "../src/common/types/Interfaces";
+import UserMarker from "../src/common/components/UserMarker";
+import PrinterMarker from "../src/common/components/PrinterMarker";
+import { MyLocationButton } from "../src/common/components/MyLocationButton";
+import Map_search from "../src/common/components/Map_search";
 
 export default function PrinterMap() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
@@ -44,7 +44,7 @@ export default function PrinterMap() {
             }));
           }}
         >
-          ;<PrinterMarker />
+          <PrinterMarker />
           <UserMarker userLoc={userLoc} />
         </Map>
       </div>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IPrinterDetail } from "../../src/Interfaces";
+import { IPrinterDetail } from "../types/Interfaces";
 
 export default function PrinterDetail_Price(props: {
   printerDetail: IPrinterDetail;

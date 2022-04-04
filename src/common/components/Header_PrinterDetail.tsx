@@ -1,5 +1,5 @@
 import Image from "next/image";
-import backArrow from "../../public/backArrow.svg";
+import backArrow from "../../../public/backArrow.svg";
 import { useRouter } from "next/router";
 
 export default function Header_PrinterDetail(props: {

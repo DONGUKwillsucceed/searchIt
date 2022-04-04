@@ -1,9 +1,9 @@
 import React from "react";
-import downArrow from "../../public/downArrow.svg";
-import mono from "../../public/mono.svg";
-import color from "../../public/color.svg";
+import downArrow from "../../../public/downArrow.svg";
+import mono from "../../../public/mono.svg";
+import color from "../../../public/color.svg";
 import { useEffect, useState } from "react";
-import { INearPrinter, IUserLoc } from "../../src/Interfaces";
+import { INearPrinter, IUserLoc } from "../types/Interfaces";
 import { useRouter } from "next/router";
 import Image from "next/image";
 

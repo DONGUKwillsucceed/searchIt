@@ -1,4 +1,4 @@
-import { IPrinterData } from "../../src/Interfaces";
+import { IPrinterData } from "../types/Interfaces";
 import { MapMarker } from "react-kakao-maps-sdk";
 import FetchPrinterCoords from "../api/GetPrinterCoords";
 import { useRouter } from "next/router";

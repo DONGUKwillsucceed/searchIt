@@ -26,11 +26,11 @@
   ],
   "include": [
     "src",
-    "lib/components",
-    "src/custom.d.ts",
+    "src/common/components",
+    "src/types/custom.d.ts",
     "Pages",
-    "lib/api",
-    "lib/functions",
+    "src/common/api",
+    "src/common/functions",
   ],
   "exclude": [
     "node_modules"
