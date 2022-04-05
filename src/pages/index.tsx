@@ -4,7 +4,7 @@ import FindPrinter from "../common/components/FindPrinter";
 import Header_logo from "../common/components/Header_Logo";
 import { INearPrinter } from "../common/types/Interfaces";
 import { useEffect, useState } from "react";
-import GetUserLocation from "../common/functions/GetUserLocation";
+import GetUserLocation from "../common/utils/GetUserLocation";
 import DistanceOptionButtons from "../common/components/DistanceOptionButtons";
 import GetNearbyPrinter from "../common/api/GetNearbyPrinter";
 import { useRouter } from "next/router";

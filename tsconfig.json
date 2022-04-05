@@ -30,7 +30,7 @@
     "src/types/custom.d.ts",
     "src/pages",
     "src/common/api",
-    "src/common/functions",
+    "src/common/utils",
   ],
   "exclude": [
     "node_modules"

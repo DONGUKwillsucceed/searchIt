@@ -14,7 +14,9 @@ export default function FindPrinter() {
           className="font-Suit hover: bg-primary flex h-12 w-full cursor-pointer items-center justify-center rounded-md text-white"
           onClick={() => router.push("/map")}
         >
-          <Image src={map_active} className="pr-2"></Image>
+          <div className="pr-2">
+            <Image src="/map_white.svg" width={16} height={16}></Image>
+          </div>
           <div className="text-xs">지도보기</div>
         </div>
       </div>

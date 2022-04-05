@@ -6,6 +6,7 @@ import PrinterDetail_Introduction from "../../common/components/PrinterDetail_In
 import { GetPrinterDetail } from "../../common/api/GetPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import PrinterDetail_Price from "../../common/components/PrinterDetail_Price";
+import { useRouter } from "next/router";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -14,8 +15,8 @@ export default function (
     props.data
   );
   const [dropDownActive, setDropDownActive] = useState<boolean>(false);
+  const router = useRouter();
 
-  // console.log(printerDetail);
   return (
     <>
       <Header_PrinterDetail
@@ -38,6 +39,16 @@ export default function (
 
         {/*Address / PhoneNum */}
         <div className="mx-auto mt-4 w-10/12">
+          <div
+            className="font-Suit border-primary text-primary w-/12 mt-3 flex h-12 items-center justify-center rounded-md border-2 bg-white hover:cursor-pointer"
+            onClick={() => router.push("/map")}
+          >
+            <div className="pr=2">
+              <Image src="/map_primary.svg" width={16} height={16}></Image>
+            </div>
+            <div className="text-xs">지도보기</div>
+          </div>
+
           <div className="bg-secondary font-Suit mb-2 flex h-10 items-center rounded-md px-3 ">
             <div className=" pr-3 text-xs">주소</div>
             <div className="text-sm">{printerDetail?.address}</div>
