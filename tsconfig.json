@@ -28,7 +28,7 @@
     "src",
     "src/common/components",
     "src/types/custom.d.ts",
-    "Pages",
+    "src/pages",
     "src/common/api",
     "src/common/functions",
   ],

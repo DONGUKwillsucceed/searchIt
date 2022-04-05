@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Header_FindPrinter from "../../src/common/components/Header_FindPrinter";
+import Header_FindPrinter from "../../common/components/Header_FindPrinter";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import GetPrinterCoords from "../../src/common/api/GetPrinterCoords";
-import { IPrinterData } from "../../src/common/types/Interfaces";
+import GetPrinterCoords from "../../common/api/GetPrinterCoords";
+import { IPrinterData } from "../../common/types/Interfaces";
 import { useRouter } from "next/router";
 
 export default function (
