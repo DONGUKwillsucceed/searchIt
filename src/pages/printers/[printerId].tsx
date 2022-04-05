@@ -38,9 +38,9 @@ export default function (
         </div>
 
         {/*Address / PhoneNum */}
-        <div className="mx-auto mt-4 w-10/12">
+        <div className="font-Suit mx-auto mt-4 w-10/12">
           <div
-            className="font-Suit border-primary text-primary w-/12 mt-3 flex h-12 items-center justify-center rounded-md border-2 bg-white hover:cursor-pointer"
+            className="border-primary text-primary mb-2 flex h-12 w-full items-center justify-center rounded-md border-2 bg-white hover:cursor-pointer"
             onClick={() => router.push("/map")}
           >
             <div className="pr=2">
@@ -96,12 +96,13 @@ export default function (
 
           <div className="mb-2 flex w-full justify-center">
             <div className="w-32">
-              <Image
+              {/* <Image
                 src={printerDetail?.printer.imageUrl}
                 width={300}
                 height={300}
                 layout="responsive"
-              ></Image>
+              ></Image> */}
+              <img src={printerDetail.printer.imageUrl} />
             </div>
           </div>
 
