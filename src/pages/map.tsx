@@ -9,23 +9,30 @@ import Map_search from "../common/components/Map_search";
 export default function PrinterMap() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
     center: {
-      lat: 37.566,
-      lng: 126.978,
+      lat: 37.566112,
+      lng: 127.06783,
     },
     changedCenter: false,
+    allowedGeo: false,
   });
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserLoc((prev) => ({
-          ...prev,
-          center: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          },
-        }));
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLoc((prev) => ({
+            ...prev,
+            center: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+            allowedGeo: true,
+          }));
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
     }
   }, []);
 
@@ -45,7 +52,7 @@ export default function PrinterMap() {
           }}
         >
           <PrinterMarker />
-          <UserMarker userLoc={userLoc} />
+          {userLoc.allowedGeo ? <UserMarker userLoc={userLoc} /> : null}
         </Map>
       </div>
     </main>
