@@ -10,7 +10,7 @@ export default function Map_search() {
       <div className="flex h-12 w-full items-center rounded-md bg-white p-5 shadow-md">
         <Image
           src={backArrow}
-          onClick={() => router.push("/")}
+          onClick={() => router.back()}
           className="hover:cursor-pointer"
         />
       </div>

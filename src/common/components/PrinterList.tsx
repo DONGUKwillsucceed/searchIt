@@ -20,7 +20,7 @@ export default function PrinterList(props: {
         <div
           key={printer.id}
           onClick={() => {
-            router.push(`/printers/main/${printer.id}`);
+            router.push(`/printers/${printer.id}`);
           }}
         >
           <div className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2">

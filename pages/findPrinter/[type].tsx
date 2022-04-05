@@ -30,7 +30,7 @@ export default function (
               key={printer.id}
               className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2 hover:cursor-pointer"
               onClick={() => {
-                router.push(`/printers/${currentPageUrl}/${printer.id}`);
+                router.push(`/printers/${printer.id}`);
               }}
             >
               <div className="flex">

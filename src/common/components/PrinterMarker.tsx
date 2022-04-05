@@ -30,7 +30,7 @@ export default function PrinterMarker() {
           key={locations.id}
           position={{ lat: locations.lat, lng: locations.lon }}
           onClick={() => {
-            router.push(`printers${router.asPath}/${locations.id}`);
+            router.push(`printers/${locations.id}`);
           }}
         ></MapMarker>
       ))}
