@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IUserLoc } from "../../src/Interfaces";
+import { IUserLoc } from "../types/interfaces";
 
-export default function GetUserLocation() {
+export default function getUserLocation() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>();
 
   useEffect(() => {

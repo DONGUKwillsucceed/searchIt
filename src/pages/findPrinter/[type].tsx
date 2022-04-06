@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Header_FindPrinter from "../../common/components/header_FindPrinter";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import GetPrinterCoords from "../../common/api/getPrinterCoords";
+import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { IPrinterData } from "../../common/types/interfaces";
 import { useRouter } from "next/router";
 
@@ -57,7 +57,7 @@ export default function (
                     <div className="flex">
                       <div className="text-xs text-gray-400">
                         Address
-                        {/* {CoordsToAddress(printer.lon, printer.lat)} */}
+                        {/* {coordsToAddress(printer.lon, printer.lat)} */}
                       </div>
                     </div>
                   </div>
@@ -72,7 +72,7 @@ export default function (
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await GetPrinterCoords();
+  const data = await getPrinterCoords();
 
   return { props: { data } };
 };

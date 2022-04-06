@@ -17,7 +17,7 @@ export function MyLocationButton(props: {
               lat: props.userLoc.center.lat + 0.000000001,
               lng: props.userLoc.center.lng,
             },
-            changedCenter: false,
+            hasChangedCenterter: false,
           }))
         }
       >

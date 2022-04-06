@@ -4,20 +4,18 @@ import FindPrinter from "../common/components/findPrinter";
 import Header_logo from "../common/components/header_Logo";
 import { INearPrinter } from "../common/types/interfaces";
 import { useEffect, useState } from "react";
-import GetUserLocation from "../common/utils/getUserLocation";
+import getUserLocation from "../common/utils/getUserLocation";
 import DistanceOptionButtons from "../common/components/distanceOptionButtons";
-import GetNearbyPrinter from "../common/api/getNearbyPrinter";
-import { useRouter } from "next/router";
+import getNearbyPrinter from "../common/api/getNearbyPrinter";
 
 export default function Index() {
   const [distance, setDistance] = useState<string>("300000");
   const [nearbyPrinter, setNearbyPrinter] = useState<INearPrinter[]>([]);
-  const router = useRouter();
-  const userLoc = GetUserLocation();
+  const userLoc = getUserLocation();
 
   useEffect(() => {
     if (userLoc) {
-      GetNearbyPrinter(userLoc, distance).then((res) => {
+      getNearbyPrinter(userLoc, distance).then((res) => {
         setNearbyPrinter(res);
       });
     }

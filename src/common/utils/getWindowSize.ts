@@ -1,4 +1,4 @@
-export default function GetWindowSize() {
+export default function getWindowSize() {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
   window.addEventListener("resize", () => {

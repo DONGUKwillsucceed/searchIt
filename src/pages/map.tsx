@@ -12,8 +12,8 @@ export default function PrinterMap() {
       lat: 37.578112,
       lng: 127.06783,
     },
-    changedCenter: false,
-    allowedGeo: false,
+    hasChangedCenter: false,
+    hasAllowedGeo: false,
     defaultLevel: 6,
   });
 
@@ -27,7 +27,7 @@ export default function PrinterMap() {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             },
-            allowedGeo: true,
+            hasAllowedGeo: true,
             defaultLevel: 3,
           }));
         },
@@ -50,12 +50,12 @@ export default function PrinterMap() {
           onCenterChanged={() => {
             setUserLoc(() => ({
               ...userLoc,
-              changedCenter: true,
+              hasChangedCenter: true,
             }));
           }}
         >
           <PrinterMarker />
-          {userLoc.allowedGeo ? <UserMarker userLoc={userLoc} /> : null}
+          {userLoc.hasAllowedGeo ? <UserMarker userLoc={userLoc} /> : null}
         </Map>
       </div>
     </main>

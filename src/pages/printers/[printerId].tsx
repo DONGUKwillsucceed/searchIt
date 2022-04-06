@@ -3,7 +3,7 @@ import { IPrinterDetail } from "../../common/types/interfaces";
 import Image from "next/image";
 import Header_PrinterDetail from "../../common/components/header_PrinterDetail";
 import PrinterDetail_Introduction from "../../common/components/printerDetail_Introduction";
-import { GetPrinterDetail } from "../../common/api/getPrinterDetail";
+import { getPrinterDetail } from "../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import PrinterDetail_Price from "../../common/components/printerDetail_Price";
 import { useRouter } from "next/router";
@@ -127,7 +127,7 @@ export default function (
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await GetPrinterDetail(context.query.printerId);
+  const data = await getPrinterDetail(context.query.printerId);
 
   return { props: { data } };
 };

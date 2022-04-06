@@ -37,7 +37,6 @@ export default function PrinterDetail_Price(props: {
           )}
         </div>
       </div>
-      ;
     </>
   );
 }

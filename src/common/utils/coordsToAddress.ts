@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export default function CoordsToAddress(lat: number, lng: number) {
+export default function coordsToAddress(lat: number, lng: number) {
   var geoCoder;
   if (typeof window !== "undefined") {
     geoCoder = new window.kakao.maps.services.Geocoder();

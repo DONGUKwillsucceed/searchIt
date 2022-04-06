@@ -5,8 +5,8 @@ export interface IUserLoc {
     x?: number;
     y?: number;
   };
-  changedCenter?: boolean;
-  allowedGeo?: boolean;
+  hasChangedCenter?: boolean;
+  hasAllowedGeo?: boolean;
   defaultLevel?: number;
 }
 

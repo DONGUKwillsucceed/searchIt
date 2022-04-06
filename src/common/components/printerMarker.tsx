@@ -1,6 +1,6 @@
 import { IPrinterData } from "../types/interfaces";
 import { MapMarker } from "react-kakao-maps-sdk";
-import FetchPrinterCoords from "../api/getPrinterCoords";
+import getPrinterCoords from "../api/getPrinterCoords";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ export default function PrinterMarker() {
 
   useEffect(() => {
     const fetchPrinterCoords = async () => {
-      const data = await FetchPrinterCoords();
+      const data = await getPrinterCoords();
       setPrinter(data);
     };
     fetchPrinterCoords();
