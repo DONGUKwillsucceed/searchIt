@@ -1,5 +1,5 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { IUserLoc } from "../types/Interfaces";
+import { IUserLoc } from "../types/interfaces";
 import User from "../../../public/user.svg";
 import Image from "next/image";
 

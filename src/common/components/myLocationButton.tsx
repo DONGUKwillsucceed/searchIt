@@ -1,4 +1,4 @@
-import { IUserLoc } from "../types/Interfaces";
+import { IUserLoc } from "../types/interfaces";
 import Image from "next/image";
 import MyLocation from "../../../public/myLocation.svg";
 

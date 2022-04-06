@@ -7,6 +7,7 @@ export interface IUserLoc {
   };
   changedCenter?: boolean;
   allowedGeo?: boolean;
+  defaultLevel?: number;
 }
 
 export interface ISlider {

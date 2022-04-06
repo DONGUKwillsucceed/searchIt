@@ -1,4 +1,4 @@
-import { IPrinterDetail } from "../types/Interfaces";
+import { IPrinterDetail } from "../types/interfaces";
 
 export default function PrinterDetail_Introduction(props: {
   printerDetail: IPrinterDetail;

@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { IUserLoc } from "../common/types/Interfaces";
-import UserMarker from "../common/components/UserMarker";
-import PrinterMarker from "../common/components/PrinterMarker";
-import { MyLocationButton } from "../common/components/MyLocationButton";
-import Map_search from "../common/components/Map_search";
+import { IUserLoc } from "../common/types/interfaces";
+import UserMarker from "../common/components/userMarker";
+import PrinterMarker from "../common/components/printerMarker";
+import { MyLocationButton } from "../common/components/myLocationButton";
+import Map_search from "../common/components/map_search";
 
 export default function PrinterMap() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
     center: {
-      lat: 37.566112,
+      lat: 37.578112,
       lng: 127.06783,
     },
     changedCenter: false,
     allowedGeo: false,
+    defaultLevel: 6,
   });
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function PrinterMap() {
               lng: position.coords.longitude,
             },
             allowedGeo: true,
+            defaultLevel: 3,
           }));
         },
         (error) => {
@@ -44,6 +46,7 @@ export default function PrinterMap() {
         <Map
           center={userLoc.center}
           style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
+          level={6}
           onCenterChanged={() => {
             setUserLoc(() => ({
               ...userLoc,

@@ -1,12 +1,12 @@
-import Advertism from "../common/components/Advertisment";
-import PrinterList from "../common/components/PrinterList";
-import FindPrinter from "../common/components/FindPrinter";
-import Header_logo from "../common/components/Header_Logo";
-import { INearPrinter } from "../common/types/Interfaces";
+import Advertism from "../common/components/advertisment";
+import PrinterList from "../common/components/printerList";
+import FindPrinter from "../common/components/findPrinter";
+import Header_logo from "../common/components/header_Logo";
+import { INearPrinter } from "../common/types/interfaces";
 import { useEffect, useState } from "react";
-import GetUserLocation from "../common/utils/GetUserLocation";
-import DistanceOptionButtons from "../common/components/DistanceOptionButtons";
-import GetNearbyPrinter from "../common/api/GetNearbyPrinter";
+import GetUserLocation from "../common/utils/getUserLocation";
+import DistanceOptionButtons from "../common/components/distanceOptionButtons";
+import GetNearbyPrinter from "../common/api/getNearbyPrinter";
 import { useRouter } from "next/router";
 
 export default function Index() {

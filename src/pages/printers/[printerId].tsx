@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { IPrinterDetail } from "../../common/types/Interfaces";
+import { IPrinterDetail } from "../../common/types/interfaces";
 import Image from "next/image";
-import Header_PrinterDetail from "../../common/components/Header_PrinterDetail";
-import PrinterDetail_Introduction from "../../common/components/PrinterDetail_Introduction";
-import { GetPrinterDetail } from "../../common/api/GetPrinterDetail";
+import Header_PrinterDetail from "../../common/components/header_PrinterDetail";
+import PrinterDetail_Introduction from "../../common/components/printerDetail_Introduction";
+import { GetPrinterDetail } from "../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import PrinterDetail_Price from "../../common/components/PrinterDetail_Price";
+import PrinterDetail_Price from "../../common/components/printerDetail_Price";
 import { useRouter } from "next/router";
 
 export default function (
