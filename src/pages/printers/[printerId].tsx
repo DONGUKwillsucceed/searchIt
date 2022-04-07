@@ -7,15 +7,18 @@ import { getPrinterDetail } from "../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import PrinterDetail_Price from "../../common/components/printerDetail_Price";
 import { useRouter } from "next/router";
+import { useStoreActions, useStoreState } from "../../common/utils/globalState";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  const [printerDetail, setPrinterDetail] = useState<IPrinterDetail>(
-    props.data
-  );
+  const [printerDetail] = useState<IPrinterDetail>(props.data);
   const [dropDownActive, setDropDownActive] = useState<boolean>(false);
   const router = useRouter();
+  const setSearchPrinterOnMap = useStoreActions(
+    (actions) => actions.setSearchPrinterOnMap
+  );
+  const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
 
   return (
     <>
@@ -41,7 +44,16 @@ export default function (
         <div className="font-Suit mx-auto mt-4 w-10/12">
           <div
             className="border-primary text-primary mb-2 flex h-12 w-full items-center justify-center rounded-md border-2 bg-white hover:cursor-pointer"
-            onClick={() => router.push("/map")}
+            onClick={() => {
+              setSearchPrinterOnMap({
+                ...searchPrinterOnMap,
+                center: {
+                  lat: printerDetail?.coordinate?.latitude,
+                  lng: printerDetail?.coordinate?.longitude,
+                },
+              }),
+                router.push("/map");
+            }}
           >
             <div className="pr=2">
               <Image src="/map_primary.svg" width={16} height={16}></Image>

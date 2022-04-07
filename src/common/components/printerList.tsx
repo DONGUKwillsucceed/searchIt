@@ -7,10 +7,7 @@ import { INearPrinter, IUserLoc } from "../types/interfaces";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function PrinterList(props: {
-  loc: IUserLoc | undefined;
-  nearbyPrinters: INearPrinter[];
-}) {
+export default function PrinterList(props: { nearbyPrinters: INearPrinter[] }) {
   const [dropDownActive, setDropDownActive] = useState<boolean>(false);
   const router = useRouter();
 

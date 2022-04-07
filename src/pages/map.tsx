@@ -5,17 +5,20 @@ import UserMarker from "../common/components/userMarker";
 import PrinterMarker from "../common/components/printerMarker";
 import { MyLocationButton } from "../common/components/myLocationButton";
 import Map_search from "../common/components/map_search";
+import { useStoreActions, useStoreState } from "../common/utils/globalState";
 
 export default function PrinterMap() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
     center: {
-      lat: 37.578112,
-      lng: 127.06783,
+      lat: 37.566,
+      lng: 126.978,
     },
-    hasChangedCenter: false,
-    hasAllowedGeo: false,
-    defaultLevel: 6,
   });
+
+  const mapView = useStoreState((store) => store.mapView);
+  const setMapView = useStoreActions((actions) => actions.setMapView);
+
+  const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -27,12 +30,29 @@ export default function PrinterMap() {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             },
-            hasAllowedGeo: true,
-            defaultLevel: 3,
           }));
+          if (searchPrinterOnMap.center.lat && searchPrinterOnMap.center.lng) {
+            setMapView({
+              ...mapView,
+              center: {
+                lat: searchPrinterOnMap.center.lat,
+                lng: searchPrinterOnMap.center.lng,
+              },
+            });
+          } else {
+            setMapView({
+              ...mapView,
+              center: {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              },
+              viewLevel: 3,
+              hasAllowedGeo: true,
+            });
+          }
         },
         (error) => {
-          console.log(error.message);
+          console.log(error);
         }
       );
     }
@@ -42,20 +62,24 @@ export default function PrinterMap() {
     <main>
       <div className="mx-auto max-w-3xl">
         <Map_search />
-        <MyLocationButton userLoc={userLoc} setUserLoc={setUserLoc} />
+        <MyLocationButton
+          userLoc={userLoc}
+          mapView={mapView}
+          setMapView={setMapView}
+        />
         <Map
-          center={userLoc.center}
+          center={mapView.center}
           style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
-          level={6}
+          level={mapView.viewLevel}
           onCenterChanged={() => {
-            setUserLoc(() => ({
-              ...userLoc,
+            setMapView({
+              ...mapView,
               hasChangedCenter: true,
-            }));
+            });
           }}
         >
           <PrinterMarker />
-          {userLoc.hasAllowedGeo ? <UserMarker userLoc={userLoc} /> : null}
+          {mapView.hasAllowedGeo ? <UserMarker userLoc={userLoc} /> : null}
         </Map>
       </div>
     </main>

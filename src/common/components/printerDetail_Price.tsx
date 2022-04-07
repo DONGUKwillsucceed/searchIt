@@ -28,7 +28,7 @@ export default function PrinterDetail_Price(props: {
               </div>
             </>
           ) : (
-            <div className="bg-secondary mr-1 flex h-10 w-full items-center justify-between rounded-md px-3 ">
+            <div className="bg-secondary flex h-10 w-full items-center justify-between rounded-md px-3 ">
               <div className="flex items-center">
                 <Image src="/mono.svg" width={16} height={16} />
               </div>

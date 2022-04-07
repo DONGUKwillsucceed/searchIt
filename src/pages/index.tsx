@@ -4,29 +4,36 @@ import FindPrinter from "../common/components/findPrinter";
 import Header_logo from "../common/components/header_Logo";
 import { INearPrinter } from "../common/types/interfaces";
 import { useEffect, useState } from "react";
-import getUserLocation from "../common/utils/getUserLocation";
 import DistanceOptionButtons from "../common/components/distanceOptionButtons";
 import getNearbyPrinter from "../common/api/getNearbyPrinter";
+import { useStoreActions, useStoreState } from "../common/utils/globalState";
 
 export default function Index() {
-  const [distance, setDistance] = useState<string>("300000");
+  const nearbyDistance = useStoreState((state) => state.nearbyDistance);
+  const setNearbyDistance = useStoreActions(
+    (action) => action.setNearbyDistance
+  );
   const [nearbyPrinter, setNearbyPrinter] = useState<INearPrinter[]>([]);
-  const userLoc = getUserLocation();
 
   useEffect(() => {
-    if (userLoc) {
-      getNearbyPrinter(userLoc, distance).then((res) => {
-        setNearbyPrinter(res);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        getNearbyPrinter(
+          position.coords.latitude,
+          position.coords.longitude,
+          nearbyDistance
+        ).then((res) => {
+          setNearbyPrinter(res);
+        });
       });
     }
-  }, [distance, userLoc]);
-
+  }, [nearbyDistance]);
   return (
     <>
       <Header_logo />
       <main className="font-Suit flex flex-col items-center overflow-y-auto">
         <div className=" flex w-full flex-col items-center sm:max-w-3xl ">
-          <Advertism />
+          {/* <Advertism /> */}
           {/* Find Printer */}
           <div className="mt-2 flex h-fit w-full flex-col justify-between rounded-md p-4 text-lg font-bold sm:w-full">
             <div className="pb-4">프린터 찾기</div>
@@ -38,10 +45,10 @@ export default function Index() {
               <div className="mb-1 text-xl font-bold">내 주변 프린터</div>
             </div>
             <DistanceOptionButtons
-              distance={distance}
-              setDistance={setDistance}
+              nearbyDistance={nearbyDistance}
+              setNearbyDistance={setNearbyDistance}
             />
-            <PrinterList loc={userLoc} nearbyPrinters={nearbyPrinter} />
+            <PrinterList nearbyPrinters={nearbyPrinter} />
           </div>
         </div>
       </main>

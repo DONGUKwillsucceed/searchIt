@@ -2,19 +2,21 @@ export interface IUserLoc {
   center: {
     lat: number;
     lng: number;
-    x?: number;
-    y?: number;
   };
+}
+export interface mapView {
+  center: {
+    lat: number;
+    lng: number;
+  };
+  viewLevel?: number;
   hasChangedCenter?: boolean;
   hasAllowedGeo?: boolean;
-  defaultLevel?: number;
 }
 
 export interface ISlider {
   top: number;
   left: number;
-  x: number;
-  y: number;
 }
 
 export interface IDistanceOptions {
@@ -24,8 +26,8 @@ export interface IDistanceOptions {
 export interface IPrinterDetail {
   address: string;
   agentVersion?: string;
-  coordinates?: {
-    latitue?: number;
+  coordinate?: {
+    latitude?: number;
     longitude?: number;
   };
 
