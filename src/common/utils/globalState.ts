@@ -10,6 +10,7 @@ interface Store {
       lat: number | undefined;
       lng: number | undefined;
     };
+    isSearching: boolean;
   };
   setSearchPrinterOnMap: Action<
     Store,
@@ -18,6 +19,7 @@ interface Store {
         lat: number | undefined;
         lng: number | undefined;
       };
+      isSearching: boolean;
     }
   >;
 
