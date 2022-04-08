@@ -10,7 +10,6 @@ interface Store {
       lat: number | undefined;
       lng: number | undefined;
     };
-    isSearching: boolean;
   };
   setSearchPrinterOnMap: Action<
     Store,
@@ -19,7 +18,6 @@ interface Store {
         lat: number | undefined;
         lng: number | undefined;
       };
-      isSearching: boolean;
     }
   >;
 
@@ -35,7 +33,6 @@ export const globalState = createStore<Store>({
 
   searchPrinterOnMap: {
     center: { lat: undefined, lng: undefined },
-    isSearching: false,
   },
   setSearchPrinterOnMap: action((state, payload) => {
     state.searchPrinterOnMap = {
