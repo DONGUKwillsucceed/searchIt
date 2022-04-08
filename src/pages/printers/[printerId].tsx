@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IPrinterDetail } from "../../common/types/interfaces";
 import Image from "next/image";
-import Header_PrinterDetail from "../../common/components/header_PrinterDetail";
+import Header_PrinterDetail from "../../common/components/headerPrinterDetail";
 import PrinterDetail_Introduction from "../../common/components/printerDetail_Introduction";
 import { getPrinterDetail } from "../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -20,6 +20,7 @@ export default function (
   );
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
 
+  console.log(printerDetail);
   return (
     <>
       <Header_PrinterDetail

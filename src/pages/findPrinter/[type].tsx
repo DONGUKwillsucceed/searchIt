@@ -1,9 +1,10 @@
 import Image from "next/image";
-import Header_FindPrinter from "../../common/components/header_FindPrinter";
+import Header_FindPrinter from "../../common/components/headerFindPrinter";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { IPrinterData } from "../../common/types/interfaces";
 import { useRouter } from "next/router";
+import SearchBar from "../../common/components/searchBar";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -16,51 +17,35 @@ export default function (
     <>
       <Header_FindPrinter headerTitle={headerTitle} />
       <main className="mx-auto flex max-w-3xl flex-col">
-        <div className="flex h-32 w-full items-center justify-center bg-gray-200">
-          {headerTitle}
-        </div>
-        <div className="scrollbar-thin mt-9 h-36 w-full items-center overflow-y-scroll pt-5 sm:max-w-3xl">
-          <div className="mx-auto flex h-10 w-11/12 items-center rounded-md bg-gray-200 px-2 ">
-            <Image src="/search.svg" width={24} height={24}></Image>
+        <div className="flex h-32 w-full items-end bg-gray-200">
+          <div className="bg-primary h-3/5 w-2/3 p-3 text-white">
+            <div className="mb-1 text-xs">가장 가까운 프린트 - 프린트잇</div>
+            <div className="text-3xl">{headerTitle}</div>
           </div>
         </div>
+
+        <div className="my-2">
+          <SearchBar />
+        </div>
+
         <div className="mx-auto h-fit w-11/12">
           {props.data.map((printer: IPrinterData) => (
             <div
               key={printer.id}
-              className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2 hover:cursor-pointer"
+              className="mb-2 flex w-full items-center justify-between border-b-2 hover:cursor-pointer"
               onClick={() => {
                 router.push(`/printers/${printer.id}`);
               }}
             >
-              <div className="flex">
-                <div className="my-5 ml-1 mr-3 flex w-6 items-center justify-center rounded-md">
-                  {printer.c ? (
-                    <Image
-                      src="/color.svg"
-                      width={16}
-                      height={16}
-                      className="h-6 w-6"
-                    />
-                  ) : (
-                    <Image
-                      src="/mono.svg"
-                      width={16}
-                      height={16}
-                      className="h-6 w-6"
-                    />
-                  )}
+              {console.log(printer)}
+              <div className="p-2">
+                <div className="font-bold">{printer.name}</div>
+                <div className="text-xs font-semibold text-gray-400">
+                  Address
                 </div>
-                <div className="flex w-full flex-row items-center justify-between ">
-                  <div className="ml-2 flex h-full flex-col justify-between py-2 font-bold">
-                    <div>{printer.name}</div>
-                    <div className="flex">
-                      <div className="text-xs text-gray-400">
-                        Address
-                        {/* {coordsToAddress(printer.lon, printer.lat)} */}
-                      </div>
-                    </div>
-                  </div>
+                <div className="flex text-xs">
+                  <div className="mr-4">Type</div>
+                  <div>{tempColorOptions(printer)}</div>
                 </div>
               </div>
             </div>
@@ -71,6 +56,38 @@ export default function (
   );
 }
 
+export function tempColorOptions(printer: IPrinterData) {
+  if (printer.c && printer.m) {
+    return (
+      <div className="flex">
+        <div className="flex items-center justify-between">
+          <Image src="/Color.svg" width={16} height={16}></Image>
+          <div className="ml-1">Price</div>
+        </div>
+        <div className="ml-2 flex items-center justify-between ">
+          <Image src="/mono.svg" width={16} height={16}></Image>
+          <div className="ml-1">Price</div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {printer.c ? (
+          <div className="flex items-center justify-between">
+            <Image src="/Color.svg" width={16} height={16}></Image>
+            <div className="ml-1">Price</div>
+          </div>
+        ) : (
+          <div className="ml-2 flex items-center justify-between ">
+            <Image src="/mono.svg" width={16} height={16}></Image>
+            <div className="ml-1">Price</div>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await getPrinterCoords();
 

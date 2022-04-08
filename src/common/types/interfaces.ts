@@ -82,6 +82,7 @@ export interface IPrinterData {
   id: string;
   lat: number;
   lon: number;
+  m: boolean;
   name: string;
   stat: string;
 }

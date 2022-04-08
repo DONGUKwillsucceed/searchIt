@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useStoreActions } from "../utils/globalState";
 
-export default function Map_search() {
+export default function MapSearch() {
   const router = useRouter();
   const setSearchPrinterOnMap = useStoreActions(
     (actions) => actions.setSearchPrinterOnMap

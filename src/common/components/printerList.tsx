@@ -1,7 +1,7 @@
 import React from "react";
 import downArrow from "../../../public/downArrow.svg";
 import mono from "../../../public/mono.svg";
-import color from "../../../public/color.svg";
+import color from "../../../public/bothColor.svg";
 import { useEffect, useState } from "react";
 import { INearPrinter, IUserLoc } from "../types/interfaces";
 import { useRouter } from "next/router";
@@ -20,7 +20,7 @@ export default function PrinterList(props: { nearbyPrinters: INearPrinter[] }) {
             router.push(`/printers/${printer.id}`);
           }}
         >
-          <div className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2">
+          <div className="mr-2 mb-2 h-full snap-start justify-center rounded-sm border-b-2 font-bold">
             <div className="flex">
               <div className="my-5 ml-1 mr-4 flex w-6 items-center justify-center rounded-md">
                 {printer.priceColor != 0 ? (

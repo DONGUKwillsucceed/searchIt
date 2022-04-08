@@ -4,7 +4,7 @@ import { IUserLoc } from "../common/types/interfaces";
 import UserMarker from "../common/components/userMarker";
 import PrinterMarker from "../common/components/printerMarker";
 import { MyLocationButton } from "../common/components/myLocationButton";
-import Map_search from "../common/components/map_search";
+import MapSearch from "../common/components/mapSearch";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
 
 export default function PrinterMap() {
@@ -61,7 +61,7 @@ export default function PrinterMap() {
   return (
     <main>
       <div className="mx-auto max-w-3xl">
-        <Map_search />
+        <MapSearch />
         <MyLocationButton
           userLoc={userLoc}
           mapView={mapView}

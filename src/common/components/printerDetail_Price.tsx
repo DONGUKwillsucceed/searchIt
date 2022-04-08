@@ -22,7 +22,7 @@ export default function PrinterDetail_Price(props: {
               </div>
               <div className="bg-secondary ml-1 flex h-10 w-1/2 items-center justify-between rounded-md px-3 ">
                 <div className="flex items-center">
-                  <Image src="/color.svg" width={16} height={16} />
+                  <Image src="/bothColor.svg" width={16} height={16} />
                 </div>
                 <div>{props.printerDetail.priceColor}원</div>
               </div>

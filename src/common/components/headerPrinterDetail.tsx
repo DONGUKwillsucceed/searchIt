@@ -8,17 +8,6 @@ export default function Header_PrinterDetail(props: {
   mono?: number;
 }) {
   const router = useRouter();
-
-  let prevUrl: string = "/";
-  if (
-    router.query.prevPage === "FindByUni" ||
-    router.query.prevPage === "FindByDistrict"
-  ) {
-    prevUrl = `/findPrinter/${router.query.prevPage}`;
-  } else if (router.query.prevPage === "map") {
-    prevUrl = "/map";
-  }
-
   return (
     <header>
       <nav className="font-Suit fixed inset-x-0 top-0 z-10 mx-auto flex max-w-3xl flex-col bg-white px-5 py-3">
@@ -40,7 +29,7 @@ export default function Header_PrinterDetail(props: {
         </div> */}
         <div className="flex w-full">
           <Image
-            src={props.color === 0 ? "/mono.svg" : "/color.svg"}
+            src={props.color === 0 ? "/mono.svg" : "/bothColor.svg"}
             width={24}
             height={24}
           ></Image>

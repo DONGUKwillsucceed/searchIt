@@ -33,7 +33,7 @@ export default function FindPrinter() {
         <div
           className="font-Suit w-49p bg-secondary flex h-10 cursor-pointer items-center justify-center rounded-md p-1 text-gray-500"
           onClick={() => {
-            router.push("/findPrinter/FindByUni");
+            router.push("/findPrinter/university");
           }}
         >
           <Image src={University} className="pr-2"></Image>
