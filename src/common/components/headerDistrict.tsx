@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function (props: { headerTitle: string }) {
+export default function () {
   const router = useRouter();
 
   return (
@@ -15,7 +15,7 @@ export default function (props: { headerTitle: string }) {
         }}
         className="hover:cursor-pointer"
       ></Image>
-      <div className="font-Suit">{props.headerTitle}</div>
+      <div className="font-Suit">행정구역별</div>
       <div></div>
     </nav>
   );

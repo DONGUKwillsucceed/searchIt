@@ -19,8 +19,7 @@ export default function (
     (actions) => actions.setSearchPrinterOnMap
   );
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
-
-  console.log(printerDetail);
+  // console.log(printerDetail);
   return (
     <>
       <Header_PrinterDetail

@@ -14,6 +14,7 @@ export default function PrinterMap() {
       lng: 126.978,
     },
   });
+  const [map, setMap] = React.useState<kakao.maps.Map>();
 
   const mapView = useStoreState((store) => store.mapView);
   const setMapView = useStoreActions((actions) => actions.setMapView);
@@ -22,39 +23,35 @@ export default function PrinterMap() {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLoc((prev) => ({
-            ...prev,
+      navigator.geolocation.getCurrentPosition((position) => {
+        setUserLoc((prev) => ({
+          ...prev,
+          center: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+        }));
+        if (searchPrinterOnMap.center.lat && searchPrinterOnMap.center.lng) {
+          setMapView({
+            ...mapView,
+            center: {
+              lat: searchPrinterOnMap.center.lat,
+              lng: searchPrinterOnMap.center.lng,
+            },
+            hasAllowedGeo: true,
+          });
+        } else {
+          setMapView({
+            ...mapView,
             center: {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             },
-          }));
-          if (searchPrinterOnMap.center.lat && searchPrinterOnMap.center.lng) {
-            setMapView({
-              ...mapView,
-              center: {
-                lat: searchPrinterOnMap.center.lat,
-                lng: searchPrinterOnMap.center.lng,
-              },
-            });
-          } else {
-            setMapView({
-              ...mapView,
-              center: {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              },
-              viewLevel: 3,
-              hasAllowedGeo: true,
-            });
-          }
-        },
-        (error) => {
-          console.log(error);
+            viewLevel: 3,
+            hasAllowedGeo: true,
+          });
         }
-      );
+      });
     }
   }, []);
 
@@ -76,6 +73,9 @@ export default function PrinterMap() {
               ...mapView,
               hasChangedCenter: true,
             });
+          }}
+          onCreate={(map) => {
+            setMap(map);
           }}
         >
           <PrinterMarker />

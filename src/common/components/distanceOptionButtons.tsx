@@ -1,5 +1,4 @@
 import { ActionCreator } from "easy-peasy";
-import { SetStateAction } from "react";
 
 export default function DistanceOptionButtons(props: {
   nearbyDistance: string;

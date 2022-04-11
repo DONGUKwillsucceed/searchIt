@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 export default function coordsToAddress(lat: number, lng: number) {
   let geoCoder;
@@ -6,14 +6,13 @@ export default function coordsToAddress(lat: number, lng: number) {
     geoCoder = new window.kakao.maps.services.Geocoder();
   }
 
-  let placeName;
-  console.log("lat lng", lat, lng);
+  let placeName = "failed";
 
   geoCoder?.coord2RegionCode(lng, lat, (result: any, status: any) => {
     if (status === window.kakao.maps.services.Status.OK) {
-      console.log("this didnt run?");
-      placeName = result[0].address_name;
+      return result[0].address_name;
     }
+    return placeName;
   });
-  return placeName;
+  // return placeName;
 }

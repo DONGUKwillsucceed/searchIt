@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Header_FindPrinter from "../../common/components/headerFindPrinter";
+import Header_FindPrinter from "../../common/components/headerDistrict";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { IPrinterData } from "../../common/types/interfaces";
@@ -10,17 +10,15 @@ export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const router = useRouter();
-  const currentPageUrl = router.query.type;
-  const headerTitle = currentPageUrl === "FindByUni" ? "대학별" : "행정구역별";
 
   return (
     <>
-      <Header_FindPrinter headerTitle={headerTitle} />
+      <Header_FindPrinter />
       <main className="mx-auto flex max-w-3xl flex-col">
         <div className="flex h-32 w-full items-end bg-gray-200">
           <div className="bg-primary h-3/5 w-2/3 p-3 text-white">
             <div className="mb-1 text-xs">가장 가까운 프린트 - 프린트잇</div>
-            <div className="text-3xl">{headerTitle}</div>
+            <div className="text-3xl">행정구역별</div>
           </div>
         </div>
 

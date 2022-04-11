@@ -1,6 +1,5 @@
 import District from "../../../public/district.svg";
 import University from "../../../public/university.svg";
-import map_active from "../../../public/map_active.svg";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
@@ -24,7 +23,7 @@ export default function FindPrinter() {
         <div
           className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500 hover:cursor-pointer"
           onClick={() => {
-            router.push(`/findPrinter/FindByDistrict`);
+            router.push("/findByDistrict/district");
           }}
         >
           <Image src={District} className="pr-2"></Image>
@@ -33,7 +32,7 @@ export default function FindPrinter() {
         <div
           className="font-Suit w-49p bg-secondary flex h-10 cursor-pointer items-center justify-center rounded-md p-1 text-gray-500"
           onClick={() => {
-            router.push("/findPrinter/university");
+            router.push("/university");
           }}
         >
           <Image src={University} className="pr-2"></Image>

@@ -17,7 +17,7 @@ export default function Header_PrinterDetail(props: {
             width={32}
             height={32}
             onClick={() => {
-              router.back();
+              router.push("/");
             }}
             className="hover:cursor-pointer"
           ></Image>
