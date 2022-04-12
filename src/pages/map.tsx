@@ -63,6 +63,7 @@ export default function PrinterMap() {
           userLoc={userLoc}
           mapView={mapView}
           setMapView={setMapView}
+          mapRef={map}
         />
         <Map
           center={mapView.center}
