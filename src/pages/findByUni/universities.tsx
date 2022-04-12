@@ -1,7 +1,8 @@
-import HeaderUniversity from "../common/components/headerUniversity";
-import SearchBarUni from "../common/components/searchBarUni";
-import * as university from "./findByDistrict/test.json";
+import HeaderUniversity from "../../common/components/headerUniversity";
+import SearchBarUni from "../../common/components/searchBarUni";
+import * as university from "../findByDistrict/test.json";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export function University() {
   const uniList = university.uni;
@@ -33,10 +34,11 @@ export function University() {
 }
 
 export function UniButtons(props: { district: string; name: string }) {
+  const router = useRouter();
   return (
     <button
       className="font-Suit text- my-4 flex h-10 w-full items-center justify-between text-lg"
-      // onClick={() => console.log("id = ", props.id)}
+      onClick={() => router.push(`/findByUni/${props.name}`)}
     >
       <div>{`${props.name} ${props.district}캠퍼스`}</div>
       <div>Amount</div>
