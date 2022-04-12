@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-export default function HeaderUniversity() {
+export default function HeaderUniversity(props?: {
+  uniName?: string | string[];
+}) {
   const router = useRouter();
 
   return (
@@ -13,7 +15,9 @@ export default function HeaderUniversity() {
         >
           <Image src="/backArrow.svg" width={24} height={24}></Image>
         </button>
-        <div>대학별</div>
+        <div>
+          {props && props.uniName !== undefined ? props.uniName : "대학별"}
+        </div>
         <div></div>
       </div>
     </div>
