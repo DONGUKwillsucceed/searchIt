@@ -26,6 +26,9 @@ module.exports = {
       maxHeight:{
         'printerList':'666px',
       },
+      maxWidth:{
+        'addressBox' : '560px',
+      },
       fontFamily:{
         'Suit': ['Suit'],
       }

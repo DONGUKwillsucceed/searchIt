@@ -6,6 +6,7 @@ import PrinterMarker from "../common/components/printerMarker";
 import { MyLocationButton } from "../common/components/myLocationButton";
 import MapSearch from "../common/components/mapSearch";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
+import coordsToAddress from "../common/utils/coordsToAddress";
 
 export default function PrinterMap() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
@@ -78,6 +79,9 @@ export default function PrinterMap() {
           onCreate={(map) => {
             setMap(map);
           }}
+          onClick={(e) =>
+            coordsToAddress(e.getCenter().getLat(), e.getCenter().getLng())
+          }
         >
           <PrinterMarker />
           {mapView.hasAllowedGeo ? <UserMarker userLoc={userLoc} /> : null}

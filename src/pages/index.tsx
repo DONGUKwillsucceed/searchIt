@@ -35,13 +35,13 @@ export default function Index() {
     }
   }, [nearbyDistance]);
 
-  console.log(nearbyPrinter);
   return (
     <>
       <HeaderLogo />
       <main className="font-Suit flex flex-col items-center overflow-y-auto">
         <div className=" flex w-full flex-col items-center sm:max-w-3xl ">
           {/* <Advertism /> */}
+
           {/* Find Printer */}
           <div className="mt-2 flex h-fit w-full flex-col justify-between rounded-md p-4 text-lg font-bold sm:w-full">
             <div className="pb-4">프린터 찾기</div>

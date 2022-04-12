@@ -10,7 +10,7 @@ export default function coordsToAddress(lat: number, lng: number) {
 
   geoCoder?.coord2RegionCode(lng, lat, (result: any, status: any) => {
     if (status === window.kakao.maps.services.Status.OK) {
-      return result[0].address_name;
+      console.log(result);
     }
     return placeName;
   });

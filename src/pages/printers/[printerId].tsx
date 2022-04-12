@@ -19,7 +19,7 @@ export default function (
     (actions) => actions.setSearchPrinterOnMap
   );
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
-  // console.log(printerDetail);
+  console.log(printerDetail);
   return (
     <>
       <Header_PrinterDetail
@@ -55,21 +55,43 @@ export default function (
                 router.push("/map");
             }}
           >
-            <div className="pr=2">
+            <div className="mr-2">
               <Image src="/map_primary.svg" width={16} height={16}></Image>
             </div>
             <div className="text-xs">지도보기</div>
           </div>
 
-          <div className="bg-secondary font-Suit mb-2 flex h-10 items-center rounded-md px-3 ">
-            <div className=" pr-3 text-xs">주소</div>
-            <div className="text-sm">{printerDetail?.address}</div>
-          </div>
-          <div className="bg-secondary font-Suit mb-2 flex h-10 items-center rounded-md px-3 ">
-            <div className=" pr-3 text-xs">전화번호</div>
-            <div className="text-sm">
-              {printerDetail?.maintainer?.phoneNumber}
+          <div className="bg-secondary font-Suit mb-2 flex h-10 flex-row items-center justify-between rounded-md px-3 ">
+            <div className="flex w-9/12 items-center justify-between">
+              <div className="mr-2 w-8 text-xs">주소</div>
+              <div className="scrollbar-none w-full overflow-scroll whitespace-nowrap text-sm">
+                {printerDetail?.address}
+              </div>
             </div>
+            <button
+              className="ml-2 rounded-md bg-gray-200 px-2 py-1 text-xs active:bg-gray-300"
+              onClick={() =>
+                navigator.clipboard.writeText(printerDetail?.address)
+              }
+            >
+              주소 복사
+            </button>
+          </div>
+          <div className="bg-secondary font-Suit mb-2 flex h-10 items-center justify-between rounded-md px-3 ">
+            <div className="flex">
+              <div className=" pr-3 text-xs">전화번호</div>
+              <div className="text-sm">
+                {printerDetail?.maintainer?.phoneNumber}
+              </div>
+            </div>
+            <button
+              className="ml-2 rounded-md bg-gray-200 px-2 py-1 text-xs active:bg-gray-300"
+              onClick={() =>
+                window.open(`tel:${printerDetail?.maintainer?.phoneNumber}`)
+              }
+            >
+              전화걸기
+            </button>
           </div>
         </div>
 

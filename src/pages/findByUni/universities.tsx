@@ -9,27 +9,29 @@ export function University() {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <>
       <HeaderUniversity />
-      <SearchBarUni setSearch={setSearch} />
-      <div className=" mx-auto my-4 w-11/12">
-        {uniList.map((university, index) => {
-          if (
-            university.name.toLowerCase().indexOf(search) > -1 ||
-            university.name.indexOf(search) > -1
-          ) {
-            return (
-              <div key={index}>
-                <UniButtons
-                  district={university.district}
-                  name={university.name}
-                />
-              </div>
-            );
-          }
-        })}
+      <div className="mx-auto max-w-3xl">
+        <SearchBarUni setSearch={setSearch} />
+        <div className=" mx-auto my-4 w-11/12">
+          {uniList.map((university, index) => {
+            if (
+              university.name.toLowerCase().indexOf(search) > -1 ||
+              university.name.indexOf(search) > -1
+            ) {
+              return (
+                <div key={index}>
+                  <UniButtons
+                    district={university.district}
+                    name={university.name}
+                  />
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

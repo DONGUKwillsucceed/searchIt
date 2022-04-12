@@ -11,6 +11,7 @@ export default function (
 ) {
   const router = useRouter();
 
+  console.log(props.data);
   return (
     <>
       <Header_FindPrinter />
@@ -21,7 +22,6 @@ export default function (
             <div className="text-3xl">행정구역별</div>
           </div>
         </div>
-
         <div className="my-2">
           <SearchBar />
         </div>
@@ -35,7 +35,6 @@ export default function (
                 router.push(`/printers/${printer.id}`);
               }}
             >
-              {console.log(printer)}
               <div className="p-2">
                 <div className="font-bold">{printer.name}</div>
                 <div className="text-xs font-semibold text-gray-400">
