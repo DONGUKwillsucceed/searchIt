@@ -5,13 +5,13 @@ export default function () {
   const router = useRouter();
 
   return (
-    <nav className="font-Suit sticky top-0 z-10 mx-auto flex max-w-3xl items-center justify-between bg-white px-5 py-3">
+    <nav className="font-Suit sticky top-0 z-20 mx-auto flex max-w-3xl items-center justify-between bg-white px-5 py-3">
       <Image
-        src="/logo_noText.svg"
+        src="/backArrow.svg"
         width={25}
         height={25}
         onClick={() => {
-          router.push("/");
+          router.back();
         }}
         className="hover:cursor-pointer"
       ></Image>

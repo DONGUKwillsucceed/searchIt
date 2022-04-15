@@ -1,6 +1,6 @@
 import HeaderUniversity from "../../common/components/headerUniversity";
 import SearchBarUni from "../../common/components/searchBarUni";
-import * as university from "../findByDistrict/test.json";
+import * as university from "./test.json";
 import { useState } from "react";
 import { useRouter } from "next/router";
 

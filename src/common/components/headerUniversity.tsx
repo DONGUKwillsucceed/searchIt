@@ -7,7 +7,7 @@ export default function HeaderUniversity(props?: {
   const router = useRouter();
 
   return (
-    <div className="font-Suit sticky top-0 z-10 mx-auto flex flex-col bg-white">
+    <div className="font-Suit sticky top-0 z-10 mx-auto flex max-w-3xl flex-col bg-white">
       <div className="flex w-full items-center justify-between p-4">
         <button
           className="flex items-center hover:cursor-pointer"

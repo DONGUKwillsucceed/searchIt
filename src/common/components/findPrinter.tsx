@@ -23,7 +23,7 @@ export default function FindPrinter() {
         <div
           className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500 active:bg-gray-100"
           onClick={() => {
-            router.push("/findByDistrict/district");
+            router.push("/findByDistrict/searchDistrict");
           }}
         >
           <div className="mr-1">

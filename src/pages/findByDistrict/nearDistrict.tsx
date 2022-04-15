@@ -1,20 +1,26 @@
-import Image from "next/image";
-import Header_FindPrinter from "../../common/components/headerDistrict";
+import HeaderNearDistrict from "../../common/components/headerNearDistrict";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { IPrinterData } from "../../common/types/interfaces";
+import { useState } from "react";
 import { useRouter } from "next/router";
+import ColorOptions from "../../common/components/colorOptions";
+import * as areas from "./korea-administrative-district.json";
 import SearchBar from "../../common/components/searchBar";
+import DropDown from "../../common/components/dropDown";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const router = useRouter();
+  const [searchArea1, setSearchArea1] = useState("시");
+  const [searchArea2, setSearchArea2] = useState("구");
+  const [searchArea3, setSearchArea3] = useState("동");
 
-  console.log(props.data);
+  // console.log(props.data);
   return (
     <>
-      <Header_FindPrinter />
+      <HeaderNearDistrict />
       <main className="mx-auto flex max-w-3xl flex-col">
         <div className="flex h-32 w-full items-end bg-gray-200">
           <div className="bg-primary h-3/5 w-2/3 p-3 text-white">
@@ -24,6 +30,20 @@ export default function (
         </div>
         <div className="my-2">
           <SearchBar />
+        </div>
+        <div className="mx-auto flex w-11/12">
+          <DropDown
+            name={searchArea1}
+            setName={setSearchArea1}
+            area={areas.area1}
+            defaultValue="시"
+          />
+          <DropDown
+            name={searchArea2}
+            setName={setSearchArea2}
+            area={areas.area2[searchArea1]}
+            defaultValue="구"
+          />
         </div>
 
         <div className="mx-auto h-fit w-11/12">
@@ -42,7 +62,7 @@ export default function (
                 </div>
                 <div className="flex text-xs">
                   <div className="mr-4">Type</div>
-                  <div>{tempColorOptions(printer)}</div>
+                  <ColorOptions printer={printer} />
                 </div>
               </div>
             </div>
@@ -53,38 +73,6 @@ export default function (
   );
 }
 
-export function tempColorOptions(printer: IPrinterData) {
-  if (printer.c && printer.m) {
-    return (
-      <div className="flex">
-        <div className="flex items-center justify-between">
-          <Image src="/Color.svg" width={16} height={16}></Image>
-          <div className="ml-1">Price</div>
-        </div>
-        <div className="ml-2 flex items-center justify-between ">
-          <Image src="/mono.svg" width={16} height={16}></Image>
-          <div className="ml-1">Price</div>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        {printer.c ? (
-          <div className="flex items-center justify-between">
-            <Image src="/Color.svg" width={16} height={16}></Image>
-            <div className="ml-1">Price</div>
-          </div>
-        ) : (
-          <div className="ml-2 flex items-center justify-between ">
-            <Image src="/mono.svg" width={16} height={16}></Image>
-            <div className="ml-1">Price</div>
-          </div>
-        )}
-      </div>
-    );
-  }
-}
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await getPrinterCoords();
 
