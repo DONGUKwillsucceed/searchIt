@@ -1,9 +1,11 @@
-import HeaderUniversity from "../../common/components/headerUniversity";
+import HeaderSearch from "../../common/components/headerSearch";
 import Image from "next/image";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { IPrinterData } from "../../common/types/interfaces";
 import { useRouter } from "next/router";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import HeaderNearDistrict from "../../common/components/headerSearch";
+import headerSearch from "../../common/components/headerSearch";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -12,7 +14,7 @@ export default function (
 
   return (
     <>
-      <HeaderUniversity uniName={router.query.uniName} />
+      <HeaderSearch pageName={router.query.uniName} />
       <div className="mx-auto max-w-3xl">
         <div className="mx-auto h-fit w-11/12">
           {props.data.map((printer: IPrinterData) => (

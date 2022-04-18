@@ -1,4 +1,4 @@
-import HeaderUniversity from "../../common/components/headerUniversity";
+import HeaderSearch from "../../common/components/headerSearch";
 import SearchBarUni from "../../common/components/searchBarUni";
 import * as university from "./test.json";
 import { useState } from "react";
@@ -10,7 +10,7 @@ export function University() {
 
   return (
     <>
-      <HeaderUniversity />
+      <HeaderSearch pageName={"대학별"} />
       <div className="mx-auto max-w-3xl">
         <SearchBarUni setSearch={setSearch} />
         <div className=" mx-auto my-4 w-11/12">

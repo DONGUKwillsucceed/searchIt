@@ -20,7 +20,7 @@ export default function FindPrinter() {
         </button>
       </div>
       <div className="flex w-full justify-between">
-        <div
+        <button
           className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500 active:bg-gray-100"
           onClick={() => {
             router.push("/findByDistrict/searchDistrict");
@@ -30,7 +30,7 @@ export default function FindPrinter() {
             <Image src={District}></Image>
           </div>
           <div className="text-xs">행정구역별</div>
-        </div>
+        </button>
         <button
           className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500 active:bg-gray-100"
           onClick={() => {

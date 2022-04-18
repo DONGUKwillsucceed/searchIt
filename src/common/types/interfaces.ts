@@ -91,3 +91,23 @@ export interface IMousePosition {
   lat: number;
   lng: number;
 }
+
+export interface Areas {
+  서울시: string[];
+  부산시: string[];
+  인천시: string[];
+  대구시: string[];
+  광주시: string[];
+  대전시: string[];
+  울산시: string[];
+  세종시: string[];
+  경기도: string[];
+  강원도: string[];
+  충청북도: string[];
+  충청남도: string[];
+  경상북도: string[];
+  경상남도: string[];
+  전라북도: string[];
+  전라남도: string[];
+  제주도: string[];
+}
