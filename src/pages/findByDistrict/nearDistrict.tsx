@@ -1,7 +1,7 @@
-import HeaderNearDistrict from "../../common/components/headerNearDistrict";
+import HeaderSearch from "../../common/components/headerSearch";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
-import { IPrinterData } from "../../common/types/interfaces";
+import { Areas, IPrinterData } from "../../common/types/interfaces";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ColorOptions from "../../common/components/colorOptions";
@@ -20,7 +20,7 @@ export default function (
   // console.log(props.data);
   return (
     <>
-      <HeaderNearDistrict />
+      <HeaderSearch />
       <main className="mx-auto flex max-w-3xl flex-col">
         <div className="flex h-32 w-full items-end bg-gray-200">
           <div className="bg-primary h-3/5 w-2/3 p-3 text-white">
@@ -35,13 +35,14 @@ export default function (
           <DropDown
             name={searchArea1}
             setName={setSearchArea1}
+            setSearchArea2={setSearchArea2}
             area={areas.area1}
             defaultValue="시"
           />
           <DropDown
             name={searchArea2}
             setName={setSearchArea2}
-            area={areas.area2[searchArea1]}
+            area={areas.area2[searchArea1 as keyof Areas]}
             defaultValue="구"
           />
         </div>

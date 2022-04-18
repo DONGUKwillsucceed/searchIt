@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 export default function DropDown(props: {
   name: string;
   setName: Dispatch<SetStateAction<string>>;
+  setSearchArea2?: Dispatch<SetStateAction<string>>;
   area1?: Array<string>;
   area?: Array<string> | undefined;
   defaultValue?: string;
@@ -14,7 +15,9 @@ export default function DropDown(props: {
     return (
       <div
         className="border-primary flex h-8 items-center justify-center border-b-2 last:border-none"
-        onClick={() => props.setName(`${name}`)}
+        onClick={() => {
+          props.setName(`${name}`), props.setSearchArea2?.("선택");
+        }}
         key={name}
       >
         {name}
