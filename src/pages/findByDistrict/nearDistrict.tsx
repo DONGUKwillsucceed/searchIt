@@ -8,11 +8,14 @@ import ColorOptions from "../../common/components/colorOptions";
 import * as areas from "./korea-administrative-district.json";
 import SearchBar from "../../common/components/searchBar";
 import DropDown from "../../common/components/dropDown";
+import Menu from "../../common/components/menu";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const router = useRouter();
+  const [openMenu, setOpenMenu] = useState(false);
+  const [search, setSearch] = useState("");
   const [searchArea1, setSearchArea1] = useState("시");
   const [searchArea2, setSearchArea2] = useState("구");
   const [searchArea3, setSearchArea3] = useState("동");
@@ -20,7 +23,8 @@ export default function (
   // console.log(props.data);
   return (
     <>
-      <HeaderSearch />
+      {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
+      <HeaderSearch setOpenMenu={setOpenMenu} />
       <main className="mx-auto flex max-w-3xl flex-col">
         <div className="flex h-32 w-full items-end bg-gray-200">
           <div className="bg-primary h-3/5 w-2/3 p-3 text-white">
@@ -29,7 +33,7 @@ export default function (
           </div>
         </div>
         <div className="my-2">
-          <SearchBar />
+          <SearchBar setSearch={setSearch} />
         </div>
         <div className="mx-auto flex w-11/12">
           <DropDown

@@ -6,17 +6,21 @@ import { useRouter } from "next/router";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import HeaderNearDistrict from "../../common/components/headerSearch";
 import headerSearch from "../../common/components/headerSearch";
+import Menu from "../../common/components/menu";
+import { useState } from "react";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const router = useRouter();
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <>
-      <HeaderSearch pageName={router.query.uniName} />
-      <div className="mx-auto max-w-3xl">
-        <div className="mx-auto h-fit w-11/12">
+    <div className="font-Suit min-h-screen bg-gray-100">
+      {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
+      <HeaderSearch pageName={router.query.uniName} setOpenMenu={setOpenMenu} />
+      <div className="mx-auto max-w-3xl ">
+        <div className="my-3 flex w-full flex-col rounded-md bg-white p-3">
           {props.data.map((printer: IPrinterData) => (
             <div
               key={printer.id}
@@ -39,7 +43,7 @@ export default function (
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

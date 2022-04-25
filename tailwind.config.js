@@ -6,6 +6,22 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes:{
+        'slide-in': {
+          '0%': {
+            transform: 'translateY(200%)',
+          },
+          '50%':{
+            transform: 'translateY(150%)',
+          },
+          '100%': {
+            transform: 'translateY(100%)',
+          },
+        },
+      },
+      animation:{
+        'slide-in': 'slide-in 0.5s ease-in-out',
+      },
       colors:{
         'primary': '#68c9cb',
         'primary-light':'#F0FFFF',
@@ -37,6 +53,8 @@ module.exports = {
     screens:{
       'sm': '460px',
       'xsm':'330px',
+      'lg':'1024px',
+      'xl':'1280px',
     }
   },
   plugins: [

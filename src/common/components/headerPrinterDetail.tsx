@@ -9,8 +9,8 @@ export default function Header_PrinterDetail(props: {
 }) {
   const router = useRouter();
   return (
-    <header>
-      <nav className="font-Suit fixed inset-x-0 top-0 z-10 mx-auto flex max-w-3xl flex-col bg-white px-5 py-3">
+    <header className="fixed inset-x-0 top-0 z-10 mx-auto bg-white px-5 py-3">
+      <nav className="mx-auto flex max-w-3xl flex-col">
         <div className="flex w-full justify-between py-5">
           <Image
             src={backArrow}

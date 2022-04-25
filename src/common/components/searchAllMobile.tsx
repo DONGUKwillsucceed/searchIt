@@ -1,6 +1,6 @@
-import HeaderSearch from "../common/components/headerSearch";
-import SearchBar from "../common/components/searchBar";
-import Menu from "../common/components/menu";
+import HeaderSearch from "./headerSearch";
+import SearchBar from "./searchBar";
+import Menu from "./menu";
 import { useState } from "react";
 
 export default function Search() {
@@ -10,7 +10,7 @@ export default function Search() {
     <div className="relative z-10 h-screen bg-white">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
       <HeaderSearch pageName={"전체 검색"} setOpenMenu={setOpenMenu} />
-      <div className="mx-auto max-w-3xl p-4">
+      <div className="mx-auto max-w-3xl">
         <SearchBar setSearch={setSearch} />
       </div>
     </div>

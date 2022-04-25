@@ -4,9 +4,12 @@ import { IUserLoc } from "../common/types/interfaces";
 import UserMarker from "../common/components/userMarker";
 import PrinterMarker from "../common/components/printerMarker";
 import { MyLocationButton } from "../common/components/myLocationButton";
-import MapSearch from "../common/components/mapSearch";
+import MapSearchbar from "../common/components/mapSearchbar";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
 import coordsToAddress from "../common/utils/coordsToAddress";
+import HeaderMap from "../common/components/headerMap";
+import Search from "./search";
+import SearchAllDesktop from "../common/components/searchAllDesktop";
 
 export default function PrinterMap() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
@@ -58,8 +61,14 @@ export default function PrinterMap() {
 
   return (
     <main>
-      <div className="mx-auto max-w-3xl">
-        <MapSearch />
+      <div className="hidden xl:block">
+        <HeaderMap />
+        <div className="absolute right-0 h-screen w-1/4">
+          <SearchAllDesktop />
+        </div>
+      </div>
+      <div className="mx-auto">
+        <MapSearchbar />
         <MyLocationButton
           userLoc={userLoc}
           mapView={mapView}

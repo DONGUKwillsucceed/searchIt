@@ -21,13 +21,13 @@ export default function (
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
   console.log(printerDetail);
   return (
-    <>
+    <div className="bg-gray-100">
       <Header_PrinterDetail
         name={printerDetail?.name}
         color={printerDetail?.priceColor}
         mono={printerDetail?.priceMono}
       />
-      <main className="mx-auto flex h-screen max-w-3xl flex-col">
+      <main className="mx-auto flex h-screen max-w-3xl flex-col bg-white">
         <div className="mx-auto mt-32 w-10/12 flex-col pt-5 sm:max-w-3xl">
           <div className="bg-secondary flex justify-center">
             <Image
@@ -156,7 +156,7 @@ export default function (
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 }
 

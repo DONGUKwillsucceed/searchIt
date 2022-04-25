@@ -3,7 +3,7 @@ export default function SearchBarUni(props: {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 }) {
   return (
-    <div className="mx-auto mt-2 flex h-12 w-11/12 flex-row items-center justify-between rounded-md bg-gray-100 py-2 px-3">
+    <div className="mx-auto flex h-12 w-full flex-row items-center justify-between rounded-md bg-gray-100 py-2 px-3">
       <input
         type="text"
         className="flex w-full bg-gray-100 focus:outline-none "

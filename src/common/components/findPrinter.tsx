@@ -7,10 +7,10 @@ export default function FindPrinter() {
   const router = useRouter();
 
   return (
-    <div>
+    <div className="font-Suit">
       <div className="mb-3 w-full">
         <button
-          className="font-Suit bg-primary flex h-12 w-full cursor-pointer items-center justify-center rounded-md text-white active:bg-teal-500"
+          className="bg-primary flex h-12 w-full cursor-pointer items-center justify-center rounded-md text-white active:bg-teal-500"
           onClick={() => router.push("/map")}
         >
           <div className="pr-2">
