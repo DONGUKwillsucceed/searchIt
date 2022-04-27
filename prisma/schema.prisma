@@ -8,48 +8,193 @@ datasource db {
 }
 
 model PrintZoneReplies {
-  PrintZoneReplyID String     @id @db.VarChar(64)
-  CreatedAt        DateTime?  @default(now()) @db.DateTime(0)
-  PriceA4Color     Int?       @db.UnsignedInt
-  PriceA4Mono      Int?       @db.UnsignedInt
-  Comment          String?    @db.VarChar(400)
-  PrintZoneID      String     @db.VarChar(64)
-  PrintZones       PrintZones @relation(fields: [PrintZoneID], references: [PrintZoneID], onDelete: NoAction, onUpdate: NoAction, map: "PrintZoneReplies_FK")
+  id                   String                 @id @db.VarChar(64)
+  created_at           DateTime?              @default(now()) @db.DateTime(0)
+  writer_ip            String                 @db.VarChar(100)
+  writer_emoji         String                 @db.VarChar(10)
+  writer_name          String                 @db.VarChar(40)
+  comment              String                 @default("") @db.VarChar(800)
+  PrintZone_id         String                 @db.VarChar(64)
+  status               String                 @default("posted") @db.VarChar(20)
+  reportCnt            Int                    @default(0) @db.UnsignedInt
+  PrintZones           PrintZones             @relation(fields: [PrintZone_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZoneReplies_FK")
+  PrintZoneReply_Image PrintZoneReply_Image[]
+  PrintZoneReply_Tag   PrintZoneReply_Tag[]
+  Services             Services[]
 
-  @@index([PrintZoneID], map: "PrintZoneReplies_FK")
+  @@index([PrintZone_id], map: "PrintZoneReplies_FK")
 }
 
 model PrintZone_Tag {
-  PrintZoneID String     @db.VarChar(64)
-  TagID       String     @db.VarChar(64)
-  PrintZones  PrintZones @relation(fields: [PrintZoneID], references: [PrintZoneID], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK")
-  Tag         Tag        @relation(fields: [TagID], references: [TagID], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK_1")
+  PrintZone_id String     @db.VarChar(64)
+  Tag_id       String     @db.VarChar(64)
+  PrintZones   PrintZones @relation(fields: [PrintZone_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK")
+  Tag          Tag        @relation(fields: [Tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK_1")
 
-  @@unique([PrintZoneID, TagID], map: "PrintZone_Tag_UN")
-  @@index([TagID], map: "PrintZone_Tag_FK_1")
+  @@unique([PrintZone_id, Tag_id], map: "PrintZone_Tag_UN")
+  @@index([Tag_id], map: "PrintZone_Tag_FK_1")
 }
 
 model PrintZones {
-  PrintZoneID       String             @id @db.VarChar(64)
-  CreatedAt         DateTime           @default(now()) @db.DateTime(0)
-  UpdatedAt         DateTime           @db.DateTime(0)
-  Company           String             @db.VarChar(200)
-  Latitude          Float
-  Longitude         Float
-  PriceA4Black      Int?               @db.UnsignedInt
-  PriceA4Color      Int?               @db.UnsignedInt
-  PhoneNumber       String?            @db.VarChar(100)
-  Description       String?            @db.VarChar(800)
-  PrinterCustomHTML String?            @db.MediumText
-  Priority          String             @default("basic") @db.VarChar(50)
-  Status            String             @default("scrapped") @db.VarChar(50)
-  AddressKeyID      String?            @db.VarChar(64)
-  PrintZoneReplies  PrintZoneReplies[]
-  PrintZone_Tag     PrintZone_Tag[]
+  id               String             @id @db.VarChar(64)
+  created_at       DateTime           @default(now()) @db.DateTime(0)
+  updated_at       DateTime           @db.DateTime(0)
+  writer_ip        String             @db.VarChar(100)
+  company          String             @db.VarChar(200)
+  latitude         Float
+  longitude        Float
+  phone_number     String?            @db.VarChar(100)
+  AreaCode_id      String             @db.VarChar(64)
+  address_detail   String             @db.VarChar(200)
+  description      String             @default("") @db.VarChar(800)
+  banner_html      String?            @db.MediumText
+  priority         String             @default("basic") @db.VarChar(50)
+  status           String             @default("scrapped") @db.VarChar(50)
+  AreaCode         AreaCode           @relation(fields: [AreaCode_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZones_FK")
+  PrintZoneReplies PrintZoneReplies[]
+  PrintZone_Image  PrintZone_Image[]
+  PrintZone_Tag    PrintZone_Tag[]
+  Services         Services[]
+
+  @@index([AreaCode_id], map: "PrintZones_FK")
 }
 
 model Tag {
-  TagID         String          @id @db.VarChar(64)
-  Value         String          @db.VarChar(40)
-  PrintZone_Tag PrintZone_Tag[]
+  id                   String               @id @db.VarChar(64)
+  created_at           DateTime?            @db.DateTime(0)
+  weight               Int                  @default(10)
+  value                String               @db.VarChar(40)
+  search_engine_expose Int                  @default(0) @db.TinyInt
+  TagType_id           String               @default("8690c5dd-4246-49bc-9ac1-f9b32eb9a300") @db.VarChar(64)
+  TagTypes             TagTypes             @relation(fields: [TagType_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Tag_FK")
+  PrintZoneReply_Tag   PrintZoneReply_Tag[]
+  PrintZone_Tag        PrintZone_Tag[]
+
+  @@index([TagType_id], map: "Tag_FK")
+}
+
+model AreaCode {
+  id         String       @id @db.VarChar(64)
+  ko_area_1  String       @db.VarChar(100)
+  ko_area_2  String?      @db.VarChar(100)
+  ko_area_3  String?      @db.VarChar(100)
+  en_area_1  String?      @db.VarChar(100)
+  en_area_2  String?      @db.VarChar(100)
+  en_area_3  String?      @db.VarChar(100)
+  en_area_4  String?      @db.VarChar(100)
+  PrintZones PrintZones[]
+}
+
+model Images {
+  id                   String                 @id @db.VarChar(64)
+  created_at           DateTime               @default(now()) @db.DateTime(0)
+  url                  String                 @db.VarChar(400)
+  description          String                 @default("") @db.VarChar(100)
+  description_en       String                 @default("") @db.VarChar(100)
+  PrintZoneReply_Image PrintZoneReply_Image[]
+  PrintZone_Image      PrintZone_Image[]
+}
+
+model Notices {
+  id            String   @id @db.VarChar(64)
+  created_at    DateTime @default(now()) @db.DateTime(0)
+  updated_at    DateTime @default(now()) @db.DateTime(0)
+  is_deleted    Int?     @db.TinyInt
+  title         String   @db.VarChar(100)
+  type          String   @default("notice") @db.VarChar(20)
+  expose_main   Int      @default(0) @db.TinyInt
+  content_html  String   @db.MediumText
+  opengraph_url String?  @db.VarChar(400)
+}
+
+model PaperSizes {
+  id          String     @id @db.VarChar(64)
+  created_at  DateTime   @default(now()) @db.DateTime(0)
+  updated_at  DateTime   @default(now()) @db.DateTime(0)
+  name        String     @db.VarChar(20)
+  name_en     String     @default("") @db.VarChar(20)
+  description String     @default("") @db.VarChar(100)
+  Services    Services[]
+}
+
+model PaperTypes {
+  id          String     @id @db.VarChar(64)
+  created_at  DateTime   @default(now()) @db.DateTime(0)
+  updated_at  DateTime   @default(now()) @db.DateTime(0)
+  paper       String     @db.VarChar(20)
+  paper_en    String     @default("") @db.VarChar(20)
+  description String     @db.VarChar(100)
+  Services    Services[]
+}
+
+model PrintZoneReply_Image {
+  PrintZoneReply_id String           @db.VarChar(64)
+  Image_id          String           @db.VarChar(64)
+  Images            Images           @relation(fields: [Image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZoneReply_Image_FK")
+  PrintZoneReplies  PrintZoneReplies @relation(fields: [PrintZoneReply_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZoneReply_Image_FK_1")
+
+  @@unique([PrintZoneReply_id, Image_id], map: "PrintZoneReply_Image_UN")
+  @@index([Image_id], map: "PrintZoneReply_Image_FK")
+}
+
+model PrintZoneReply_Tag {
+  PrintZoneReply_id String           @db.VarChar(64)
+  Tag_id            String           @db.VarChar(64)
+  PrintZoneReplies  PrintZoneReplies @relation(fields: [PrintZoneReply_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZoneReply_Tag_FK")
+  Tag               Tag              @relation(fields: [Tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZoneReply_Tag_FK_1")
+
+  @@unique([PrintZoneReply_id, Tag_id], map: "PrintZoneReply_Tag_UN")
+  @@index([Tag_id], map: "PrintZoneReply_Tag_FK_1")
+}
+
+model PrintZone_Image {
+  PrintZone_id String     @db.VarChar(64)
+  Image_id     String     @db.VarChar(64)
+  Images       Images     @relation(fields: [Image_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Image_FK_1")
+  PrintZones   PrintZones @relation(fields: [PrintZone_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Image_FK")
+
+  @@unique([PrintZone_id, Image_id], map: "PrintZone_Image_UN")
+  @@index([Image_id], map: "PrintZone_Image_FK_1")
+}
+
+model ServiceType {
+  id          String     @id @db.VarChar(64)
+  created_at  DateTime   @default(now()) @db.DateTime(0)
+  updated_at  DateTime   @default(now()) @db.DateTime(0)
+  type        String     @db.VarChar(20)
+  type_en     String     @default("") @db.VarChar(20)
+  description String     @default("") @db.VarChar(100)
+  Services    Services[]
+}
+
+model Services {
+  id                    String            @id @db.VarChar(64)
+  created_at            DateTime          @default(now()) @db.DateTime(0)
+  updated_at            DateTime          @default(now()) @db.DateTime(0)
+  PrintZone_id          String            @db.VarChar(64)
+  PaperSize_id          String            @db.VarChar(64)
+  PaperType_id          String            @db.VarChar(64)
+  ServiceType_id        String            @db.VarChar(64)
+  color_type            String            @default("color") @db.VarChar(64)
+  price                 Int               @db.UnsignedInt
+  price_duplex_explicit Int?              @db.UnsignedInt
+  proposed_reply        String?           @db.VarChar(64)
+  status                String            @db.VarChar(20)
+  PaperSizes            PaperSizes        @relation(fields: [PaperSize_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Prices_FK")
+  PaperTypes            PaperTypes        @relation(fields: [PaperType_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Prices_FK_1")
+  PrintZones            PrintZones        @relation(fields: [PrintZone_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Prices_FK_2")
+  ServiceType           ServiceType       @relation(fields: [ServiceType_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Services_FK")
+  PrintZoneReplies      PrintZoneReplies? @relation(fields: [proposed_reply], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Services_FK_1")
+
+  @@index([PaperSize_id], map: "Prices_FK")
+  @@index([PaperType_id], map: "Prices_FK_1")
+  @@index([PrintZone_id], map: "Prices_FK_2")
+  @@index([ServiceType_id], map: "Services_FK")
+  @@index([proposed_reply], map: "Services_FK_1")
+}
+
+model TagTypes {
+  id   String @id @db.VarChar(64)
+  type String @db.VarChar(20)
+  Tag  Tag[]
 }
