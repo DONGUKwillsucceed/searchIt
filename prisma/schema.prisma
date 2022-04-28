@@ -21,7 +21,6 @@ model PrintZoneReplies {
   PrintZoneReply_Image PrintZoneReply_Image[]
   PrintZoneReply_Tag   PrintZoneReply_Tag[]
   Services             Services[]
-
   @@index([PrintZone_id], map: "PrintZoneReplies_FK")
 }
 
@@ -30,7 +29,6 @@ model PrintZone_Tag {
   Tag_id       String     @db.VarChar(64)
   PrintZones   PrintZones @relation(fields: [PrintZone_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK")
   Tag          Tag        @relation(fields: [Tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK_1")
-
   @@unique([PrintZone_id, Tag_id], map: "PrintZone_Tag_UN")
   @@index([Tag_id], map: "PrintZone_Tag_FK_1")
 }
@@ -55,7 +53,6 @@ model PrintZones {
   PrintZone_Image  PrintZone_Image[]
   PrintZone_Tag    PrintZone_Tag[]
   Services         Services[]
-
   @@index([AreaCode_id], map: "PrintZones_FK")
 }
 
@@ -69,7 +66,6 @@ model Tag {
   TagTypes             TagTypes             @relation(fields: [TagType_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Tag_FK")
   PrintZoneReply_Tag   PrintZoneReply_Tag[]
   PrintZone_Tag        PrintZone_Tag[]
-
   @@index([TagType_id], map: "Tag_FK")
 }
 
