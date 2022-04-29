@@ -13,7 +13,7 @@ export default function () {
   return (
     <div className="min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
-      <HeaderSearch pageName={"행정구역별"} setOpenMenu={setOpenMenu} />
+      <HeaderSearch pageName={"행정구역별"} />
       <div className="mx-auto max-w-3xl">
         <div className="mx-auto my-3 flex rounded-md bg-white p-4">
           <DropDown

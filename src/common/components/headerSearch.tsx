@@ -2,13 +2,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 
-export default function (props?: {
-  pageName?: string | string[];
-  setOpenMenu: Dispatch<SetStateAction<boolean>>;
-}) {
+export default function (props?: { pageName?: string | string[] }) {
   const router = useRouter();
-
-  console.log(router.route.split("/")[1]);
 
   return (
     <div className="font-Suit sticky top-0 z-20 h-16 border-b-2 bg-white">
@@ -17,12 +12,10 @@ export default function (props?: {
           className="flex items-center hover:cursor-pointer"
           onClick={() => router.back()}
         >
-          <Image src="/backArrow.svg" width={24} height={24}></Image>
+          <Image src="/return.svg" width={12} height={12}></Image>
         </button>
         <div>{props?.pageName}</div>
-        <button onClick={() => props?.setOpenMenu(true)} className="flex">
-          <Image src={"/menu.svg"} alt="menu" width={24} height={24} />
-        </button>
+        <div></div>
       </div>
     </div>
   );

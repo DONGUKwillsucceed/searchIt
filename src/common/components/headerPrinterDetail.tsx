@@ -1,5 +1,4 @@
 import Image from "next/image";
-import backArrow from "../../../public/backArrow.svg";
 import { useRouter } from "next/router";
 
 export default function Header_PrinterDetail(props: {
@@ -9,11 +8,11 @@ export default function Header_PrinterDetail(props: {
 }) {
   const router = useRouter();
   return (
-    <header className="fixed inset-x-0 top-0 z-10 mx-auto bg-white px-5 py-3">
+    <header className="sticky inset-x-0 top-0 z-10 mx-auto bg-white px-5 py-3">
       <nav className="mx-auto flex max-w-3xl flex-col">
         <div className="flex w-full justify-between py-5">
           <Image
-            src={backArrow}
+            src="/backArrow.svg"
             width={32}
             height={32}
             onClick={() => {

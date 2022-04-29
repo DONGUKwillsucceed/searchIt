@@ -55,12 +55,21 @@ export default function Index() {
           {/*PrinterList*/}
           <div className="my-2 h-fit w-full rounded-md bg-white p-4 text-lg">
             <div className="mb-3 flex w-full items-center justify-between">
-              <div className="mb-1 text-xl font-bold">내 주변 프린터</div>
+              <div className="mr mb-1 text-xl font-bold">내 주변 프린터</div>
+              <button className="flex text-xs font-bold text-gray-500">
+                <div className="mr-2">전체 보기</div>
+                <Image
+                  src={"/return.svg"}
+                  className="rotate-180"
+                  width={6}
+                  height={12}
+                ></Image>
+              </button>
             </div>
-            <DistanceOptionButtons
+            {/* <DistanceOptionButtons
               nearbyDistance={nearbyDistance}
               setNearbyDistance={setNearbyDistance}
-            />
+            /> */}
             {hasGeoLoc ? (
               <PrinterList nearbyPrinters={nearbyPrinter} />
             ) : (
@@ -73,6 +82,15 @@ export default function Index() {
                 <div className="text-center">위치 정보 동의가 필요해요!</div>
               </div>
             )}
+          </div>
+
+          <div className="mt-2 flex w-full justify-center rounded-md bg-white p-4 ">
+            <button className="text-primary bg-primary/20 mr-4 rounded-md px-3 py-2 text-sm font-semibold">
+              제휴문의
+            </button>
+            <button className="rounded-md bg-gray-100 p-3 py-2 text-sm font-semibold text-gray-500">
+              제보하기
+            </button>
           </div>
         </div>
       </main>

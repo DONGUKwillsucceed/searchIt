@@ -6,10 +6,10 @@ export default function PrinterDetail_Price(props: {
 }) {
   return (
     <>
-      <div className="font-Suit mx-auto w-10/12">
-        <div className="mb-1 flex w-full justify-between text-xs font-bold text-gray-500">
-          <div> 가격</div>
-          <div> 한 페이지 당</div>
+      <div className="font-Suit mx-auto w-full">
+        <div className="mb-1 flex w-full justify-between px-1 text-xs font-bold text-gray-500">
+          <div>가격</div>
+          <div>한 페이지 당</div>
         </div>
         <div className="flex w-full">
           {props.printerDetail.priceColor != 0 ? (

@@ -88,9 +88,6 @@ export default function PrinterMap() {
           onCreate={(map) => {
             setMap(map);
           }}
-          onClick={(e) =>
-            coordsToAddress(e.getCenter().getLat(), e.getCenter().getLng())
-          }
         >
           <PrinterMarker />
           {mapView.hasAllowedGeo ? <UserMarker userLoc={userLoc} /> : null}

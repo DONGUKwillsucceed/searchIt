@@ -51,7 +51,14 @@ export default function Menu(props: {
 
           <div className="font-Suit fixed bottom-0 my-4 mx-8 flex w-full flex-col text-xl">
             <button className="mb-6 w-fit text-left">후원하기</button>
-            <button className="mb-6 w-fit text-left">제보/문의</button>
+            <button
+              className="mb-6 w-fit text-left"
+              onClick={() => {
+                router.push("/addPlace"), enableScroll();
+              }}
+            >
+              제보/문의
+            </button>
             <button className="mb-6 w-fit text-left">Languages</button>
           </div>
         </div>

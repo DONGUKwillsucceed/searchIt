@@ -18,7 +18,7 @@ export default function (
   return (
     <div className="font-Suit min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
-      <HeaderSearch pageName={router.query.uniName} setOpenMenu={setOpenMenu} />
+      <HeaderSearch pageName={router.query.uniName} />
       <div className="mx-auto max-w-3xl ">
         <div className="my-3 flex w-full flex-col rounded-md bg-white p-3">
           {props.data.map((printer: IPrinterData) => (

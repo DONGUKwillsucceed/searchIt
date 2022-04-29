@@ -13,7 +13,7 @@ export function University() {
   return (
     <div className="min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
-      <HeaderSearch pageName={"대학별"} setOpenMenu={setOpenMenu} />
+      <HeaderSearch pageName={"대학별"} />
       <main className="mx-auto max-w-3xl ">
         <div className="my-3 flex w-full flex-col rounded-md bg-white p-4 pb-0">
           <SearchBarUni setSearch={setSearch} />

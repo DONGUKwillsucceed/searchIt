@@ -19,139 +19,112 @@ export default function (
     (actions) => actions.setSearchPrinterOnMap
   );
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
-  console.log(printerDetail);
+
   return (
-    <div className="bg-gray-100">
+    <div className="min-h-screen bg-gray-100">
       <Header_PrinterDetail
         name={printerDetail?.name}
         color={printerDetail?.priceColor}
         mono={printerDetail?.priceMono}
       />
-      <main className="mx-auto flex h-screen max-w-3xl flex-col bg-white">
-        <div className="mx-auto mt-32 w-10/12 flex-col pt-5 sm:max-w-3xl">
-          <div className="bg-secondary flex justify-center">
-            <Image
-              alt="printer"
-              src={printerDetail?.imageUrl}
-              width={292}
-              height={194}
-              className="rounded-md "
-            ></Image>
+      <main className="mx-auto max-w-3xl">
+        <div className="rounded-md bg-white p-4">
+          <div className="mx-auto w-full rounded-md">
+            <div className="bg-secondary flex justify-center">
+              <Image
+                alt="printer"
+                src={printerDetail?.imageUrl}
+                width={292}
+                height={194}
+                className="rounded-md "
+              ></Image>
+            </div>
           </div>
-        </div>
 
-        {/*Address / PhoneNum */}
-        <div className="font-Suit mx-auto mt-4 w-10/12">
-          <div
-            className="border-primary text-primary mb-2 flex h-12 w-full items-center justify-center rounded-md border-2 bg-white hover:cursor-pointer"
-            onClick={() => {
-              setSearchPrinterOnMap({
-                ...searchPrinterOnMap,
-                center: {
-                  lat: printerDetail?.coordinate?.latitude,
-                  lng: printerDetail?.coordinate?.longitude,
-                },
-              }),
-                router.push("/map");
-            }}
+          {/*Address / PhoneNum */}
+          <div className="font-Suit mt-4 w-full">
+            <div
+              className="border-primary text-primary mb-2 flex h-12 w-full items-center justify-center rounded-md border-2 bg-white hover:cursor-pointer"
+              onClick={() => {
+                setSearchPrinterOnMap({
+                  ...searchPrinterOnMap,
+                  center: {
+                    lat: printerDetail?.coordinate?.latitude,
+                    lng: printerDetail?.coordinate?.longitude,
+                  },
+                }),
+                  router.push("/map");
+              }}
+            >
+              <div className="mr-2">
+                <Image src="/map_primary.svg" width={16} height={16}></Image>
+              </div>
+              <div className="text-xs">지도보기</div>
+            </div>
+
+            <div className="bg-secondary font-Suit mb-2 flex h-10 flex-row items-center justify-between rounded-md px-3 ">
+              <div className="flex w-9/12 items-center justify-between">
+                <div className="mr-2 w-8 text-xs">주소</div>
+                <div className="scrollbar-none w-full overflow-scroll whitespace-nowrap text-sm">
+                  {printerDetail?.address}
+                </div>
+              </div>
+              <button
+                className="ml-2 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-500 active:bg-gray-300"
+                onClick={() =>
+                  navigator.clipboard.writeText(printerDetail?.address)
+                }
+              >
+                주소 복사
+              </button>
+            </div>
+            <div className="bg-secondary font-Suit mb-2 flex h-10 items-center justify-between rounded-md px-3 ">
+              <div className="flex">
+                <div className=" pr-3 text-xs">전화번호</div>
+                <div className="text-sm">
+                  {printerDetail?.maintainer?.phoneNumber}
+                </div>
+              </div>
+              <button
+                className="ml-2 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-500 active:bg-gray-300"
+                onClick={() =>
+                  window.open(`tel:${printerDetail?.maintainer?.phoneNumber}`)
+                }
+              >
+                전화걸기
+              </button>
+            </div>
+          </div>
+
+          {/*Price*/}
+          <PrinterDetail_Price printerDetail={printerDetail} />
+
+          {/*Introduction*/}
+          <PrinterDetail_Introduction
+            printerDetail={printerDetail}
+            dropDownActive={dropDownActive}
+          />
+          <button
+            onClick={() => setDropDownActive(!dropDownActive)}
+            className="font-Suit mt-2 flex w-full justify-center p-2 text-sm text-gray-500"
           >
-            <div className="mr-2">
-              <Image src="/map_primary.svg" width={16} height={16}></Image>
-            </div>
-            <div className="text-xs">지도보기</div>
-          </div>
-
-          <div className="bg-secondary font-Suit mb-2 flex h-10 flex-row items-center justify-between rounded-md px-3 ">
-            <div className="flex w-9/12 items-center justify-between">
-              <div className="mr-2 w-8 text-xs">주소</div>
-              <div className="scrollbar-none w-full overflow-scroll whitespace-nowrap text-sm">
-                {printerDetail?.address}
-              </div>
-            </div>
-            <button
-              className="ml-2 rounded-md bg-gray-200 px-2 py-1 text-xs active:bg-gray-300"
-              onClick={() =>
-                navigator.clipboard.writeText(printerDetail?.address)
-              }
-            >
-              주소 복사
-            </button>
-          </div>
-          <div className="bg-secondary font-Suit mb-2 flex h-10 items-center justify-between rounded-md px-3 ">
-            <div className="flex">
-              <div className=" pr-3 text-xs">전화번호</div>
-              <div className="text-sm">
-                {printerDetail?.maintainer?.phoneNumber}
-              </div>
-            </div>
-            <button
-              className="ml-2 rounded-md bg-gray-200 px-2 py-1 text-xs active:bg-gray-300"
-              onClick={() =>
-                window.open(`tel:${printerDetail?.maintainer?.phoneNumber}`)
-              }
-            >
-              전화걸기
-            </button>
-          </div>
-        </div>
-
-        {/*Price*/}
-        <PrinterDetail_Price printerDetail={printerDetail} />
-        <PrinterDetail_Introduction
-          printerDetail={printerDetail}
-          dropDownActive={dropDownActive}
-        />
-        <button
-          onClick={() => setDropDownActive(!dropDownActive)}
-          className="font-Suit mx-auto mt-2 flex h-10 w-10/12 justify-center text-sm text-gray-500"
-        >
-          {dropDownActive ? (
             <div className="flex ">
-              <div className="mr-2">접기</div>
-              <Image src="/dropDownArrow.svg" width={12} height={8} />
-            </div>
-          ) : (
-            <div className="flex">
-              <div className="mr-2">더보기</div>
+              <div className="mr-2">{dropDownActive ? "접기" : "더보기"}</div>
               <Image
                 src="/dropDownArrow.svg"
                 width={12}
                 height={8}
-                className="rotate-180"
+                className={`${dropDownActive ? "" : "rotate-180"}`}
               />
             </div>
-          )}
-        </button>
+          </button>
 
-        <div className="font-Suit mx-auto mt-4 w-10/12">
-          <div className="mb-2 text-xs font-bold text-gray-500">
-            프린터 정보
-          </div>
-
-          <div className="mb-2 flex w-full justify-center">
-            <div className="w-32">
-              {/* <Image
-                src={printerDetail?.printer.imageUrl}
-                width={300}
-                height={300}
-                layout="responsive"
-              ></Image> */}
-              <img src={printerDetail.printer.imageUrl} />
-            </div>
-          </div>
-
-          <div className="mb-3 w-full text-xs text-gray-500">
-            <div className="flex justify-between ">
-              <span>모델명</span>
-              <span>{printerDetail.printer.name}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>출력속도</span>
-              <span>{printerDetail.printer.ppm}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>해상도</span>
-              <span>{printerDetail.printer.resolution}</span>
+          <div>
+            <div className="flex w-full items-center justify-between">
+              <div className="text-sm font-semibold text-gray-500">리뷰</div>
+              <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
+                리뷰 작성
+              </button>
             </div>
           </div>
         </div>
