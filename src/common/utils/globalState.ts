@@ -23,6 +23,9 @@ interface Store {
 
   mapView: mapView;
   setMapView: Action<Store, mapView>;
+
+  locationAddress: string;
+  setLocationAddress: Action<Store, string>;
 }
 
 export const globalState = createStore<Store>({
@@ -53,6 +56,11 @@ export const globalState = createStore<Store>({
     state.mapView = {
       ...payload,
     };
+  }),
+
+  locationAddress: "",
+  setLocationAddress: action((state, payload) => {
+    state.locationAddress = payload;
   }),
 });
 

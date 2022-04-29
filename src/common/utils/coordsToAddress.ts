@@ -1,18 +1,20 @@
-import { useState } from "react";
+import { action } from "easy-peasy";
+import { useStoreActions, useStoreState } from "./globalState";
 
 export default function coordsToAddress(lat: number, lng: number) {
   let geoCoder;
+  const setLocationAddress = useStoreActions(
+    (actions) => actions.setLocationAddress
+  );
+
   if (typeof window !== "undefined") {
     geoCoder = new window.kakao.maps.services.Geocoder();
   }
 
-  let placeName = "failed";
-
-  geoCoder?.coord2RegionCode(lng, lat, (result: any, status: any) => {
+  geoCoder?.coord2Address(lng, lat, (result: any, status: any) => {
     if (status === window.kakao.maps.services.Status.OK) {
-      console.log(result);
+      setLocationAddress(result[0].address.address_name);
     }
-    return placeName;
   });
   // return placeName;
 }
