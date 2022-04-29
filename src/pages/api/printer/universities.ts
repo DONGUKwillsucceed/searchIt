@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import { LogicalError } from "../errors";
+import { LogicalError } from "../../../backend/errors";
 
 export async function countPrinterUniversities() {
   const prisma = new PrismaClient();
