@@ -98,7 +98,16 @@ export default function (
 
           {/*Price*/}
           <PrinterDetail_Price printerDetail={printerDetail} />
-
+          <div className="my-2 flex w-full flex-row-reverse">
+            <button className="bg-primary/20 text-primary flex  items-center rounded-md p-3 text-xs ">
+              <Image src="/info.svg" width={12} height={12} />
+              <div className="ml-1"> 정보 변겅 요청</div>
+            </button>
+          </div>
+          {/* banner */}
+          <div className="bg-primary flex h-40 w-full items-center justify-center font-bold text-white">
+            가맹점주 커스텀 배너
+          </div>
           {/*Introduction*/}
           <PrinterDetail_Introduction
             printerDetail={printerDetail}
@@ -119,13 +128,20 @@ export default function (
             </div>
           </button>
 
-          <div>
-            <div className="flex w-full items-center justify-between">
-              <div className="text-sm font-semibold text-gray-500">리뷰</div>
-              <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
-                리뷰 작성
-              </button>
+          <div className="mb-3 flex w-full items-center justify-between">
+            <div className="text-sm font-semibold text-gray-500">리뷰</div>
+            <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
+              리뷰 작성
+            </button>
+          </div>
+          {/* example */}
+          <div className="bg-secondary flex flex-col rounded-md p-4">
+            <div className="flex justify-between">
+              <div className="text-gray-500">name</div>
+              <div className="text-gray-300">date</div>
             </div>
+            <div>comment</div>
+            <div className="flex w-full flex-row-reverse">state</div>
           </div>
         </div>
       </main>

@@ -11,12 +11,12 @@ export default function PrinterDetail_Introduction(props: {
       </div>
       <div
         className={` text-gray-500 ${
-          props.dropDownActive ? "h-fit" : "max-h-40 overflow-y-hidden"
+          props.dropDownActive ? "h-fit" : "to max-h-40 overflow-y-hidden "
         }`}
       >
         {props.printerDetail.description?.split("\n").map((item, index) => {
           return (
-            <div key={index} className="text-sm">
+            <div key={index} className="text-opacity-10">
               {item}
             </div>
           );
