@@ -45,7 +45,7 @@ export default function Index() {
       <HeaderLogo setOpenMenu={setOpenMenu} />
       <main className="mx-auto max-w-3xl">
         <div className=" flex w-full flex-col items-center sm:max-w-3xl ">
-          {/* <Advertism /> */}
+          <Advertism />
 
           {/* Find Printer */}
           <div className="my-2 flex w-full flex-col rounded-md bg-white p-4">
