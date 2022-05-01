@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -54,6 +55,8 @@ model PrintZones {
   PrintZone_Tag    PrintZone_Tag[]
   Services         Services[]
   @@index([AreaCode_id], map: "PrintZones_FK")
+  @@fulltext([company])
+  @@fulltext([address_detail])
 }
 
 model Tag {
@@ -67,6 +70,7 @@ model Tag {
   PrintZoneReply_Tag   PrintZoneReply_Tag[]
   PrintZone_Tag        PrintZone_Tag[]
   @@index([TagType_id], map: "Tag_FK")
+  @@fulltext([value])
 }
 
 model AreaCode {
@@ -79,6 +83,9 @@ model AreaCode {
   en_area_3  String?      @db.VarChar(100)
   en_area_4  String?      @db.VarChar(100)
   PrintZones PrintZones[]
+  @@fulltext([ko_area_1])
+  @@fulltext([ko_area_2])
+  @@fulltext([ko_area_3])
 }
 
 model Images {
