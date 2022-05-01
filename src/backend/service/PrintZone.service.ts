@@ -1,6 +1,5 @@
 import { NotFoundError } from "../errors";
 import { db } from "../db";
-import { tagService } from "./Tag.service";
 
 class PrintZoneService {
   async findManyByTagId(id: string) {
