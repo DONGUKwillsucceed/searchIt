@@ -1,5 +1,4 @@
 import { PrintZones, PrismaClient } from '@prisma/client';
-import { queryByRole } from '@testing-library/react';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 
