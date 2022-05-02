@@ -16,7 +16,7 @@ class TagService {
     return queryResult;
   }
 
-  async countPrintZonesForTagType(tagType: string) {
+  async findManyByTagTypeWithPrintZoneCount(tagType: string) {
     const queryResult = await db.tagTypes.findFirst({
       where: {
         type: tagType,
@@ -43,7 +43,7 @@ class TagService {
     return queryResult.Tag.map((t) => ({
       id: t.value,
       university: t.value,
-      count: t._count,
+      count: t._count.PrintZone_Tag,
     }));
   }
 }

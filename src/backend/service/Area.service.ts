@@ -17,10 +17,19 @@ class AreaService {
         id: {
           startsWith: areaPrefix,
         },
-        NOT: {
-          id: areaId,
-        }
-      }
+        AND: [
+          {
+            NOT: {
+              id: areaId,
+            },
+          },
+          {
+            id: {
+              endsWith: "000",
+            },
+          },
+        ],
+      },
     });
     return queryResult;
   }

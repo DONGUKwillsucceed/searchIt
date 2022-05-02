@@ -6,7 +6,7 @@ test("Test Area2 fetching", async () => {
 });
 
 test("Test Area3 fetching", async () => {
-  const 광진구ID = "1121500000";
-  const areas = await areaService.findArea3WithinArea2(광진구ID);
+  const 강화군ID = "2871000000";
+  const areas = await areaService.findArea3WithinArea2(강화군ID);
   // console.log(areas.splice(0, 3));
 });
