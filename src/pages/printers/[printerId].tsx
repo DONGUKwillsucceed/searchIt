@@ -99,9 +99,9 @@ export default function (
           {/*Price*/}
           <PrinterDetail_Price printerDetail={printerDetail} />
           <div className="my-2 flex w-full flex-row-reverse">
-            <button className="bg-primary/20 text-primary flex  items-center rounded-md p-3 text-xs ">
+            <button className=" flex items-center  rounded-md border-2 border-gray-300 px-3 py-2 text-xs ">
               <Image src="/info.svg" width={12} height={12} />
-              <div className="ml-1"> 정보 변겅 요청</div>
+              <div className="ml-1 text-gray-400"> 정보 변겅 요청</div>
             </button>
           </div>
           {/* banner */}

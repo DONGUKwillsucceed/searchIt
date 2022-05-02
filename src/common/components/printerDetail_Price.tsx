@@ -14,42 +14,55 @@ export default function PrinterDetail_Price(props: {
         <div className="flex w-full">
           {props.printerDetail.priceColor != 0 ? (
             <>
-              <div className="bg-secondary mr-1 flex h-10 w-1/2 items-center justify-between rounded-md px-3 ">
-                <div className="flex items-center text-xs">
-                  <Image src="/mono.svg" width={16} height={16} />
-                  <div className="ml-2">흑백</div>
-                </div>
-                <div>{props.printerDetail.priceMono}원</div>
-              </div>
-              <div className="bg-secondary ml-1 flex h-10 w-1/2 items-center justify-between rounded-md px-3 ">
-                <div className="flex items-center text-xs">
-                  <Image src="/color.svg" width={16} height={16} />
-                  <div className="ml-2">컬러</div>
-                </div>
-                <div>{props.printerDetail.priceColor}원</div>
-              </div>
+              <Box
+                type={"흑백 인쇄"}
+                price={props.printerDetail.priceMono}
+                Image={"/mono.svg"}
+              />
+              <Box
+                type={"컬러 인쇄"}
+                price={props.printerDetail.priceColor}
+                Image={"/color.svg"}
+              />
             </>
           ) : (
-            <div className="bg-secondary flex h-10 w-full items-center justify-between rounded-md px-3 ">
-              <div className="flex items-center">
-                <Image src="/mono.svg" width={16} height={16} />
-              </div>
-              <div>{props.printerDetail.priceMono}원</div>
-            </div>
+            <Box
+              single={true}
+              type={"흑백 인쇄"}
+              price={props.printerDetail.priceMono}
+              Image={"/mono.svg"}
+            />
           )}
         </div>
 
         <div className="my-2 flex w-full">
-          <div className="bg-secondary mr-1 flex h-10 w-1/2 items-center justify-between rounded-md px-3 ">
-            <div className="text-xs">스캔</div>
-            <div>{props.printerDetail.priceMono}원</div>
-          </div>
-          <div className="bg-secondary ml-1 flex h-10 w-1/2 items-center justify-between rounded-md px-3 ">
-            <div className="text-xs">복사</div>
-            <div>{props.printerDetail.priceColor}원</div>
-          </div>
+          <Box type={"스캔"} price={50}></Box>
+          <Box type={"복사"} price={50}></Box>
         </div>
       </div>
     </>
+  );
+}
+
+export function Box(props: {
+  single?: boolean;
+  type?: string;
+  price?: number;
+  Image?: string;
+}) {
+  return (
+    <div
+      className={`bg-secondary flex flex-col items-center justify-between rounded-md py-2 px-3 ${
+        props.single ? "w-full" : "mr-1 w-1/2"
+      }  `}
+    >
+      <div className="flex w-full text-xs">
+        {props.Image ? (
+          <Image src={`${props.Image}`} width={16} height={16} />
+        ) : null}
+        <div className="ml-2">{props.type}</div>
+      </div>
+      <div className="grid w-full justify-items-end">{props.price}원</div>
+    </div>
   );
 }
