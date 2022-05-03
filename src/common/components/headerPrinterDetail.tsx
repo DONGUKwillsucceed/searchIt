@@ -8,31 +8,32 @@ export default function Header_PrinterDetail(props: {
 }) {
   const router = useRouter();
   return (
-    <header className="sticky inset-x-0 top-0 z-10 mx-auto bg-white px-5 py-3">
+    <header className="sticky inset-x-0 top-0 z-10 bg-white p-4 ">
       <nav className="mx-auto flex max-w-3xl flex-col">
-        <div className="flex w-full justify-between py-5">
+        <div className="flex w-full justify-between">
           <Image
-            src="/backArrow.svg"
-            width={32}
-            height={32}
+            src="/return.svg"
+            width={10}
+            height={16}
             onClick={() => {
               router.back();
             }}
             className="hover:cursor-pointer"
           ></Image>
-          <div className="font-Suit text-lg font-bold">{props.name}</div>
-          <div></div>
+          <button className="items-center">
+            <Image src="/share.svg" width={24} height={24}></Image>
+          </button>
         </div>
-        {/* <div className="font-Suit w-full pb-3 text-lg font-bold">
+        <div className="font-Suit my-2 w-full text-lg font-bold">
           {props.name}
-        </div> */}
+        </div>
         <div className="flex w-full">
           <Image
             src={props.color === 0 ? "/mono.svg" : "/bothColor.svg"}
-            width={24}
-            height={24}
+            width={16}
+            height={16}
           ></Image>
-          <div className="font-Suit pl-2 text-gray-500">
+          <div className="font-Suit pl-2 text-sm text-gray-500">
             {props.color === 0 ? "흑백" : "흑백 컬러"}
             {" 출력 가능"}
           </div>

@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { IPrinterDetail } from "../../common/types/interfaces";
+import { IPrinterDetail } from "../../../common/types/interfaces";
 import Image from "next/image";
-import Header_PrinterDetail from "../../common/components/headerPrinterDetail";
-import PrinterDetail_Introduction from "../../common/components/printerDetail_Introduction";
-import { getPrinterDetail } from "../../common/api/getPrinterDetail";
+import Header_PrinterDetail from "../../../common/components/headerPrinterDetail";
+import PrinterDetail_Introduction from "../../../common/components/printerDetail_Introduction";
+import { getPrinterDetail } from "../../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import PrinterDetail_Price from "../../common/components/printerDetail_Price";
+import PrinterDetail_Price from "../../../common/components/printerDetail_Price";
 import { useRouter } from "next/router";
-import { useStoreActions, useStoreState } from "../../common/utils/globalState";
+import {
+  useStoreActions,
+  useStoreState,
+} from "../../../common/utils/globalState";
+import Link from "next/link";
+import Review from "../../../common/components/review";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -42,7 +47,7 @@ export default function (
           </div>
 
           {/*Address / PhoneNum */}
-          <div className="font-Suit mt-4 w-full">
+          <div className="font-Suit my-4 w-full">
             <div
               className="border-primary text-primary mb-2 flex h-12 w-full items-center justify-center rounded-md border-2 bg-white hover:cursor-pointer"
               onClick={() => {
@@ -98,7 +103,8 @@ export default function (
 
           {/*Price*/}
           <PrinterDetail_Price printerDetail={printerDetail} />
-          <div className="my-2 flex w-full flex-row-reverse">
+
+          <div className="my-4 flex w-full flex-row-reverse">
             <button className=" flex items-center  rounded-md border-2 border-gray-300 px-3 py-2 text-xs ">
               <Image src="/info.svg" width={12} height={12} />
               <div className="ml-1 text-gray-400"> 정보 변겅 요청</div>
@@ -115,7 +121,7 @@ export default function (
           />
           <button
             onClick={() => setDropDownActive(!dropDownActive)}
-            className="font-Suit mt-2 flex w-full justify-center p-2 text-sm text-gray-500"
+            className="font-Suit my-4 flex w-full justify-center text-sm text-gray-500"
           >
             <div className="flex ">
               <div className="mr-2">{dropDownActive ? "접기" : "더보기"}</div>
@@ -128,20 +134,34 @@ export default function (
             </div>
           </button>
 
-          <div className="mb-3 flex w-full items-center justify-between">
-            <div className="text-sm font-semibold text-gray-500">리뷰</div>
-            <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
-              리뷰 작성
-            </button>
-          </div>
-          {/* example */}
-          <div className="bg-secondary flex flex-col rounded-md p-4">
-            <div className="flex justify-between">
-              <div className="text-gray-500">name</div>
-              <div className="text-gray-300">date</div>
+          <div className="my-4">
+            <div className="mb-3 flex w-full items-center justify-between">
+              <div className="text-sm font-semibold text-gray-500">리뷰</div>
+              <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
+                리뷰 작성
+              </button>
             </div>
-            <div>comment</div>
-            <div className="flex w-full flex-row-reverse">state</div>
+            {/* example */}
+            <Review
+              name={"심혁"}
+              content={"좋아요"}
+              date={"2022.05.03"}
+              state={"정보 변경 요청"}
+            />
+
+            <Link href={`/printers/${printerDetail?.id}/reviews`}>
+              <button className="my-4 flex w-full items-center justify-center">
+                <div className="font-Suit mr-2 text-sm text-gray-500">
+                  더보기
+                </div>
+                <Image
+                  src="/dropDownArrow.svg"
+                  width={12}
+                  height={12}
+                  className="rotate-90"
+                ></Image>
+              </button>
+            </Link>
           </div>
         </div>
       </main>
