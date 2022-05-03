@@ -90,14 +90,11 @@ export default function (
                   {printerDetail?.maintainer?.phoneNumber}
                 </div>
               </div>
-              <button
-                className="ml-2 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-500 active:bg-gray-300"
-                onClick={() =>
-                  window.open(`tel:${printerDetail?.maintainer?.phoneNumber}`)
-                }
-              >
-                전화걸기
-              </button>
+              <Link href={`tel:${printerDetail?.maintainer?.phoneNumber}`}>
+                <button className="ml-2 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-500 active:bg-gray-300">
+                  전화걸기
+                </button>
+              </Link>
             </div>
           </div>
 
