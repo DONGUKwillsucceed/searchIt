@@ -16,7 +16,7 @@ export default function Menu(props: {
         }}
       >
         <div
-          className=" h-full w-3/5 bg-white shadow-md"
+          className=" h-full w-3/5 bg-white shadow-md lg:w-1/3"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="mt-4 mb-9 flex w-full flex-row-reverse px-4">

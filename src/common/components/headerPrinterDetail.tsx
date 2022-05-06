@@ -13,8 +13,8 @@ export default function Header_PrinterDetail(props: {
         <div className="flex w-full justify-between">
           <Image
             src="/return.svg"
-            width={10}
-            height={16}
+            width={8}
+            height={14}
             onClick={() => {
               router.back();
             }}
@@ -23,20 +23,6 @@ export default function Header_PrinterDetail(props: {
           <button className="items-center">
             <Image src="/share.svg" width={24} height={24}></Image>
           </button>
-        </div>
-        <div className="font-Suit my-2 w-full text-lg font-bold">
-          {props.name}
-        </div>
-        <div className="flex w-full">
-          <Image
-            src={props.color === 0 ? "/mono.svg" : "/bothColor.svg"}
-            width={16}
-            height={16}
-          ></Image>
-          <div className="font-Suit pl-2 text-sm text-gray-500">
-            {props.color === 0 ? "흑백" : "흑백 컬러"}
-            {" 출력 가능"}
-          </div>
         </div>
       </nav>
     </header>

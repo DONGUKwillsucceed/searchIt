@@ -15,7 +15,7 @@ export default function (
 
   for (let i = 0; i < 15; i++) {
     reviews.push(
-      <div>
+      <div key={i}>
         <Review
           name={"test " + i}
           content={"test"}
@@ -26,13 +26,13 @@ export default function (
     );
   }
   return (
-    <>
+    <div className="min-h-screen bg-gray-100">
       <HeaderReview />
-      <div className="p-4 text-xl font-semibold">
-        <div className="font-Suit my-4 w-full">{printerDetail.name}</div>
+      <div className="mx-auto max-w-3xl bg-white p-4 text-xl font-semibold">
+        <div className="font-Suit mb-4 w-full">{printerDetail.name}</div>
         <div>{reviews}</div>
       </div>
-    </>
+    </div>
   );
 }
 

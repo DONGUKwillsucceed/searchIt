@@ -38,7 +38,6 @@ export default function Index() {
     }
   }, [nearbyDistance]);
 
-  console.log(openMenu);
   return (
     <div className="font-Suit min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
@@ -66,10 +65,6 @@ export default function Index() {
                 ></Image>
               </button>
             </div>
-            {/* <DistanceOptionButtons
-              nearbyDistance={nearbyDistance}
-              setNearbyDistance={setNearbyDistance}
-            /> */}
             {hasGeoLoc ? (
               <PrinterList nearbyPrinters={nearbyPrinter} />
             ) : (

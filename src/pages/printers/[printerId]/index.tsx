@@ -27,13 +27,23 @@ export default function (
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header_PrinterDetail
-        name={printerDetail?.name}
-        color={printerDetail?.priceColor}
-        mono={printerDetail?.priceMono}
-      />
+      <Header_PrinterDetail />
       <main className="mx-auto max-w-3xl">
-        <div className="rounded-md bg-white p-4">
+        <div className="rounded-b-md bg-white px-4">
+          <div className="font-Suit mb-2 w-full text-lg font-bold">
+            {printerDetail?.name}
+          </div>
+          <div className="flex w-full">
+            <Image
+              src={props.color === 0 ? "/mono.svg" : "/bothColor.svg"}
+              width={16}
+              height={16}
+            ></Image>
+            <div className="font-Suit pl-2 text-sm text-gray-500">
+              {props.color === 0 ? "흑백" : "흑백 컬러"}
+              {" 출력 가능"}
+            </div>
+          </div>
           <div className="mx-auto w-full rounded-md">
             <div className="bg-secondary flex justify-center">
               <Image
@@ -134,9 +144,11 @@ export default function (
           <div className="my-4">
             <div className="mb-3 flex w-full items-center justify-between">
               <div className="text-sm font-semibold text-gray-500">리뷰</div>
-              <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
-                리뷰 작성
-              </button>
+              <Link href={`${printerDetail.id}/addReview`}>
+                <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
+                  리뷰 작성
+                </button>
+              </Link>
             </div>
             {/* example */}
             <Review
