@@ -16,7 +16,6 @@ export default function (
   const [copyFixes, setCopyFixes] = useState<JSX.Element[]>([]);
   const [isChangingInfo, setIsChangingInfo] = useState<boolean>(true);
 
-  console.log(printFixes);
   return (
     <div className="min-h-screen bg-gray-100">
       <HeaderAddReview></HeaderAddReview>

@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { IPrinterDetail } from "../types/interfaces";
-import { useState } from "react";
-import { getPrinterDetail } from "../api/getPrinterDetail";
+import { Dispatch, SetStateAction } from "react";
 import FixPrinterInfoPrice from "./fixPrinterInfoPrice";
+
 export default function FixPrinterInfo(props: {
+  fixIndex: number;
   fixType: string;
+  remove: (id: number) => void;
   priceMono?: number;
   priceColor?: number;
 }) {
@@ -37,7 +38,10 @@ export default function FixPrinterInfo(props: {
         ></FixPrinterInfoPrice>
       </div>
 
-      <button className="flex w-full flex-row-reverse text-xs  text-red-500">
+      <button
+        className="flex w-full flex-row-reverse text-xs  text-red-500"
+        onClick={() => props.remove(props.fixIndex)}
+      >
         가격 정보 삭제
       </button>
     </div>

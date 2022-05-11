@@ -41,7 +41,7 @@ export default function (
             <DropDown
               name={searchArea1}
               setName={setSearchArea1}
-              setSearchArea2={setSearchArea2}
+              setSearchArea={setSearchArea2}
               area={areas.area1}
               defaultValue="시"
             />

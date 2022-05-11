@@ -9,20 +9,27 @@ export default function AddFixInfo(props: {
   priceMono?: number;
   priceColor?: number;
 }) {
+  function removeItem(index: number) {
+    console.log("index: ", index);
+    console.log("fixList ", props.fixList);
+    console.log("affter", props.fixList.splice(index - 1, 1));
+    // props.setFixList(props.fixList.splice(index, 1));
+  }
   return (
     <button
       className="my-1 flex w-full items-center space-x-2 bg-white p-4 text-sm font-semibold text-gray-500"
       onClick={() => {
-        let newList = [...props.fixList];
-        newList.push(
+        props.setFixList([
+          ...props.fixList,
           <FixPrinterInfo
-            key={newList.length + 1}
+            key={props.fixList.length + 1}
+            fixIndex={props.fixList.length}
             fixType={props.fixType}
+            remove={removeItem}
             priceMono={props?.priceMono}
             priceColor={props?.priceColor}
-          ></FixPrinterInfo>
-        );
-        props.setFixList(newList);
+          ></FixPrinterInfo>,
+        ]);
       }}
     >
       <Image src="/add.svg" width={24} height={24}></Image>

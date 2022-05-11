@@ -14,7 +14,7 @@ export default function ColorOptions(props: {
     (props.nearPrinter?.priceColor != 0 && props.nearPrinter?.priceMono != 0)
   ) {
     return (
-      <div className="flex font-semibold">
+      <div className="flex font-semibold text-gray-500">
         <div className="flex items-center justify-between">
           <Image src="/Color.svg" width={16} height={16}></Image>
           <div className="ml-1">컬러 {props.nearPrinter?.priceColor}원</div>

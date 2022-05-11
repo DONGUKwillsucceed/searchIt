@@ -15,7 +15,7 @@ export function University() {
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
       <HeaderSearch pageName={"대학별"} />
       <main className="mx-auto max-w-3xl ">
-        <div className="my-3 flex w-full flex-col rounded-md bg-white p-4 pb-0">
+        <div className=" flex w-full flex-col rounded-b-md bg-white p-4 pb-0">
           <SearchBarUni setSearch={setSearch} />
           <div className="my-4 w-full">
             {uniList.map((university, index) => {

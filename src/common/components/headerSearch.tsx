@@ -6,7 +6,7 @@ export default function (props?: { pageName?: string | string[] }) {
   const router = useRouter();
 
   return (
-    <div className="font-Suit sticky top-0 z-20 h-16 border-b-2 bg-white">
+    <div className="font-Suit sticky top-0 z-40 h-16 border-b-2 bg-white">
       <div className="mx-auto flex max-w-3xl items-center justify-between p-5">
         <button
           className="flex items-center hover:cursor-pointer"

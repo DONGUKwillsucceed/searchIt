@@ -42,6 +42,7 @@ export default function PrinterMap() {
               lat: searchPrinterOnMap.center.lat,
               lng: searchPrinterOnMap.center.lng,
             },
+            viewLevel: 2,
             hasAllowedGeo: true,
           });
         } else {

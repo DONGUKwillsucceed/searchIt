@@ -4,8 +4,7 @@ import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { IPrinterData } from "../../common/types/interfaces";
 import { useRouter } from "next/router";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import HeaderNearDistrict from "../../common/components/headerSearch";
-import headerSearch from "../../common/components/headerSearch";
+import ColorOptions from "../../common/components/colorOptions";
 import Menu from "../../common/components/menu";
 import { useState } from "react";
 
@@ -34,9 +33,13 @@ export default function (
                 <div className="text-xs font-semibold text-gray-400">
                   Address
                 </div>
-                <div className="flex text-xs">
-                  <div className="mr-4">Type</div>
-                  <div>{tempColorOptions(printer)}</div>
+                <div className="mt-2 flex text-xs">
+                  <div className="mr-4 flex items-center">
+                    <Image src="/file.svg" height={18} width={18}></Image>
+                    Type
+                  </div>
+                  {/* <div>{tempColorOptions(printer)}</div> */}
+                  <ColorOptions printer={printer} />
                 </div>
               </div>
             </div>
