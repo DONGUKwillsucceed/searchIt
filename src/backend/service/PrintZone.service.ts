@@ -2,6 +2,10 @@ import { NotFoundError } from "../errors";
 import { db } from "../db";
 
 class PrintZoneService {
+  async add() {
+
+  }
+
   async findManyByTagId(id: string) {
     const queryResult = await db.tag.findUnique({
       where: {
