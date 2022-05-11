@@ -1,8 +1,18 @@
 import { NotFoundError } from "../errors";
 import { db } from "../db";
+import { PrintZoneCreateDto } from "../dto/PrintZoneCreateDto";
+import { tagService } from "./Tag.service";
 
 class PrintZoneService {
-  async add() {
+  async add(pzCreateDto: PrintZoneCreateDto) {
+    // 1. 해당하는 태그 찾기
+    const { tags: tagNames } = pzCreateDto;
+    const whenTagsFetched = tagNames.map((t) =>
+      tagService.getTagOrInsertWhenNotExists(t)
+    );
+    const tags = await Promise.all(whenTagsFetched);
+    
+    // 2. relation object 형태로 만들기
 
   }
 
