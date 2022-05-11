@@ -9,6 +9,7 @@ import { INearPrinter } from "../common/types/interfaces";
 import { useEffect, useState } from "react";
 import getNearbyPrinter from "../common/api/getNearbyPrinter";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
+import Link from "next/link";
 
 export default function Index() {
   const nearbyDistance = useStoreState((state) => state.nearbyDistance);
@@ -55,15 +56,17 @@ export default function Index() {
           <div className="my-2 h-fit w-full rounded-md bg-white p-4 text-lg">
             <div className="mb-3 flex w-full items-center justify-between">
               <div className="mr mb-1 text-xl font-bold">내 주변 프린터</div>
-              <button className="flex text-xs font-bold text-gray-500">
-                <div className="mr-2">전체 보기</div>
-                <Image
-                  src={"/return.svg"}
-                  className="rotate-180"
-                  width={6}
-                  height={12}
-                ></Image>
-              </button>
+              <Link href={"/nearbyPrinters"}>
+                <button className="flex text-xs font-bold text-gray-500">
+                  <div className="mr-2">전체 보기</div>
+                  <Image
+                    src={"/return.svg"}
+                    className="rotate-180"
+                    width={6}
+                    height={12}
+                  ></Image>
+                </button>
+              </Link>
             </div>
             {hasGeoLoc ? (
               <PrinterList nearbyPrinters={nearbyPrinter} />
