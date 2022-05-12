@@ -2,7 +2,9 @@ import {
   ArrayUnique,
   IsEnum,
   IsNumber,
+  IsOptional,
   IsPhoneNumber,
+  IsString,
   IsUUID,
   Length,
   MaxLength,
@@ -25,16 +27,19 @@ export class PrintZoneCreateDto {
   longitude: number;
 
   @IsPhoneNumber("KR")
+  @IsOptional()
   phone_number?: string;
 
   @Length(10)
+  @IsString()
   area_code: string;
 
   @MaxLength(200)
   address_detail: string;
 
   @MaxLength(800)
-  description: string;
+  @IsOptional()
+  description?: string;
 
   @ArrayUnique()
   @MaxLength(40, { each: true })
