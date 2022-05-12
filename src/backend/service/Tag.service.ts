@@ -72,8 +72,8 @@ class TagService {
           },
         },
       });
-      return tag;
     }
+    return tag;
   }
 }
 export const tagService = new TagService();

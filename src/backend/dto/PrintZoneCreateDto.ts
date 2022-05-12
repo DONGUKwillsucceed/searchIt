@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsNumber,
   IsPhoneNumber,
+  IsUUID,
   Length,
   MaxLength,
   ValidateNested,
@@ -11,6 +12,9 @@ import { ReporterTypes } from "../types/ReporterTypes";
 import { ServiceCreateDto } from "./ServiceCreateDto";
 
 export class PrintZoneCreateDto {
+  @IsUUID(4)
+  id: string;
+
   @MaxLength(200)
   company: string;
 

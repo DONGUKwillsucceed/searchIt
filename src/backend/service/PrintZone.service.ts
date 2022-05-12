@@ -9,6 +9,7 @@ import { PrintZoneStatus } from "../types/PrintZoneStatus";
 import { PrintZonePriorities } from "../types/PrintZonePriorities";
 import { areaService } from "./Area.service";
 import { PrintZoneDto } from "../dto/PrintZoneDto";
+import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
 
 class PrintZoneService {
   async add(dto: PrintZoneCreateDto, hostIp: string) {
@@ -19,9 +20,9 @@ class PrintZoneService {
     );
     const tags = await Promise.all(whenTagsFetched);
 
-    // 2. relation object 형태로 만들기
+    // 2. printZone record 만들기
     const pzCreateData: Prisma.PrintZonesCreateInput = {
-      id: uuidv4(),
+      id: dto.id,
       writer_ip: hostIp,
       company: dto.company,
       latitude: dto.latitude,
@@ -40,35 +41,41 @@ class PrintZoneService {
           ? PrintZoneStatus.ReportedByMerchant
           : PrintZoneStatus.ReportedByUser,
     };
-
-    // 3. printZone 생성
-    const printZone = await db.printZones.create({
+    await db.printZones.create({
       data: pzCreateData,
     });
 
+    // 3. service record 만들기
+    const svcRelations = dto.services.map((s) => {
+      const serviceRelation: Prisma.ServicesCreateManyInput = {
+        id: s.id,
+        PaperSize_id: s.paperSizeId,
+        PaperType_id: s.paperTypeId,
+        ServiceType_id: s.serviceTypeId,
+        PrintZone_id: dto.id,
+        color_type: s.color_type,
+        price: s.price,
+        price_duplex_explicit: s.price_duplex_explicit,
+        status: ServiceProposeStatus.Proposed,
+      };
+      return serviceRelation;
+    });
+    await db.services.createMany({
+      data: svcRelations,
+    });
+
     // 4. printZone 과 Tag 를 연결
-    // Single transaction 까지는 필요 없음
-    const whenMappingCreated = tags.map(t => {
-      const pzTagCreateData: Prisma.PrintZone_TagCreateInput = {
-        PrintZones: {
-          connect: {
-            id: printZone.id,
-          },
-        },
-        Tag: {
-          connect: {
-            id: t?.id,
-          }
-        }
+    const tagMappingRelations = tags.map((t) => {
+      const pzTagCreateData: Prisma.PrintZone_TagCreateManyInput = {
+        PrintZone_id: dto.id,
+        Tag_id: t.id,
       };
       return pzTagCreateData;
-    }).map(pz_t => db.printZone_Tag.create({
-      data: pz_t,
-    }))
-    await Promise.all(whenMappingCreated);
+    });
+    db.printZone_Tag.createMany({ data: tagMappingRelations });
 
     // 5. 생성된 printZone return
-    return await this.findUnique(printZone.id);
+    return await this.findUnique(dto.id);
   }
 
   async findManyByTagId(id: string) {
@@ -117,15 +124,15 @@ class PrintZoneService {
         PrintZone_Tag: {
           include: {
             Tag: true,
-          }
+          },
         },
         AreaCode: true,
         PrintZone_Image: {
           include: {
             Images: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
     if (!r) {
       throw new NotFoundError("No PrintZone with id");
@@ -144,9 +151,9 @@ class PrintZoneService {
       banner_html: r.banner_html,
       priority: r.priority as PrintZonePriorities,
       status: r.status as PrintZoneStatus,
-      tags: r.PrintZone_Tag.map(pz_t => pz_t.Tag),
-      images: r.PrintZone_Image.map(pz_im => pz_im.Images)
-    }
+      tags: r.PrintZone_Tag.map((pz_t) => pz_t.Tag),
+      images: r.PrintZone_Image.map((pz_im) => pz_im.Images),
+    };
 
     return dto;
   }

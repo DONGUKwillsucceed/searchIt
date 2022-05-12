@@ -9,6 +9,9 @@ import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
 
 export class ServiceCreateDto {
   @IsUUID(4)
+  id: string;
+
+  @IsUUID(4)
   paperSizeId: string;
 
   @IsUUID(4)
