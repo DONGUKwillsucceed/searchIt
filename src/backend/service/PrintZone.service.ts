@@ -10,7 +10,6 @@ import { PrintZonePriorities } from "../types/PrintZonePriorities";
 import { areaService } from "./Area.service";
 import { PrintZoneDto } from "../dto/PrintZoneDto";
 import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
-import { transformDocument } from "@prisma/client/runtime";
 
 class PrintZoneService {
   async add(dto: PrintZoneCreateDto, hostIp: string) {

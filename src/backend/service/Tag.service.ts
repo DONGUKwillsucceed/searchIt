@@ -75,5 +75,20 @@ class TagService {
     }
     return tag;
   }
+
+  async searchTagName(keyword: string) {
+    const tags = await db.tag.findMany({
+      select: {
+        id: true,
+        value: true,
+      },
+      where: {
+        value: {
+          search: `${keyword}*`,
+        },
+      },
+    });
+    return tags;
+  }
 }
 export const tagService = new TagService();
