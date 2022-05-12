@@ -139,7 +139,7 @@ class PrintZoneService {
       latitude: r.latitude,
       longitude: r.longitude,
       phone_number: r.phone_number,
-      address: areaService.toKoreanAddress(r.AreaCode, r.address_detail);
+      address: areaService.toKoreanAddress(r.AreaCode, r.address_detail),
       description: r.description,
       banner_html: r.banner_html,
       priority: r.priority as PrintZonePriorities,

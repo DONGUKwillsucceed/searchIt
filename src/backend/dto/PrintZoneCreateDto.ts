@@ -1,4 +1,12 @@
-import { ArrayUnique, IsEnum, IsInt, IsNumber, IsPhoneNumber, IsString, Length, MaxLength, ValidateNested } from "class-validator";
+import {
+  ArrayUnique,
+  IsEnum,
+  IsNumber,
+  IsPhoneNumber,
+  Length,
+  MaxLength,
+  ValidateNested,
+} from "class-validator";
 import { ReporterTypes } from "../types/ReporterTypes";
 import { ServiceCreateDto } from "./ServiceCreateDto";
 
