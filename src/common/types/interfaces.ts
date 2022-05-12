@@ -111,3 +111,13 @@ export interface Areas {
   전라남도: string[];
   제주도: string[];
 }
+export interface IArea {
+  id: string;
+  ko_area_1: string;
+  ko_area_2: string;
+  ko_area_3: string;
+  en_area_1: string;
+  en_area_2: string;
+  en_area_3: string;
+  en_area_4: string;
+}
