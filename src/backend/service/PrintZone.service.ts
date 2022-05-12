@@ -2,18 +2,73 @@ import { NotFoundError } from "../errors";
 import { db } from "../db";
 import { PrintZoneCreateDto } from "../dto/PrintZoneCreateDto";
 import { tagService } from "./Tag.service";
+import { PrintZones, Prisma } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
+import { ReporterTypes } from "../types/ReporterTypes";
+import { PrintZoneStatus } from "../types/PrintZoneStatus";
+import { PrintZonePriorities } from "../types/PrintZonePriorities";
+import { areaService } from "./Area.service";
+import { PrintZoneDto } from "../dto/PrintZoneDto";
 
 class PrintZoneService {
-  async add(pzCreateDto: PrintZoneCreateDto) {
+  async add(dto: PrintZoneCreateDto, hostIp: string) {
     // 1. 해당하는 태그 찾기
-    const { tags: tagNames } = pzCreateDto;
+    const { tags: tagNames } = dto;
     const whenTagsFetched = tagNames.map((t) =>
       tagService.getTagOrInsertWhenNotExists(t)
     );
     const tags = await Promise.all(whenTagsFetched);
-    
-    // 2. relation object 형태로 만들기
 
+    // 2. relation object 형태로 만들기
+    const pzCreateData: Prisma.PrintZonesCreateInput = {
+      id: uuidv4(),
+      writer_ip: hostIp,
+      company: dto.company,
+      latitude: dto.latitude,
+      longitude: dto.longitude,
+      phone_number: dto.phone_number,
+      AreaCode: {
+        connect: {
+          id: dto.area_code,
+        },
+      },
+      address_detail: dto.address_detail,
+      description: dto.description,
+      priority: PrintZonePriorities.Basic,
+      status:
+        dto.reportedBy === ReporterTypes.Merchant
+          ? PrintZoneStatus.ReportedByMerchant
+          : PrintZoneStatus.ReportedByUser,
+    };
+
+    // 3. printZone 생성
+    const printZone = await db.printZones.create({
+      data: pzCreateData,
+    });
+
+    // 4. printZone 과 Tag 를 연결
+    // Single transaction 까지는 필요 없음
+    const whenMappingCreated = tags.map(t => {
+      const pzTagCreateData: Prisma.PrintZone_TagCreateInput = {
+        PrintZones: {
+          connect: {
+            id: printZone.id,
+          },
+        },
+        Tag: {
+          connect: {
+            id: t?.id,
+          }
+        }
+      };
+      return pzTagCreateData;
+    }).map(pz_t => db.printZone_Tag.create({
+      data: pz_t,
+    }))
+    await Promise.all(whenMappingCreated);
+
+    // 5. 생성된 printZone return
+    return await this.findUnique(printZone.id);
   }
 
   async findManyByTagId(id: string) {
@@ -54,16 +109,46 @@ class PrintZoneService {
   }
 
   async findUnique(id: string) {
-    const queryResult = await db.printZones.findUnique({
+    const r = await db.printZones.findUnique({
       where: {
         id,
       },
+      include: {
+        PrintZone_Tag: {
+          include: {
+            Tag: true,
+          }
+        },
+        AreaCode: true,
+        PrintZone_Image: {
+          include: {
+            Images: true,
+          }
+        }
+      }
     });
-    if (!queryResult) {
+    if (!r) {
       throw new NotFoundError("No PrintZone with id");
     }
-    const { writer_ip, ...rest } = queryResult;
-    return rest;
+
+    const dto: PrintZoneDto = {
+      id: r.id,
+      created_at: r.created_at,
+      updated_at: r.updated_at,
+      company: r.company,
+      latitude: r.latitude,
+      longitude: r.longitude,
+      phone_number: r.phone_number,
+      address: areaService.toKoreanAddress(r.AreaCode, r.address_detail);
+      description: r.description,
+      banner_html: r.banner_html,
+      priority: r.priority as PrintZonePriorities,
+      status: r.status as PrintZoneStatus,
+      tags: r.PrintZone_Tag.map(pz_t => pz_t.Tag),
+      images: r.PrintZone_Image.map(pz_im => pz_im.Images)
+    }
+
+    return dto;
   }
 
   async searchByTag(keyword: string) {
