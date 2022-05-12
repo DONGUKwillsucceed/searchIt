@@ -13,12 +13,13 @@ import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
 
 class PrintZoneService {
   async add(dto: PrintZoneCreateDto, hostIp: string) {
-    // 1. 해당하는 태그 찾기
+    // 1. 해당하는 태그 만들기
     const { tags: tagNames } = dto;
     const whenTagsFetched = tagNames.map((t) =>
       tagService.getTagOrInsertWhenNotExists(t)
     );
     const tags = await Promise.all(whenTagsFetched);
+
 
     // 2. printZone record 만들기
     const pzCreateData: Prisma.PrintZonesCreateInput = {
@@ -72,7 +73,7 @@ class PrintZoneService {
       };
       return pzTagCreateData;
     });
-    db.printZone_Tag.createMany({ data: tagMappingRelations });
+    await db.printZone_Tag.createMany({ data: tagMappingRelations });
 
     // 5. 생성된 printZone return
     return await this.findUnique(dto.id);
