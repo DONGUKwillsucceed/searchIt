@@ -1,6 +1,7 @@
 import { Images, Tag } from "@prisma/client";
 import { PrintZonePriorities } from "../types/PrintZonePriorities";
 import { PrintZoneStatus } from "../types/PrintZoneStatus";
+import { ServiceDto } from "./ServiceDto";
 
 export interface PrintZoneDto {
   id: string;
@@ -17,4 +18,5 @@ export interface PrintZoneDto {
   status: PrintZoneStatus;
   tags: Tag[];
   images: Images[];
+  services: ServiceDto[];
 }

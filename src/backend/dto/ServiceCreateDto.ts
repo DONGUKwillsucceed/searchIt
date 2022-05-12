@@ -5,7 +5,6 @@ import {
   IsInt,
 } from "class-validator";
 import { ColorType } from "../types/ColorType";
-import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
 
 export class ServiceCreateDto {
   @IsUUID(4)

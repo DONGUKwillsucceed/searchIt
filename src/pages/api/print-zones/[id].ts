@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { NotFoundError } from "../../../backend/errors";
-import { printDetailService } from "../../../backend/service/PrintDetail.service";
+import { printZoneService } from "../../../backend/service/PrintZone.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const id = req.query.id as string;
     try {
-      const printZones = await printDetailService.findUnique(id);
+      const printZones = await printZoneService.findUnique(id);
       res.status(200).json(printZones);
     } catch (err: any) {
       if (err instanceof NotFoundError) {

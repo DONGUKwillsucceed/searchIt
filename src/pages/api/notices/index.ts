@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { NotFoundError } from "../../backend/errors";
-import { noticeService } from "../../backend/service/Notice.service";
+import { NotFoundError } from "../../../backend/errors";
+import { noticeService } from "../../../backend/service/Notice.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {

@@ -10,6 +10,7 @@ import { PrintZonePriorities } from "../types/PrintZonePriorities";
 import { areaService } from "./Area.service";
 import { PrintZoneDto } from "../dto/PrintZoneDto";
 import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
+import { transformDocument } from "@prisma/client/runtime";
 
 class PrintZoneService {
   async add(dto: PrintZoneCreateDto, hostIp: string) {
@@ -121,17 +122,24 @@ class PrintZoneService {
         id,
       },
       include: {
+        AreaCode: true,
         PrintZone_Tag: {
           include: {
             Tag: true,
           },
         },
-        AreaCode: true,
         PrintZone_Image: {
           include: {
             Images: true,
           },
         },
+        Services: {
+          include: {
+            PaperSizes: true,
+            PaperTypes: true,
+            ServiceType: true,  
+          }
+        }
       },
     });
     if (!r) {
@@ -153,6 +161,7 @@ class PrintZoneService {
       status: r.status as PrintZoneStatus,
       tags: r.PrintZone_Tag.map((pz_t) => pz_t.Tag),
       images: r.PrintZone_Image.map((pz_im) => pz_im.Images),
+      services: r.Services,
     };
 
     return dto;
