@@ -43,7 +43,7 @@ class TagService {
     }
 
     return queryResult.Tag.map((t) => ({
-      id: t.value,
+      id: t.id,
       university: t.value,
       count: t._count.PrintZone_Tag,
     }));

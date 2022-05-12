@@ -84,11 +84,8 @@ class PrintZoneService {
       where: {
         id,
       },
-      select: {
+      include: {
         PrintZone_Tag: {
-          select: {
-            PrintZone_id: true,
-          },
           include: {
             PrintZones: {
               select: {
