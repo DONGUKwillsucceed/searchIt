@@ -9,10 +9,8 @@ import { printZoneService } from "../../../backend/service/PrintZone.service";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const pzCreateDto = plainToClass(PrintZoneCreateDto, req.body);
-    console.log(pzCreateDto);
 
     const errors = await validate(pzCreateDto);
-    console.log(errors);
     if (errors.length > 0) {
       return res.status(400).json(errors[0]);
     }
