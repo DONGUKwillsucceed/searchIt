@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import {
   ArrayUnique,
   IsEnum,
@@ -46,6 +47,7 @@ export class PrintZoneCreateDto {
   tags: string[]; // sanitize 해야 함
 
   @ValidateNested({ each: true })
+  @Type(() => ServiceCreateDto)
   services: ServiceCreateDto[];
 
   @IsEnum(ReporterTypes)
