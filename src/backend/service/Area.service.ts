@@ -33,9 +33,9 @@ class AreaService {
   toKoreanAddress(area: AreaCode, address_detail: string) {
     let address = area.ko_area_1 + ' ' + area.ko_area_2;
     if(area.ko_area_3) {
-      address += area.ko_area_3;
+      address += " " + area.ko_area_3;
     }
-    return address + address_detail;
+    return address + " " + address_detail;
   }
 }
 export const areaService = new AreaService();

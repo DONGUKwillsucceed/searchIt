@@ -2,8 +2,7 @@ import { NotFoundError } from "../errors";
 import { db } from "../db";
 import { PrintZoneCreateDto } from "../dto/PrintZoneCreateDto";
 import { tagService } from "./Tag.service";
-import { PrintZones, Prisma } from "@prisma/client";
-import { v4 as uuidv4 } from "uuid";
+import { Prisma } from "@prisma/client";
 import { ReporterTypes } from "../types/ReporterTypes";
 import { PrintZoneStatus } from "../types/PrintZoneStatus";
 import { PrintZonePriorities } from "../types/PrintZonePriorities";
@@ -19,7 +18,6 @@ class PrintZoneService {
       tagService.getTagOrInsertWhenNotExists(t)
     );
     const tags = await Promise.all(whenTagsFetched);
-
 
     // 2. printZone record 만들기
     const pzCreateData: Prisma.PrintZonesCreateInput = {
