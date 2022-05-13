@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsPositive,
   IsInt,
+  IsOptional,
 } from "class-validator";
 import { ColorType } from "../types/ColorType";
 
@@ -31,8 +32,10 @@ export class ServiceCreateDto {
 
   @IsPositive()
   @IsInt()
+  @IsOptional()
   price_duplex_explicit?: number;
 
   @IsUUID()
+  @IsOptional()
   proposed_reply?: string;
 }
