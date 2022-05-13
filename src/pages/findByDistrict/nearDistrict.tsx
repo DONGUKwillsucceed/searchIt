@@ -1,11 +1,10 @@
-import HeaderSearch from "../../common/components/headerSearch";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { Areas, IPrinterData } from "../../common/types/interfaces";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ColorOptions from "../../common/components/colorOptions";
-import * as areas from "./korea-administrative-district.json";
+import HeaderState from "../../common/components/headerState";
 import SearchBar from "../../common/components/searchBar";
 import DropDown from "../../common/components/dropDown";
 import Menu from "../../common/components/menu";
@@ -16,14 +15,18 @@ export default function (
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState(false);
   const [search, setSearch] = useState("");
-  const [searchArea1, setSearchArea1] = useState("시");
-  const [searchArea2, setSearchArea2] = useState("구");
-  const [searchArea3, setSearchArea3] = useState("동");
 
   // console.log(props.data);
   return (
     <div className="min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
+
+      <HeaderState
+        hasBack={true}
+        title={"행정구역별"}
+        stateChanger={setOpenMenu}
+        rightButtonImage={"/menu.svg"}
+      />
       <main className="mx-auto max-w-3xl">
         <div className="flex h-32 w-full items-end bg-gray-200">
           <div className="bg-primary h-3/5 w-2/3 p-3 text-white">
@@ -35,22 +38,6 @@ export default function (
         <div className="flex flex-col rounded-b-md bg-white p-4">
           <div className="my-2">
             <SearchBar setSearch={setSearch} />
-          </div>
-
-          <div className="mx-auto flex w-full">
-            <DropDown
-              name={searchArea1}
-              setName={setSearchArea1}
-              setSearchArea={setSearchArea2}
-              area={areas.area1}
-              defaultValue="시"
-            />
-            <DropDown
-              name={searchArea2}
-              setName={setSearchArea2}
-              area={areas.area2[searchArea1 as keyof Areas]}
-              defaultValue="구"
-            />
           </div>
 
           <div className="mx-auto h-fit w-full">

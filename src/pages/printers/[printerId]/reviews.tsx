@@ -3,9 +3,8 @@ import { useState } from "react";
 import { IPrinterDetail } from "../../../common/types/interfaces";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getPrinterDetail } from "../../../common/api/getPrinterDetail";
-
-import HeaderReview from "../../../common/components/headerReview";
 import Review from "../../../common/components/review";
+import Header from "../../../common/components/header";
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
@@ -27,7 +26,12 @@ export default function (
   }
   return (
     <div className="min-h-screen bg-gray-100">
-      <HeaderReview />
+      <Header
+        hasBack={true}
+        title={"리뷰"}
+        hasRightButton={true}
+        rightButtonImage={"/writeReview.svg"}
+      />
       <div className="mx-auto max-w-3xl bg-white p-4 text-xl font-semibold">
         <div className="font-Suit mb-4 w-full">{printerDetail.name}</div>
         <div>{reviews}</div>

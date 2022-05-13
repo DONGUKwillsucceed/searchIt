@@ -13,11 +13,11 @@ export default function PrinterList(props: { nearbyPrinters: INearPrinter[] }) {
   for (let i = 0; i < props.nearbyPrinters.length; i++) {
     if (i < 5) {
       Locations.push(
-        <Link href={`/printers/${props.nearbyPrinters[i].id}`}>
-          <div
-            key={props.nearbyPrinters[i].id}
-            className="flex flex-col border-b-2 py-3 last:border-b-0"
-          >
+        <Link
+          key={props.nearbyPrinters[i].id}
+          href={`/printers/${props.nearbyPrinters[i].id}`}
+        >
+          <div className="flex flex-col border-b-2 py-3 last:border-b-0">
             <div className="font-bold">{props.nearbyPrinters[i].name}</div>
             <div className="flex text-sm font-semibold text-gray-500">
               <div className="text-primary mr-2">
@@ -40,9 +40,7 @@ export default function PrinterList(props: { nearbyPrinters: INearPrinter[] }) {
   return (
     <>
       <div
-        className={` flex flex-col hover:cursor-pointer ${
-          dropDownActive ? "" : "max-h-printerList overflow-hidden  md:max-h-96"
-        }`}
+        className={` max-h-printerList flex flex-col overflow-hidden hover:cursor-pointer  md:max-h-96`}
       >
         {Locations}
       </div>

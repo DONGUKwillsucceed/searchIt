@@ -29,7 +29,7 @@ interface Store {
 }
 
 export const globalState = createStore<Store>({
-  nearbyDistance: "300000",
+  nearbyDistance: "8000",
   setNearbyDistance: action((state, payload) => {
     state.nearbyDistance = payload;
   }),

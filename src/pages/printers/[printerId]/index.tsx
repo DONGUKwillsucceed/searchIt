@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { IPrinterDetail } from "../../../common/types/interfaces";
 import Image from "next/image";
-import Header_PrinterDetail from "../../../common/components/headerPrinterDetail";
 import PrinterDetail_Introduction from "../../../common/components/printerDetail_Introduction";
 import { getPrinterDetail } from "../../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -13,6 +12,7 @@ import {
 } from "../../../common/utils/globalState";
 import Link from "next/link";
 import Review from "../../../common/components/review";
+import Header from "../../../common/components/header";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -27,7 +27,11 @@ export default function (
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header_PrinterDetail />
+      <Header
+        hasBack={true}
+        hasRightButton={true}
+        rightButtonImage={"/share.svg"}
+      />
       <main className="mx-auto max-w-3xl">
         <div className="rounded-b-md bg-white px-4">
           <div className="font-Suit mb-2 w-full text-lg font-bold">
@@ -112,10 +116,12 @@ export default function (
           <PrinterDetail_Price printerDetail={printerDetail} />
 
           <div className="my-4 flex w-full flex-row-reverse">
-            <button className=" flex items-center  rounded-md border-2 border-gray-300 px-3 py-2 text-xs ">
-              <Image src="/info.svg" width={12} height={12} />
-              <div className="ml-1 text-gray-400"> 정보 변겅 요청</div>
-            </button>
+            <Link href={`/printers/${router.query.printerId}/fixDetails`}>
+              <button className=" flex items-center  rounded-md border-2 border-gray-300 px-3 py-2 text-xs ">
+                <Image src="/info.svg" width={12} height={12} />
+                <div className="ml-1 text-gray-400"> 정보 변겅 요청</div>
+              </button>
+            </Link>
           </div>
           {/* banner */}
           <div className="bg-primary flex h-40 w-full items-center justify-center font-bold text-white">

@@ -1,8 +1,7 @@
 import Advertism from "../common/components/advertisment";
 import PrinterList from "../common/components/printerList";
 import FindPrinter from "../common/components/findPrinter";
-import HeaderLogo from "../common/components/headerLogo";
-import DistanceOptionButtons from "../common/components/distanceOptionButtons";
+import HeaderState from "../common/components/headerState";
 import Menu from "../common/components/menu";
 import Image from "next/image";
 import { INearPrinter } from "../common/types/interfaces";
@@ -42,7 +41,12 @@ export default function Index() {
   return (
     <div className="font-Suit min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
-      <HeaderLogo setOpenMenu={setOpenMenu} />
+      <HeaderState
+        isImageTitle={true}
+        imageTitleUrl={"/logo.svg"}
+        stateChanger={setOpenMenu}
+        rightButtonImage="/menu.svg"
+      />
       <main className="mx-auto max-w-3xl">
         <div className=" flex w-full flex-col items-center sm:max-w-3xl ">
           <Advertism />

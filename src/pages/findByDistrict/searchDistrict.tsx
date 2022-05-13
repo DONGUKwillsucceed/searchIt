@@ -1,12 +1,14 @@
 import DropDown from "../../common/components/dropDown";
-import HeaderSearch from "../../common/components/headerSearch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { areaService } from "../../backend/service/Area.service";
 import * as areas from "./korea-administrative-district.json";
-import { Areas } from "../../common/types/interfaces";
+import { Areas, IArea } from "../../common/types/interfaces";
+import Header from "../../common/components/header";
 
-export default function () {
+export default function (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
   const [searchArea1, setSearchArea1] = useState("");
   const [searchArea2, setSearchArea2] = useState("");
   // const [searchArea3, setSearchArea3] = useState("동");
@@ -14,7 +16,34 @@ export default function () {
   const [isArea1Open, setIsArea1Open] = useState(false);
   const [isArea2Open, setIsArea2Open] = useState(false);
   // const [isArea3Open, setIsArea3Open] = useState(false);
+  const [areasList, setAreasList] = useState<IArea[]>([]);
+  const [area1, setArea1] = useState<string[]>([]);
+  const [area2, setArea2] = useState<string[]>([]);
 
+  useEffect(() => {
+    setAreasList(props.data);
+
+    let area1Set = new Set<string>(
+      props.data.map((area: IArea) => area.ko_area_1)
+    );
+    console.log("area1Set", area1Set);
+    setArea1(Array.from(area1Set));
+    console.log("area1", area1);
+  }, []);
+
+  useEffect(() => {
+    let area2Info: string[] = [];
+    areasList.map((area: IArea) => {
+      if (area.ko_area_1 === searchArea1) {
+        area2Info.push(area.ko_area_2);
+      }
+    });
+    setArea2(area2Info);
+  }, [searchArea1]);
+
+  console.log("areasList", areasList);
+
+  // console.log("area2= ", area2);
   function closeAllDropDown() {
     setIsArea1Open(false);
     setIsArea2Open(false);
@@ -30,7 +59,7 @@ export default function () {
         }`}
         onClick={() => closeAllDropDown()}
       />
-      <HeaderSearch pageName={"행정구역별"} />
+      <Header hasBack={true} title={"행정구역별"} />
       <div className="mx-auto h-3/4 w-full max-w-3xl bg-white ">
         <div className="relative z-30 flex rounded-b-md bg-white p-4">
           <DropDown
@@ -43,14 +72,14 @@ export default function () {
             isAreaOpen={isArea1Open}
             setIsAreaOpen={setIsArea1Open}
             closeAllDropDown={closeAllDropDown}
-            area={areas.area1}
+            area={area1}
             defaultValue="시/도"
           />
           <DropDown
             name={searchArea2}
             setName={setSearchArea2}
             searchArea={searchArea2}
-            area={areas.area2[searchArea1 as keyof Areas]}
+            area={area2}
             hasBackDrop={hasBackDrop}
             setHasBackDrop={setHasBackDrop}
             isAreaOpen={isArea2Open}
@@ -71,7 +100,7 @@ export default function () {
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const data = await areaService.findAllArea2();
-//   return { props: { data } };
-// };
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await areaService.findAllArea2();
+  return { props: { data } };
+};

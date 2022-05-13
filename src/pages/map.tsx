@@ -6,9 +6,7 @@ import PrinterMarker from "../common/components/printerMarker";
 import { MyLocationButton } from "../common/components/myLocationButton";
 import MapSearchbar from "../common/components/mapSearchbar";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
-import coordsToAddress from "../common/utils/coordsToAddress";
 import HeaderMap from "../common/components/headerMap";
-import Search from "./search";
 import SearchAllDesktop from "../common/components/searchAllDesktop";
 
 export default function PrinterMap() {

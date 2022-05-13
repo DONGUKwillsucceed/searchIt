@@ -1,9 +1,9 @@
-import HeaderSearch from "../../common/components/headerSearch";
 import SearchBarUni from "../../common/components/searchBarUni";
 import Menu from "../../common/components/menu";
 import * as university from "./test.json";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Header from "../../common/components/header";
 
 export function University() {
   const uniList = university.uni;
@@ -13,7 +13,7 @@ export function University() {
   return (
     <div className="min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
-      <HeaderSearch pageName={"대학별"} />
+      <Header hasBack={true} title={"대학별"} />
       <main className="mx-auto max-w-3xl ">
         <div className=" flex w-full flex-col rounded-b-md bg-white p-4 pb-0">
           <SearchBarUni setSearch={setSearch} />

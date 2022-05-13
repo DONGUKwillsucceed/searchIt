@@ -1,10 +1,10 @@
 import { Map } from "react-kakao-maps-sdk";
 import React, { useEffect } from "react";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
-import HeaderAddPlace from "../common/components/headerAddPlace";
 import Image from "next/image";
 import { IUserLoc } from "../common/types/interfaces";
 import { MyLocationButton } from "../common/components/myLocationButton";
+import Header from "../common/components/header";
 
 export default function () {
   const [map, setMap] = React.useState<kakao.maps.Map>();
@@ -43,7 +43,7 @@ export default function () {
 
   return (
     <div>
-      <HeaderAddPlace locationAddress={locationAddress} />
+      <Header hasBack={true} title={"신규 장소 등록"}></Header>
       <div>
         <div className="absolute top-1/2 left-1/2 z-20">
           <Image src="/currentAddress.svg" width={18} height={25} />

@@ -1,4 +1,3 @@
-import HeaderSearch from "../../common/components/headerSearch";
 import Image from "next/image";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
 import { IPrinterData } from "../../common/types/interfaces";
@@ -7,6 +6,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import ColorOptions from "../../common/components/colorOptions";
 import Menu from "../../common/components/menu";
 import { useState } from "react";
+import Header from "../../common/components/header";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -17,7 +17,7 @@ export default function (
   return (
     <div className="font-Suit min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
-      <HeaderSearch pageName={router.query.uniName} />
+      <Header hasBack={true} title={router.query.uniName} />
       <div className="mx-auto max-w-3xl ">
         <div className="my-3 flex w-full flex-col rounded-md bg-white p-3">
           {props.data.map((printer: IPrinterData) => (

@@ -1,4 +1,3 @@
-import HeaderAddReview from "../../../common/components/headerAddReview";
 import { useState } from "react";
 import { IPrinterDetail } from "../../../common/types/interfaces";
 import { getPrinterDetail } from "../../../common/api/getPrinterDetail";
@@ -6,6 +5,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import AddButton from "../../../common/components/buttonPrimary";
 import Image from "next/image";
 import AddFixInfo from "../../../common/components/addFixInfo";
+import Header from "../../../common/components/header";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -18,7 +18,7 @@ export default function (
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <HeaderAddReview></HeaderAddReview>
+      <Header hasBack={true} isArrowBack={true} title="리뷰 남기기" />
       <div className="font-Suit mx-auto max-w-3xl rounded-b-md bg-white px-4 text-xl font-semibold">
         <div className="font-Suit mb-4 w-full">{printerDetail.name}</div>
         <form>
