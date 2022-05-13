@@ -1,13 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
-import { NotFoundError } from "../../../../backend/errors";
-import { printZoneService } from "../../../../backend/service/PrintZone.service";
+import { NotFoundError } from "../../../backend/errors";
+import { printZoneService } from "../../../backend/service/PrintZone.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
-    const id = req.query.tid as string;
+    const id = req.query.id as string;
     try {
-      const printZones = await printZoneService.findManyByTagId(id);
+      const printZones = await printZoneService.findUnique(id);
       res.status(200).json(printZones);
     } catch (err: any) {
       if (err instanceof NotFoundError) {

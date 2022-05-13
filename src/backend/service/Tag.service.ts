@@ -1,5 +1,7 @@
 import { db } from "../db";
 import { LogicalError, NotFoundError } from "../errors";
+import { v4 as uuidv4 } from "uuid";
+import { DEFAULT_TAG_TYPE_ID, TAG_DEFAULT_WEIGHT } from "../const";
 
 class TagService {
   async findManyByTagType(tagType: string) {
@@ -41,10 +43,52 @@ class TagService {
     }
 
     return queryResult.Tag.map((t) => ({
-      id: t.value,
+      id: t.id,
       university: t.value,
       count: t._count.PrintZone_Tag,
     }));
+  }
+
+  async getTagOrInsertWhenNotExists(tagName: string) {
+    let tag = await db.tag.findFirst({
+      where: {
+        value: tagName,
+      },
+    });
+
+    if (!tag) {
+      const id = uuidv4();
+      tag = await db.tag.create({
+        data: {
+          id,
+          created_at: new Date(),
+          weight: TAG_DEFAULT_WEIGHT,
+          value: tagName,
+          search_engine_expose: 0,
+          TagTypes: {
+            connect: {
+              id: DEFAULT_TAG_TYPE_ID,
+            },
+          },
+        },
+      });
+    }
+    return tag;
+  }
+
+  async searchTagName(keyword: string) {
+    const tags = await db.tag.findMany({
+      select: {
+        id: true,
+        value: true,
+      },
+      where: {
+        value: {
+          search: `${keyword}*`,
+        },
+      },
+    });
+    return tags;
   }
 }
 export const tagService = new TagService();

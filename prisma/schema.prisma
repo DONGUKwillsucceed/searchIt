@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
@@ -22,6 +22,7 @@ model PrintZoneReplies {
   PrintZoneReply_Image PrintZoneReply_Image[]
   PrintZoneReply_Tag   PrintZoneReply_Tag[]
   Services             Services[]
+
   @@index([PrintZone_id], map: "PrintZoneReplies_FK")
 }
 
@@ -30,6 +31,7 @@ model PrintZone_Tag {
   Tag_id       String     @db.VarChar(64)
   PrintZones   PrintZones @relation(fields: [PrintZone_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK")
   Tag          Tag        @relation(fields: [Tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "PrintZone_Tag_FK_1")
+
   @@unique([PrintZone_id, Tag_id], map: "PrintZone_Tag_UN")
   @@index([Tag_id], map: "PrintZone_Tag_FK_1")
 }
@@ -37,7 +39,7 @@ model PrintZone_Tag {
 model PrintZones {
   id               String             @id @db.VarChar(64)
   created_at       DateTime           @default(now()) @db.DateTime(0)
-  updated_at       DateTime           @db.DateTime(0)
+  updated_at       DateTime           @default(now()) @db.DateTime(0)
   writer_ip        String             @db.VarChar(100)
   company          String             @db.VarChar(200)
   latitude         Float
@@ -54,14 +56,15 @@ model PrintZones {
   PrintZone_Image  PrintZone_Image[]
   PrintZone_Tag    PrintZone_Tag[]
   Services         Services[]
+
   @@index([AreaCode_id], map: "PrintZones_FK")
-  @@fulltext([company])
   @@fulltext([address_detail])
+  @@fulltext([company])
 }
 
 model Tag {
   id                   String               @id @db.VarChar(64)
-  created_at           DateTime?            @db.DateTime(0)
+  created_at           DateTime             @default(now()) @db.DateTime(0)
   weight               Int                  @default(10)
   value                String               @db.VarChar(40)
   search_engine_expose Int                  @default(0) @db.TinyInt
@@ -69,6 +72,7 @@ model Tag {
   TagTypes             TagTypes             @relation(fields: [TagType_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Tag_FK")
   PrintZoneReply_Tag   PrintZoneReply_Tag[]
   PrintZone_Tag        PrintZone_Tag[]
+
   @@index([TagType_id], map: "Tag_FK")
   @@fulltext([value])
 }
@@ -83,6 +87,7 @@ model AreaCode {
   en_area_3  String?      @db.VarChar(100)
   en_area_4  String?      @db.VarChar(100)
   PrintZones PrintZones[]
+
   @@fulltext([ko_area_1])
   @@fulltext([ko_area_2])
   @@fulltext([ko_area_3])
