@@ -3,10 +3,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import Search from "./searchAllMobile";
 
 export default function DropDown(props: {
-  name: string;
-  setName: Dispatch<SetStateAction<string>>;
   searchArea: string;
-  setSearchArea?: Dispatch<SetStateAction<string>>;
+  setSearchArea: Dispatch<SetStateAction<string>>;
   area?: Array<string> | undefined;
   hasBackDrop: boolean;
   setHasBackDrop: Dispatch<SetStateAction<boolean>>;
@@ -20,7 +18,7 @@ export default function DropDown(props: {
       <button
         className="z-30 flex w-full items-center justify-between py-2 px-4 last:mb-6 active:bg-slate-100"
         onClick={() => {
-          props.setName(`${name}`), props.setSearchArea?.("선택");
+          props.setSearchArea(`${name}`);
           props.setIsAreaOpen(false);
           props.setHasBackDrop(false);
         }}
@@ -45,7 +43,7 @@ export default function DropDown(props: {
         }}
       >
         <div className="flex justify-between">
-          <div>{props.name ? props.name : props.defaultValue}</div>
+          <div>{props.searchArea ? props.searchArea : props.defaultValue}</div>
           <div className="mx-1">
             <Image
               src="/return.svg"

@@ -40,7 +40,7 @@ export default function Header(props: {
           <div className="font-Suit">{props.title}</div>
         )}
 
-        {props.hasRightButton ? (
+        {props.hasRightButton && props.rightButtonLink ? (
           <div className="flex">
             <Link href={props.rightButtonLink}>
               <div className="flex">

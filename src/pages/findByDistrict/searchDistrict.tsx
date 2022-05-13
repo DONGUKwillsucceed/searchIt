@@ -2,8 +2,7 @@ import DropDown from "../../common/components/dropDown";
 import { useEffect, useState } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { areaService } from "../../backend/service/Area.service";
-import * as areas from "./korea-administrative-district.json";
-import { Areas, IArea } from "../../common/types/interfaces";
+import { IArea } from "../../common/types/interfaces";
 import Header from "../../common/components/header";
 
 export default function (
@@ -16,24 +15,20 @@ export default function (
   const [isArea1Open, setIsArea1Open] = useState(false);
   const [isArea2Open, setIsArea2Open] = useState(false);
   // const [isArea3Open, setIsArea3Open] = useState(false);
-  const [areasList, setAreasList] = useState<IArea[]>([]);
   const [area1, setArea1] = useState<string[]>([]);
   const [area2, setArea2] = useState<string[]>([]);
 
   useEffect(() => {
-    setAreasList(props.data);
-
     let area1Set = new Set<string>(
       props.data.map((area: IArea) => area.ko_area_1)
     );
-    console.log("area1Set", area1Set);
     setArea1(Array.from(area1Set));
-    console.log("area1", area1);
   }, []);
 
   useEffect(() => {
-    let area2Info: string[] = [];
-    areasList.map((area: IArea) => {
+    let area2Info = new Array<string>();
+
+    props.data.map((area: IArea) => {
       if (area.ko_area_1 === searchArea1) {
         area2Info.push(area.ko_area_2);
       }
@@ -41,9 +36,24 @@ export default function (
     setArea2(area2Info);
   }, [searchArea1]);
 
-  console.log("areasList", areasList);
+  // useEffect(() => {
+  //   let area3Info = new Array<string>();
+  //   let areaId: string;
 
-  // console.log("area2= ", area2);
+  //   props.data.map((area: IArea) => {
+  //     if (area.ko_area_2 === searchArea2) {
+  //       areaId = area.id;
+  //     }
+  //   });
+
+  //   async function getArea3() {
+  //     const area3Data = await areaService.findArea3WithinArea2(areaId);
+
+  //     console.log(area3Data);
+  //   }
+  //   getArea3();
+  // }, [searchArea2]);
+
   function closeAllDropDown() {
     setIsArea1Open(false);
     setIsArea2Open(false);
@@ -63,10 +73,8 @@ export default function (
       <div className="mx-auto h-3/4 w-full max-w-3xl bg-white ">
         <div className="relative z-30 flex rounded-b-md bg-white p-4">
           <DropDown
-            name={searchArea1}
-            setName={setSearchArea1}
             searchArea={searchArea1}
-            setSearchArea={setSearchArea2}
+            setSearchArea={setSearchArea1}
             hasBackDrop={hasBackDrop}
             setHasBackDrop={setHasBackDrop}
             isAreaOpen={isArea1Open}
@@ -76,15 +84,14 @@ export default function (
             defaultValue="시/도"
           />
           <DropDown
-            name={searchArea2}
-            setName={setSearchArea2}
+            setSearchArea={setSearchArea2}
             searchArea={searchArea2}
-            area={area2}
             hasBackDrop={hasBackDrop}
             setHasBackDrop={setHasBackDrop}
             isAreaOpen={isArea2Open}
             setIsAreaOpen={setIsArea2Open}
             closeAllDropDown={closeAllDropDown}
+            area={area2}
             defaultValue="구/군/시"
           />
         </div>
