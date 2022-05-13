@@ -24,11 +24,6 @@ class AreaService {
               id: areaId,
             },
           },
-          {
-            id: {
-              endsWith: "000",
-            },
-          },
         ],
       },
     });
