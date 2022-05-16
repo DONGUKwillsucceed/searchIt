@@ -9,6 +9,11 @@ import { PrintZonePriorities } from "../types/PrintZonePriorities";
 import { areaService } from "./Area.service";
 import { PrintZoneDto } from "../dto/PrintZoneDto";
 import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
+import {
+  A4_PAPER_SIZE_ID,
+  OFFICE_PAPER_TYPE_ID,
+  PRINT_JOB_TYPE_ID as PRINT_SERVICE_TYPE_ID,
+} from "../const";
 
 class PrintZoneService {
   async add(dto: PrintZoneCreateDto, hostIp: string) {
@@ -98,19 +103,40 @@ class PrintZoneService {
                 priority: true,
                 status: true,
               },
+              include: {
+                Services: {
+                  include: {
+                    PaperSizes: true,
+                    PaperTypes: true,
+                    ServiceType: true,
+                  },
+                },
+              },
             },
           },
         },
       },
     });
-
     if (!queryResult) {
-      throw new NotFoundError("태그에 해당하는 프린트존이 존재하지 않음");
+      throw new NotFoundError("해당하는 태그가 존재하지 않음");
     }
 
-    return queryResult.PrintZone_Tag.map((r) => r.PrintZones).filter(
-      (r) => r.status === PrintZoneStatus.Registered // 등록이 완료된 PrintZone 만 가져옴
-    );
+    const printZones = queryResult.PrintZone_Tag.map((r) => r.PrintZones)
+      .filter(
+        (r) => r.status === PrintZoneStatus.Registered // 등록이 완료된 PrintZone 만 가져옴
+      )
+      .map((pz) => {
+        // A4 용지 인쇄 서비스만 남겨서 프론트엔드로 보내는 부분
+        // TODO: 서비스 노출 우선순위를 정해서 우선순위대로 표시
+        const filteredServices = pz.Services.filter(
+          (s) => s.ServiceType_id === PRINT_SERVICE_TYPE_ID
+        )
+          .filter((s) => s.PaperSize_id === A4_PAPER_SIZE_ID)
+          .filter((s) => s.PaperType_id === OFFICE_PAPER_TYPE_ID);
+
+        pz.Services = filteredServices;
+        return pz;
+      });
   }
 
   async findUnique(id: string) {
