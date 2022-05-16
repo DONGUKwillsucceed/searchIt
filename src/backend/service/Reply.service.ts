@@ -2,14 +2,46 @@ import { NotFoundError } from "../errors";
 import { db } from "../db";
 import { ReplyCreateDto } from "../dto/ReplyCreateDto";
 import { tagService } from "./Tag.service";
-import { Prisma, PrismaClient } from "@prisma/client";
+import {
+  Images,
+  PrintZoneReplies,
+  PrintZoneReply_Image,
+  PrintZoneReply_Tag,
+  Prisma,
+  Tag,
+} from "@prisma/client";
 import { ReplyStatus } from "../types/ReplyStatus";
 import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
 import { catchCollision } from "../decorator/catchCollision";
+import { PrintZoneReply } from "../dto/ReplyDto";
+
+type ReplyRelation = PrintZoneReplies & {
+  PrintZoneReply_Image: (PrintZoneReply_Image & {
+    Images: Images;
+  })[];
+  PrintZoneReply_Tag: (PrintZoneReply_Tag & {
+    Tag: Tag;
+  })[];
+};
+
+const queryInclude = {
+  PrintZoneReply_Image: {
+    include: {
+      Images: true,
+    },
+  },
+  PrintZoneReply_Tag: {
+    include: {
+      Tag: true,
+    },
+  },
+};
 
 class ReplyService {
-  @catchCollision
+  @catchCollision()
   async add(dto: ReplyCreateDto, hostIp: string) {
+    console.log(dto);
+
     // 1. printZone record 만들기
     let status = ReplyStatus.Posted;
     if (dto.services.length !== 0) {
@@ -28,7 +60,7 @@ class ReplyService {
           id: dto.printZoneId,
         },
       },
-      status,
+      status
     };
 
     await db.printZoneReplies.create({
@@ -88,30 +120,51 @@ class ReplyService {
     await db.printZoneReply_Image.createMany({
       data: imgMappingCreateManyData,
     });
+
+    // 5. 제작된 원본 return 하기
+    return await this.findUnique(dto.id);
   }
 
   async findUnique(id: string) {
-    const reply = await db.printZoneReplies.findUnique({
+    const relation = await db.printZoneReplies.findUnique({
       where: {
         id,
       },
+      include: queryInclude,
     });
-    if (!reply) {
+    if (!relation) {
       throw new NotFoundError("No reply with key: " + id);
     }
-    return reply;
+    return this.toDto(relation);
   }
 
   async findManyByPrintZoneId(pzId: string, skip?: number, take?: number) {
-    const replies = await db.printZoneReplies.findMany({
+    const relations = await db.printZoneReplies.findMany({
       where: {
         id: pzId,
       },
+      include: queryInclude,
       skip,
       take,
     });
 
-    return replies;
+    return relations.map((rel) => this.toDto(rel));
+  }
+
+  private toDto(relation: ReplyRelation) {
+    const dto: PrintZoneReply = {
+      id: relation.id,
+      created_at: relation.created_at,
+      writer_emoji: relation.writer_emoji,
+      writer_name: relation.writer_name,
+      comment: relation.comment,
+      PrintZone_id: relation.PrintZone_id,
+      status: relation.status as ReplyStatus,
+      reportCnt: relation.reportCnt,
+      images: relation.PrintZoneReply_Image.map((pz_img) => pz_img.Images),
+      tags: relation.PrintZoneReply_Tag.map((t) => t.Tag),
+    };
+    return dto;
   }
 }
 
