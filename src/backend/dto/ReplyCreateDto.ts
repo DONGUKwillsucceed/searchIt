@@ -45,4 +45,7 @@ export class ReplyCreateDto {
   @ValidateNested({ each: true })
   @Type(() => ServiceCreateDto)
   services: ServiceCreateDto[];
+
+  @IsUUID(4, { each: true })
+  images: string[];
 }
