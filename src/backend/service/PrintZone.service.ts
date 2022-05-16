@@ -132,9 +132,9 @@ class PrintZoneService {
           include: {
             PaperSizes: true,
             PaperTypes: true,
-            ServiceType: true,  
-          }
-        }
+            ServiceType: true,
+          },
+        },
       },
     });
     if (!r) {

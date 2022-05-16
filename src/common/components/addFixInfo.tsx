@@ -28,7 +28,7 @@ export default function AddFixInfo(props: {
             remove={removeItem}
             priceMono={props?.priceMono}
             priceColor={props?.priceColor}
-          ></FixPrinterInfo>,
+          />,
         ]);
       }}
     >

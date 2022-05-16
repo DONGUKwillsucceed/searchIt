@@ -57,59 +57,44 @@ export interface IPrinterDetail {
 }
 
 export interface INearPrinter {
-  id: string;
-  name: string;
-  address: string;
+  AreaCode_id: string;
+  address_detail: string;
+  banner_html: null;
+  company: string;
+  created_at: string;
   description: string;
-  agentVersion: string;
-  lastConnectedAt: string;
-  imageURL: string;
-  status: string;
-  workHour: string;
-  priceMono: number;
-  priceColor: number;
-  coordinates: {
-    latitude: number;
-    longitude: number;
-  };
-  maintainterID: string;
-  printerId: string;
   distance: number;
+  id: string;
+  latitude: number;
+  longitude: number;
+  phone_number: string;
+  priority: string;
+  status: string;
+  updated_at: string;
+  writer_ip: string;
 }
 
 export interface IPrinterData {
-  c: boolean;
+  AreaCode_id: string;
+  address_detail: string;
+  company: string;
+  created_at: string;
   id: string;
-  lat: number;
-  lon: number;
-  m: boolean;
-  name: string;
-  stat: string;
+  latitude: number;
+  longitude: number;
+  priority: string;
+  status: string;
+  updated_at: string;
 }
 
 export interface IMousePosition {
   lat: number;
   lng: number;
 }
-
-export interface Areas {
-  서울시: string[];
-  부산시: string[];
-  인천시: string[];
-  대구시: string[];
-  광주시: string[];
-  대전시: string[];
-  울산시: string[];
-  세종시: string[];
-  경기도: string[];
-  강원도: string[];
-  충청북도: string[];
-  충청남도: string[];
-  경상북도: string[];
-  경상남도: string[];
-  전라북도: string[];
-  전라남도: string[];
-  제주도: string[];
+export interface UniList {
+  count: number;
+  id: string;
+  university: string;
 }
 export interface IArea {
   id: string;

@@ -4,19 +4,22 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { areaService } from "../../backend/service/Area.service";
 import { IArea } from "../../common/types/interfaces";
 import Header from "../../common/components/header";
+import { db } from "../../backend/db";
+import axios, { Axios } from "axios";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const [searchArea1, setSearchArea1] = useState("");
   const [searchArea2, setSearchArea2] = useState("");
-  // const [searchArea3, setSearchArea3] = useState("동");
+  const [searchArea3, setSearchArea3] = useState("");
   const [hasBackDrop, setHasBackDrop] = useState(false);
   const [isArea1Open, setIsArea1Open] = useState(false);
   const [isArea2Open, setIsArea2Open] = useState(false);
-  // const [isArea3Open, setIsArea3Open] = useState(false);
+  const [isArea3Open, setIsArea3Open] = useState(false);
   const [area1, setArea1] = useState<string[]>([]);
   const [area2, setArea2] = useState<string[]>([]);
+  const [area3, setArea3] = useState<string[]>([]);
 
   useEffect(() => {
     let area1Set = new Set<string>(
@@ -36,28 +39,39 @@ export default function (
     setArea2(area2Info);
   }, [searchArea1]);
 
-  // useEffect(() => {
-  //   let area3Info = new Array<string>();
-  //   let areaId: string;
+  useEffect(() => {
+    let areaId;
+    props.data.map((area: IArea) => {
+      if (area.ko_area_1 == searchArea1 && area.ko_area_2 === searchArea2) {
+        areaId = area.id;
+        console.log(areaId);
+        getArea3(areaId.toString());
+      }
+    });
 
-  //   props.data.map((area: IArea) => {
-  //     if (area.ko_area_2 === searchArea2) {
-  //       areaId = area.id;
-  //     }
-  //   });
-
-  //   async function getArea3() {
-  //     const area3Data = await areaService.findArea3WithinArea2(areaId);
-
-  //     console.log(area3Data);
-  //   }
-  //   getArea3();
-  // }, [searchArea2]);
+    function getArea3(areaId: string) {
+      axios.get(`/api/areas?area2id=${areaId}`).then((res) => {
+        let area3Info = new Array<string>();
+        res.data.map((area: IArea) => {
+          area3Info.push(area.ko_area_3);
+        });
+        setArea3(area3Info);
+      });
+    }
+    axios
+      .get(`/api/print-zones/${areaId}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [searchArea2]);
 
   function closeAllDropDown() {
     setIsArea1Open(false);
     setIsArea2Open(false);
-    // setIsArea3Open(false);
+    setIsArea3Open(false);
     setHasBackDrop(false);
   }
 
@@ -93,6 +107,17 @@ export default function (
             closeAllDropDown={closeAllDropDown}
             area={area2}
             defaultValue="구/군/시"
+          />
+          <DropDown
+            setSearchArea={setSearchArea3}
+            searchArea={searchArea3}
+            hasBackDrop={hasBackDrop}
+            setHasBackDrop={setHasBackDrop}
+            isAreaOpen={isArea3Open}
+            setIsAreaOpen={setIsArea3Open}
+            closeAllDropDown={closeAllDropDown}
+            area={area3}
+            defaultValue="동/면/읍"
           />
         </div>
         {!searchArea2 || searchArea2 === "선택" ? (

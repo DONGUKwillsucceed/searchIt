@@ -10,6 +10,7 @@ import {
   useStoreActions,
   useStoreState,
 } from "../../../common/utils/globalState";
+import { printZoneService } from "../../../backend/service/PrintZone.service";
 import Link from "next/link";
 import Review from "../../../common/components/review";
 import Header from "../../../common/components/header";
@@ -185,7 +186,10 @@ export default function (
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await getPrinterDetail(context.query.printerId);
-
+  // const data = await getPrinterDetail(context.query.printerId);
+  let data;
+  if (typeof context.query.printerId === "string") {
+    data = await printZoneService.findUnique(context.query.printerId);
+  }
   return { props: { data } };
 };

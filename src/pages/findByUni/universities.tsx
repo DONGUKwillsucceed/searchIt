@@ -1,14 +1,20 @@
 import SearchBarUni from "../../common/components/searchBarUni";
 import Menu from "../../common/components/menu";
-import * as university from "./test.json";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { UniList } from "../../common/types/interfaces";
+import Link from "next/link";
 import Header from "../../common/components/header";
+import { tagService } from "../../backend/service/Tag.service";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
-export function University() {
-  const uniList = university.uni;
+export default function University(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
+  const [uniList, setUniList] = useState([]);
+
   const [openMenu, setOpenMenu] = useState(false);
   const [search, setSearch] = useState("");
+  console.log("props: ", props);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -18,16 +24,17 @@ export function University() {
         <div className=" flex w-full flex-col rounded-b-md bg-white p-4 pb-0">
           <SearchBarUni setSearch={setSearch} />
           <div className="my-4 w-full">
-            {uniList.map((university, index) => {
+            {props.univWithCount.map((uni: UniList) => {
               if (
-                university.name.toLowerCase().indexOf(search) > -1 ||
-                university.name.indexOf(search) > -1
+                uni.university.toLowerCase().indexOf(search) > -1 ||
+                uni.university.indexOf(search) > -1
               ) {
                 return (
-                  <div key={index} className="mt-4 first:mt-0">
+                  <div key={uni.id} className="mt-4 first:mt-0">
                     <UniButtons
-                      district={university.district}
-                      name={university.name}
+                      name={uni.university}
+                      count={uni.count}
+                      id={uni.id}
                     />
                   </div>
                 );
@@ -40,17 +47,26 @@ export function University() {
   );
 }
 
-export function UniButtons(props: { district: string; name: string }) {
-  const router = useRouter();
+export function UniButtons(props: { name: string; count: number; id: string }) {
   return (
-    <button
-      className="font-Suit flex h-10 w-full items-center justify-between text-lg"
-      onClick={() => router.push(`/findByUni/${props.name}`)}
+    <Link
+      href={{
+        pathname: `/findByUni/${props.name}`,
+        query: { id: `${props.id}` },
+      }}
     >
-      <div>{`${props.name} ${props.district}캠퍼스`}</div>
-      <div>Amount</div>
-    </button>
+      <button className="font-Suit flex h-10 w-full items-center justify-between text-lg">
+        <div>{`${props.name}`}</div>
+        <div className="text-gray-500">{props.count}</div>
+      </button>
+    </Link>
   );
 }
 
-export default University;
+export const getServerSideProps: GetServerSideProps = async () => {
+  const univWithCount = await tagService.findManyByTagTypeWithPrintZoneCount(
+    "university"
+  );
+
+  return { props: { univWithCount } };
+};

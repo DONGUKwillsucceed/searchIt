@@ -1,30 +1,30 @@
 import Header from "../common/components/header";
-import getNearbyPrinter from "../common/api/getNearbyPrinter";
 import { useEffect, useState } from "react";
 import { INearPrinter } from "../common/types/interfaces";
 import Image from "next/image";
-import { useStoreState, useStoreActions } from "../common/utils/globalState";
+import { useStoreState } from "../common/utils/globalState";
 import PrinterList from "../common/components/printerList";
+import axios from "axios";
 
 export default function () {
   const nearbyDistance = useStoreState((state) => state.nearbyDistance);
-  const setNearbyDistance = useStoreActions(
-    (action) => action.setNearbyDistance
-  );
   const [nearbyPrinter, setNearbyPrinter] = useState<INearPrinter[]>([]);
   const [hasGeoLoc, setHasGeoLoc] = useState<boolean>(true);
-  const [openMenu, setOpenMenu] = useState(false);
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          getNearbyPrinter(
-            position.coords.latitude,
-            position.coords.longitude,
-            nearbyDistance
-          ).then((res) => {
-            setNearbyPrinter(res);
-          });
+          axios
+            .get(
+              `/api/print-zones/nearest?lat=${position.coords.latitude}&lon=${position.coords.longitude}&km=${nearbyDistance}`
+            )
+            .then((res) => {
+              console.log(res.data);
+              setNearbyPrinter(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         },
         () => {
           setHasGeoLoc(false);
@@ -33,7 +33,7 @@ export default function () {
     }
   }, [nearbyDistance]);
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       <Header
         hasBack={true}
         isArrowBack={true}
@@ -42,7 +42,7 @@ export default function () {
         title={"내 주변 프린터"}
         rightButtonImage={"/map_black.svg"}
       ></Header>
-      <div className="px-4">
+      <div className="mx-auto max-w-3xl rounded-b-md bg-white px-4">
         {hasGeoLoc ? (
           <PrinterList nearbyPrinters={nearbyPrinter} />
         ) : (

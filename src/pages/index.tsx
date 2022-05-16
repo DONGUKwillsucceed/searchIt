@@ -4,17 +4,14 @@ import FindPrinter from "../common/components/findPrinter";
 import HeaderState from "../common/components/headerState";
 import Menu from "../common/components/menu";
 import Image from "next/image";
+import axios from "axios";
 import { INearPrinter } from "../common/types/interfaces";
 import { useEffect, useState } from "react";
-import getNearbyPrinter from "../common/api/getNearbyPrinter";
-import { useStoreActions, useStoreState } from "../common/utils/globalState";
+import { useStoreState } from "../common/utils/globalState";
 import Link from "next/link";
 
 export default function Index() {
   const nearbyDistance = useStoreState((state) => state.nearbyDistance);
-  const setNearbyDistance = useStoreActions(
-    (action) => action.setNearbyDistance
-  );
   const [nearbyPrinter, setNearbyPrinter] = useState<INearPrinter[]>([]);
   const [hasGeoLoc, setHasGeoLoc] = useState<boolean>(true);
   const [openMenu, setOpenMenu] = useState(false);
@@ -23,13 +20,17 @@ export default function Index() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          getNearbyPrinter(
-            position.coords.latitude,
-            position.coords.longitude,
-            nearbyDistance
-          ).then((res) => {
-            setNearbyPrinter(res);
-          });
+          axios
+            .get(
+              `/api/print-zones/nearest?lat=${position.coords.latitude}&lon=${position.coords.longitude}&km=${nearbyDistance}`
+            )
+            .then((res) => {
+              console.log(res.data);
+              setNearbyPrinter(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         },
         () => {
           setHasGeoLoc(false);
