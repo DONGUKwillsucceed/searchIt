@@ -108,7 +108,9 @@ class PrintZoneService {
       throw new NotFoundError("태그에 해당하는 프린트존이 존재하지 않음");
     }
 
-    return queryResult.PrintZone_Tag.map((r) => r.PrintZones).map((pz) => pz);
+    return queryResult.PrintZone_Tag.map((r) => r.PrintZones).filter(
+      (r) => r.status === PrintZoneStatus.Registered // 등록이 완료된 PrintZone 만 가져옴
+    );
   }
 
   async findUnique(id: string) {
@@ -132,9 +134,9 @@ class PrintZoneService {
           include: {
             PaperSizes: true,
             PaperTypes: true,
-            ServiceType: true,  
-          }
-        }
+            ServiceType: true,
+          },
+        },
       },
     });
     if (!r) {
@@ -182,9 +184,9 @@ class PrintZoneService {
         })
       )
     );
-    return pzTagQueryWithPrintZone.flatMap((pzts) =>
-      pzts.map((pzt) => pzt.PrintZones)
-    );
+    return pzTagQueryWithPrintZone
+      .flatMap((pzts) => pzts.map((pzt) => pzt.PrintZones))
+      .filter((pz) => pz.status === PrintZoneStatus.Registered); // 등록된 PrintZone 만 표시
   }
 
   async searchByCompany(keyword: string) {
@@ -193,6 +195,7 @@ class PrintZoneService {
         company: {
           search: `${keyword}*`,
         },
+        status: PrintZoneStatus.Registered,
       },
     });
     return queryResult;
@@ -211,6 +214,7 @@ class PrintZoneService {
               search: `${keyword}*`,
             },
           },
+          status: PrintZoneStatus.Registered,
         },
       })
     );
@@ -225,6 +229,7 @@ class PrintZoneService {
               search: `${keyword}*`,
             },
           },
+          status: PrintZoneStatus.Registered,
         },
       })
     );
@@ -234,6 +239,7 @@ class PrintZoneService {
           address_detail: {
             search: `${keyword}*`,
           },
+          status: PrintZoneStatus.Registered,
         },
       })
     );
