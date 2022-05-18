@@ -8,8 +8,11 @@ class ServiceService {
         PrintZone_id: id,
         status: ServiceProposeStatus.Applied,
       },
+      select: {
+        ServiceType: true,
+      },
     });
-    return queryResult;
+    return queryResult.map((q) => q.ServiceType);
   }
 }
 
