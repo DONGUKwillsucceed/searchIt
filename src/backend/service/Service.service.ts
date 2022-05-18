@@ -1,8 +1,14 @@
 import { db } from "../db";
+import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
 
 class ServiceService {
-  async findMany() {
-    const queryResult = await db.services.findMany();
+  async findMany(id: string) {
+    const queryResult = await db.services.findMany({
+      where: {
+        PrintZone_id: id,
+        status: ServiceProposeStatus.Applied,
+      },
+    });
     return queryResult;
   }
 }

@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { NotFoundError } from "../../../backend/errors";
-import { serviceService } from "../../../backend/service/Service.service";
+import { NotFoundError } from "../../../../backend/errors";
+import { serviceService } from "../../../../backend/service/Service.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
-      const services = await serviceService.findMany();
+      const id = req.query.id as string;
+      const services = await serviceService.findMany(id);
       res.status(200).json(services);
     } catch (err: any) {
       if (err instanceof NotFoundError) {
