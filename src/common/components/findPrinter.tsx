@@ -10,7 +10,7 @@ export default function FindPrinter() {
   return (
     <div className="font-Suit">
       <div className="mb-3 w-full">
-        <Link href={"/"}>
+        <Link href={"/map"}>
           <button className="bg-primary flex h-12 w-full cursor-pointer items-center justify-between rounded-md px-4 py-2 text-white active:bg-red-500">
             <div className="flex space-x-2">
               <Image src="/compass.svg" width={16} height={16}></Image>

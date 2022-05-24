@@ -33,7 +33,7 @@ export default function Index() {
           <div className="my-2 h-fit w-full rounded-md bg-white p-4 text-lg">
             <div className="mb-3 flex w-full items-center justify-between">
               <div className="mr mb-1 text-xl font-bold">내 주변 프린터</div>
-              <Link href={"/nearbyPrinters"}>
+              <Link href={"/"}>
                 <button className="flex text-xs font-bold text-gray-500">
                   <div className="mr-2">전체 보기</div>
                   <Image

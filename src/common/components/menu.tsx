@@ -42,7 +42,7 @@ export default function Menu(props: {
             <button
               className="mb-6 w-fit text-left"
               onClick={() => {
-                router.push("/"), enableScroll();
+                router.push("/map"), enableScroll();
               }}
             >
               지도 보기

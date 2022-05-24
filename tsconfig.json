@@ -15,6 +15,16 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "types": [
+    "kakao.maps.d.ts"
+  ],
+  "include": [
+    "src",
+    "src/common/components",
+    "src/types/custom.d.ts",
+    "src/pages",
+    "src/common/api",
+    "src/common/utils",
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,3 @@
-import HeaderSearch from "./headerSearch";
 import SearchBar from "./searchBar";
 import Menu from "./menu";
 import { useState } from "react";
