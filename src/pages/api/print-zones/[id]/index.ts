@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { NotFoundError } from "../../../backend/errors";
-import { printZoneService } from "../../../backend/service/PrintZone.service";
+import { NotFoundError } from "../../../../backend/errors";
+import { printZoneService } from "../../../../backend/service/PrintZone.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {

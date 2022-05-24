@@ -30,19 +30,13 @@ export class ReplyCreateDto {
   @IsUUID(4)
   printZoneId: string;
 
-  @IsEnum(ReplyStatus)
-  status: number;
-
-  @IsNumber()
-  reportCount: number;
-
-  @IsUUID(4, { each: true })
-  imageIds: string[];
-
   @MaxLength(40, { each: true })
   tags: string[];
 
   @ValidateNested({ each: true })
   @Type(() => ServiceCreateDto)
   services: ServiceCreateDto[];
+
+  @IsUUID(4, { each: true })
+  images: string[];
 }

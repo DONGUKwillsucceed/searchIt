@@ -7,3 +7,4 @@ export class SendableError extends Error {
 
 export class LogicalError extends SendableError {}
 export class NotFoundError extends SendableError {}
+export class CollisionError extends SendableError {}
