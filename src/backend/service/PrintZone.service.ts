@@ -279,5 +279,63 @@ class PrintZoneService {
     queries.push(this.searchByAddress(keyword));
     return (await Promise.all(queries)).flatMap((pz) => pz);
   }
+
+  async pzInfomationOnMap() {
+    try {
+      const queryResult = await db.printZones.findMany({
+        where: {
+          status: PrintZoneStatus.Registered,
+        },
+        select: {
+          id: true,
+          latitude: true,
+          longitude: true,
+          Services: {
+            select: {
+              ServiceType: {
+                select: {
+                  type: true,
+                  type_en: true,
+                },
+              },
+              color_type: true,
+            },
+          },
+        },
+      });
+      return queryResult.map(({ id, latitude, longitude, Services }) => {
+        let bcnt = 0;
+        let ccnt = 0;
+        let color;
+        const color_type = Services.map(({ color_type }) => {
+          return color_type;
+        });
+        for (const c of color_type) {
+          if (c === "mono") {
+            bcnt++;
+          }
+          if (c === "color") {
+            ccnt++;
+          }
+        }
+        if (bcnt != 0 && ccnt == 0) {
+          color = { mono: true, color: false };
+        } else if (bcnt == 0 && ccnt != 0) {
+          color = { color: true, mono: false };
+        } else if (bcnt != 0 && ccnt != 0) {
+          color = { color: true, mono: true };
+        } else {
+          color = { color: false, mono: false };
+        }
+        const service = Services.map(({ ServiceType }) => {
+          const { type, type_en } = ServiceType;
+          return { type, type_en };
+        })[0];
+        return { id, latitude, longitude, color, service };
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 export const printZoneService = new PrintZoneService();
