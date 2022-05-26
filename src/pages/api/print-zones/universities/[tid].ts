@@ -5,8 +5,8 @@ import { printZoneService } from "../../../../backend/service/PrintZone.service"
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const id = req.query.tid as string;
-    if(!id) {
-      return res.status(400).send('적절한 tid(Tagid) 가 포함되지 않았습니다.');
+    if (!id) {
+      return res.status(400).send("적절한 tid(Tagid) 가 포함되지 않았습니다.");
     }
 
     try {

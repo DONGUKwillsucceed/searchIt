@@ -25,35 +25,65 @@ export interface IDistanceOptions {
 
 export interface IPrinterDetail {
   address: string;
-  agentVersion?: string;
-  coordinate?: {
-    latitude?: number;
-    longitude?: number;
-  };
-
-  description?: string;
+  banner_html: string;
+  company: string;
+  created_at: string;
+  description: string;
   id: string;
-  imageUrl?: string;
-  lastConnectedAt?: string;
-  maintainer?: {
-    gmail?: string;
-    id?: string;
-    name?: string;
-    phoneNumber?: string;
+  images: string[];
+  latitude: number;
+  longitude: number;
+  phone_number: string;
+  priority: string;
+  services: Iservices[];
+  status: string;
+  tags: Array<{
+    TagType_id: string;
+    created_at: string;
+    id: string;
+    search_engine_expose: number;
+    value: string;
+    weight: number;
+  }>;
+  updated_at: string;
+}
+export interface Iservices {
+  PaperSize_id: string;
+  PaperSizes: {
+    created_at: string;
+    description: string;
+    id: string;
+    name: string;
+    name_en: string;
+    updated_at: string;
   };
-  name: string;
-  priceColor?: number;
-  priceMono?: number;
-  printer: {
-    duplex?: boolean;
-    id?: string;
-    name?: string;
-    ppm?: number;
-    imageUrl?: string;
-    resolution?: string;
+  paperType_id: string;
+  paperTypes: {
+    created_at: string;
+    description: string;
+    id: string;
+    paper: string;
+    paper_en: string;
+    updated_at: string;
   };
-  status?: string;
-  workHour?: string;
+  PrintZone_id: string;
+  ServiceType: {
+    created_at: string;
+    description: string;
+    id: string;
+    type: string;
+    type_en: string;
+    updated_at: string;
+  };
+  ServiceType_id: string;
+  color_type: string;
+  created_at: string;
+  id: string;
+  price: number;
+  price_duplex_explicit: number;
+  proposed_reply: string;
+  status: string;
+  updated_at: string;
 }
 
 export interface INearPrinter {

@@ -6,6 +6,7 @@ import { IArea } from "../../common/types/interfaces";
 import Header from "../../common/components/header";
 import { db } from "../../backend/db";
 import axios, { Axios } from "axios";
+import AddNewPlace from "../../common/components/addNewPlace";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -30,6 +31,7 @@ export default function (
 
   useEffect(() => {
     let area2Info = new Array<string>();
+    setSearchArea2("");
 
     props.data.map((area: IArea) => {
       if (area.ko_area_1 === searchArea1) {
@@ -41,6 +43,7 @@ export default function (
 
   useEffect(() => {
     let areaId;
+    setSearchArea3("");
     props.data.map((area: IArea) => {
       if (area.ko_area_1 == searchArea1 && area.ko_area_2 === searchArea2) {
         areaId = area.id;
@@ -84,7 +87,7 @@ export default function (
         onClick={() => closeAllDropDown()}
       />
       <Header hasBack={true} title={"행정구역별"} />
-      <div className="mx-auto h-3/4 w-full max-w-3xl bg-white ">
+      <div className="mx-auto min-h-[calc(100vh-60px)] w-full max-w-3xl bg-white ">
         <div className="relative z-30 flex rounded-b-md bg-white p-4">
           <DropDown
             searchArea={searchArea1}
@@ -120,13 +123,18 @@ export default function (
             defaultValue="동/면/읍"
           />
         </div>
-        {!searchArea2 || searchArea2 === "선택" ? (
-          <div className="flex w-full flex-col items-center py-52">
-            <div className=" mb-2 font-bold">해정구역을 선택해주세요</div>
-            <div className="font-medium">내 주변 프린터를 보려면</div>
-            <div className="font-medium">상단 구/군/시까지 선택 해야합니다</div>
-          </div>
-        ) : null}
+        <div className="flex min-h-[calc(100vh-136px)] flex-col justify-between p-4">
+          {!searchArea2 || searchArea2 === "선택" ? (
+            <div className="my-auto flex w-full flex-col items-center">
+              <div className=" mb-2 font-bold">해정구역을 선택해주세요</div>
+              <div className="font-medium">내 주변 프린터를 보려면</div>
+              <div className="font-medium">
+                상단 구/군/시까지 선택 해야합니다
+              </div>
+            </div>
+          ) : null}
+          <AddNewPlace />
+        </div>
       </div>
     </div>
   );

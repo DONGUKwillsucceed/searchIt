@@ -23,7 +23,7 @@ module.exports = {
         'slide-in': 'slide-in 0.5s ease-in-out',
       },
       colors:{
-        'primary': '#68c9cb',
+        'primary': '#2784FF',
         'primary-light':'#F0FFFF',
         'Location-text' :'#595959',
         'secondary': '#FAFAFA',

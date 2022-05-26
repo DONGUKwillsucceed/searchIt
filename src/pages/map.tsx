@@ -8,6 +8,7 @@ import MapSearchbar from "../common/components/mapSearchbar";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
 import HeaderMap from "../common/components/headerMap";
 import SearchAllDesktop from "../common/components/searchAllDesktop";
+import Search from "./search";
 
 export default function PrinterMap() {
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
@@ -17,9 +18,9 @@ export default function PrinterMap() {
     },
   });
   const [map, setMap] = React.useState<kakao.maps.Map>();
-
   const mapView = useStoreState((store) => store.mapView);
   const setMapView = useStoreActions((actions) => actions.setMapView);
+  const [isSearching, setIsSearching] = React.useState(false);
 
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
 
@@ -60,14 +61,19 @@ export default function PrinterMap() {
 
   return (
     <main>
-      <div className="hidden xl:block">
-        <HeaderMap />
-        <div className="absolute right-0 h-screen w-1/4">
-          <SearchAllDesktop />
-        </div>
-      </div>
+      {isSearching === true && <Search />}
       <div className="mx-auto">
-        <MapSearchbar />
+        <div>
+          <HeaderMap
+            title="프린터 찾기"
+            isSearching={isSearching}
+            setIsSearching={setIsSearching}
+          />
+          <div className="absolute right-0 hidden h-screen w-1/4 xl:block">
+            <SearchAllDesktop />
+          </div>
+        </div>
+        <MapSearchbar setIsSearching={setIsSearching} />
         <MyLocationButton
           userLoc={userLoc}
           mapView={mapView}

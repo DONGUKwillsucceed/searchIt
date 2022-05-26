@@ -2,7 +2,6 @@ import { useState } from "react";
 import { IPrinterDetail } from "../../../common/types/interfaces";
 import Image from "next/image";
 import PrinterDetail_Introduction from "../../../common/components/printerDetail_Introduction";
-import { getPrinterDetail } from "../../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import PrinterDetail_Price from "../../../common/components/printerDetail_Price";
 import { useRouter } from "next/router";
@@ -14,6 +13,8 @@ import { printZoneService } from "../../../backend/service/PrintZone.service";
 import Link from "next/link";
 import Review from "../../../common/components/review";
 import Header from "../../../common/components/header";
+import Tags from "../../../common/components/tags";
+import { replyService } from "../../../backend/service/Reply.service";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -25,6 +26,27 @@ export default function (
     (actions) => actions.setSearchPrinterOnMap
   );
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
+  const [hasMono, setHasMono] = useState<boolean>(false);
+  const [hasColor, setHasColor] = useState<boolean>(false);
+  const [showPaperSizeId, setShowPaperSizeId] = useState<string>(
+    "9c0394a8-f1a6-469b-be12-324f10e63e1e"
+  );
+  const tags = printerDetail.tags.map((tag) => (
+    <Tags key={tag.id} tagName={tag.value} />
+  ));
+
+  useState(() => {
+    printerDetail.services.forEach((service) => {
+      if (service.color_type === "mono") {
+        setHasMono(true);
+      } else if (service.color_type === "color") {
+        setHasColor(true);
+      }
+    });
+  });
+
+  // console.log(printerDetail);
+  console.log(props);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -33,34 +55,31 @@ export default function (
         hasRightButton={true}
         rightButtonImage={"/share.svg"}
       />
+
       <main className="mx-auto max-w-3xl">
         <div className="rounded-b-md bg-white px-4">
           <div className="font-Suit mb-2 w-full text-lg font-bold">
-            {printerDetail?.name}
+            {printerDetail.company}
           </div>
           <div className="flex w-full">
-            <Image
-              src={props.color === 0 ? "/mono.svg" : "/bothColor.svg"}
-              width={16}
-              height={16}
-            ></Image>
+            <ColorType hasColor={hasColor} hasMono={hasMono} />
             <div className="font-Suit pl-2 text-sm text-gray-500">
               {props.color === 0 ? "흑백" : "흑백 컬러"}
               {" 출력 가능"}
             </div>
           </div>
+          <div className="mt-2 flex w-full space-x-2">{tags}</div>
           <div className="mx-auto w-full rounded-md">
             <div className="bg-secondary flex justify-center">
-              <Image
+              {/* <Image
                 alt="printer"
                 src={printerDetail?.imageUrl}
                 width={292}
                 height={194}
                 className="rounded-md "
-              ></Image>
+              ></Image> */}
             </div>
           </div>
-
           {/*Address / PhoneNum */}
           <div className="font-Suit my-4 w-full">
             <div
@@ -69,8 +88,8 @@ export default function (
                 setSearchPrinterOnMap({
                   ...searchPrinterOnMap,
                   center: {
-                    lat: printerDetail?.coordinate?.latitude,
-                    lng: printerDetail?.coordinate?.longitude,
+                    lat: printerDetail.latitude,
+                    lng: printerDetail.longitude,
                   },
                 }),
                   router.push("/map");
@@ -86,13 +105,13 @@ export default function (
               <div className="flex w-9/12 items-center justify-between">
                 <div className="mr-2 w-8 text-xs">주소</div>
                 <div className="scrollbar-none w-full overflow-scroll whitespace-nowrap text-sm">
-                  {printerDetail?.address}
+                  {printerDetail.address}
                 </div>
               </div>
               <button
                 className="ml-2 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-500 active:bg-gray-300"
                 onClick={() =>
-                  navigator.clipboard.writeText(printerDetail?.address)
+                  navigator.clipboard.writeText(printerDetail.address)
                 }
               >
                 주소 복사
@@ -100,12 +119,10 @@ export default function (
             </div>
             <div className="bg-secondary font-Suit mb-2 flex h-10 items-center justify-between rounded-md px-3 ">
               <div className="flex">
-                <div className=" pr-3 text-xs">전화번호</div>
-                <div className="text-sm">
-                  {printerDetail?.maintainer?.phoneNumber}
-                </div>
+                <div className=" flex items-center pr-3 text-xs">전화번호</div>
+                <div className="text-sm">{printerDetail.phone_number}</div>
               </div>
-              <Link href={`tel:${printerDetail?.maintainer?.phoneNumber}`}>
+              <Link href={`tel:${printerDetail.phone_number}`}>
                 <button className="ml-2 rounded-md bg-gray-100 px-2 py-1 text-xs text-gray-500 active:bg-gray-300">
                   전화걸기
                 </button>
@@ -114,20 +131,35 @@ export default function (
           </div>
 
           {/*Price*/}
-          <PrinterDetail_Price printerDetail={printerDetail} />
+          <div className="font-Suit mb-1 flex w-full items-center justify-between font-semibold">
+            <div className="text-sm text-gray-500">인쇄 가격</div>
 
+            <div className="flex items-center space-x-4 text-xs">
+              <div className="text-gray-400">용지 사이즈</div>
+            </div>
+          </div>
+
+          <PrinterDetail_Price
+            services={printerDetail.services}
+            serviceType={"인쇄"}
+            showPaperSizeId={showPaperSizeId}
+            hasColor={hasColor}
+            hasMono={hasMono}
+          />
           <div className="my-4 flex w-full flex-row-reverse">
-            <Link href={`/printers/${router.query.printerId}/fixDetails`}>
+            <Link href={`/printers/${printerDetail.id}/fixDetails`}>
               <button className=" flex items-center  rounded-md border-2 border-gray-300 px-3 py-2 text-xs ">
                 <Image src="/info.svg" width={12} height={12} />
                 <div className="ml-1 text-gray-400"> 정보 변겅 요청</div>
               </button>
             </Link>
           </div>
+
           {/* banner */}
           <div className="bg-primary flex h-40 w-full items-center justify-center font-bold text-white">
             가맹점주 커스텀 배너
           </div>
+
           {/*Introduction*/}
           <PrinterDetail_Introduction
             printerDetail={printerDetail}
@@ -147,7 +179,6 @@ export default function (
               />
             </div>
           </button>
-
           <div className="my-4">
             <div className="mb-3 flex w-full items-center justify-between">
               <div className="text-sm font-semibold text-gray-500">리뷰</div>
@@ -185,11 +216,32 @@ export default function (
   );
 }
 
+export function ColorType(props: { hasMono: boolean; hasColor: boolean }) {
+  if (props.hasMono && props.hasColor) {
+    return <Image src="/bothColor.svg" width={16} height={16}></Image>;
+  } else {
+    return (
+      <Image
+        src={props.hasMono ? "/mono.svg" : "/color.svg"}
+        width={16}
+        height={16}
+      ></Image>
+    );
+  }
+}
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const data = await getPrinterDetail(context.query.printerId);
   let data;
+  let review;
   if (typeof context.query.printerId === "string") {
     data = await printZoneService.findUnique(context.query.printerId);
+    review = replyService.findManyByPrintZoneId(context.query.printerId, 0, 3);
+    // review = replyService.findUnique("TestId");
   }
-  return { props: { data } };
+  return {
+    props: {
+      data: JSON.parse(JSON.stringify(data)),
+      review: JSON.parse(JSON.stringify(review)),
+    },
+  };
 };

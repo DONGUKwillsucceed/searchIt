@@ -50,7 +50,7 @@ export default function Menu(props: {
           </div>
 
           <div className="font-Suit fixed bottom-0 my-4 mx-8 flex w-full flex-col text-xl">
-            <button className="mb-6 w-fit text-left">후원하기</button>
+            <button className="mb-6 w-fit text-left">공지사항/이벤트</button>
             <button
               className="mb-6 w-fit text-left"
               onClick={() => {
@@ -59,7 +59,7 @@ export default function Menu(props: {
             >
               제보/문의
             </button>
-            <button className="mb-6 w-fit text-left">Languages</button>
+            <button className="mb-6 w-fit text-left">Language</button>
           </div>
         </div>
       </div>

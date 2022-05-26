@@ -10,7 +10,7 @@ export default function DistanceOptionButtons(props: {
     props.nearbyDistance === distances.toString() ? (
       <div
         key={index + 1 + "km"}
-        className="font-Suit bg-primary-light text-primary mr-2 flex h-7 w-fit items-center justify-center rounded-2xl py-2 px-3 text-sm "
+        className="font-Suit bg-primary/20 text-primary mr-2 flex h-7 w-fit items-center justify-center rounded-2xl py-2 px-3 text-sm "
       >
         <button
           onClick={() =>

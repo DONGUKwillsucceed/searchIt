@@ -1,4 +1,4 @@
-import SearchBarUni from "../../common/components/searchBarUni";
+import SearchBar from "../../common/components/searchBar";
 import Menu from "../../common/components/menu";
 import { useState } from "react";
 import { UniList } from "../../common/types/interfaces";
@@ -10,19 +10,16 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 export default function University(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
-  const [uniList, setUniList] = useState([]);
-
   const [openMenu, setOpenMenu] = useState(false);
   const [search, setSearch] = useState("");
-  console.log("props: ", props);
 
   return (
     <div className="min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}
       <Header hasBack={true} title={"대학별"} />
       <main className="mx-auto max-w-3xl ">
-        <div className=" flex w-full flex-col rounded-b-md bg-white p-4 pb-0">
-          <SearchBarUni setSearch={setSearch} />
+        <div className=" flex min-h-[calc(100vh-60px)] w-full flex-col rounded-b-md bg-white p-4">
+          <SearchBar setSearch={setSearch} isAutoFocus={false} />
           <div className="my-4 w-full">
             {props.univWithCount.map((uni: UniList) => {
               if (

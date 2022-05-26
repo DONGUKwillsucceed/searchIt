@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
-import Search from "./searchAllMobile";
 
 export default function DropDown(props: {
   searchArea: string;
