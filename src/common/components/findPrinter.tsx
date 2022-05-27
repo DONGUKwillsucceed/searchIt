@@ -27,7 +27,7 @@ export default function FindPrinter() {
       </div>
 
       <div className="flex w-full justify-between">
-        <Link href={"/"}>
+        <Link href={"/findByDistrict/searchDistrict"}>
           <button className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500 active:bg-gray-100">
             <div className="mr-1">
               <Image src={District}></Image>
@@ -36,7 +36,7 @@ export default function FindPrinter() {
           </button>
         </Link>
 
-        <Link href={"/"}>
+        <Link href={"/findByUni/universities"}>
           <button className="font-Suit w-49p bg-secondary flex h-10 items-center justify-center rounded-md p-1 text-gray-500 active:bg-gray-100">
             <div className="mr-1">
               <Image src={University}></Image>
