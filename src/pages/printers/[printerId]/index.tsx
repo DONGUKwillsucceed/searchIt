@@ -235,7 +235,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let review;
   if (typeof context.query.printerId === "string") {
     data = await printZoneService.findUnique(context.query.printerId);
-    review = replyService.findManyByPrintZoneId(context.query.printerId, 0, 3);
+    review = await replyService.findManyByPrintZoneId(context.query.printerId, 0, 3);
     // review = replyService.findUnique("TestId");
   }
   return {
@@ -245,3 +245,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
+

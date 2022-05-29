@@ -102,8 +102,6 @@ class PrintZoneService {
                 address_detail: true,
                 priority: true,
                 status: true,
-              },
-              include: {
                 Services: {
                   include: {
                     PaperSizes: true,
@@ -137,6 +135,7 @@ class PrintZoneService {
         pz.Services = filteredServices;
         return pz;
       });
+    return printZones;
   }
 
   async findUnique(id: string) {
