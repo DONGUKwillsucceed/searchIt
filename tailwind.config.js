@@ -55,5 +55,11 @@ module.exports = {
       'xl':'1280px',
     }
   },
-  plugins: [ ],
+  plugins: [
+    require('tailwind-scrollbar'),
+    require('tw-elements/dist/plugin'),
+  ],
+  variants:{
+    scrollbar:['rounded']
+  },
 }
