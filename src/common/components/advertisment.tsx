@@ -6,7 +6,12 @@ export default function Advertism() {
   return (
     <>
       <div className="relative flex w-full items-center justify-center">
-        <div className="bg-primary h-24 w-full"></div>
+      <div className="bg-primary flex h-24 w-full items-center justify-center">
+          <div className="font-Suit text-xl font-bold text-white">
+            프린트잇 가맹점주 모집
+          </div>
+          <Image src={"/printer.svg"} width={80} height={82}></Image>
+        </div>
         {/* Next arrows */}
         {/*
         <div className="absolute left-2 flex h-6 w-6 items-center justify-center rounded-full bg-black opacity-100 hover:opacity-30">

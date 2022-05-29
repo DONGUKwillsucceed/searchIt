@@ -9,6 +9,11 @@ import { PrintZonePriorities } from "../types/PrintZonePriorities";
 import { areaService } from "./Area.service";
 import { PrintZoneDto } from "../dto/PrintZoneDto";
 import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
+import {
+  A4_PAPER_SIZE_ID,
+  OFFICE_PAPER_TYPE_ID,
+  PRINT_JOB_TYPE_ID as PRINT_SERVICE_TYPE_ID,
+} from "../const";
 
 class PrintZoneService {
   async add(dto: PrintZoneCreateDto, hostIp: string) {
@@ -98,17 +103,40 @@ class PrintZoneService {
                 priority: true,
                 status: true,
               },
+              include: {
+                Services: {
+                  include: {
+                    PaperSizes: true,
+                    PaperTypes: true,
+                    ServiceType: true,
+                  },
+                },
+              },
             },
           },
         },
       },
     });
-
     if (!queryResult) {
-      throw new NotFoundError("태그에 해당하는 프린트존이 존재하지 않음");
+      throw new NotFoundError("해당하는 태그가 존재하지 않음");
     }
 
-    return queryResult.PrintZone_Tag.map((r) => r.PrintZones).map((pz) => pz);
+    const printZones = queryResult.PrintZone_Tag.map((r) => r.PrintZones)
+      .filter(
+        (r) => r.status === PrintZoneStatus.Registered // 등록이 완료된 PrintZone 만 가져옴
+      )
+      .map((pz) => {
+        // A4 용지 인쇄 서비스만 남겨서 프론트엔드로 보내는 부분
+        // TODO: 서비스 노출 우선순위를 정해서 우선순위대로 표시
+        const filteredServices = pz.Services.filter(
+          (s) => s.ServiceType_id === PRINT_SERVICE_TYPE_ID
+        )
+          .filter((s) => s.PaperSize_id === A4_PAPER_SIZE_ID)
+          .filter((s) => s.PaperType_id === OFFICE_PAPER_TYPE_ID);
+
+        pz.Services = filteredServices;
+        return pz;
+      });
   }
 
   async findUnique(id: string) {
@@ -132,9 +160,9 @@ class PrintZoneService {
           include: {
             PaperSizes: true,
             PaperTypes: true,
-            ServiceType: true,  
-          }
-        }
+            ServiceType: true,
+          },
+        },
       },
     });
     if (!r) {
@@ -182,9 +210,9 @@ class PrintZoneService {
         })
       )
     );
-    return pzTagQueryWithPrintZone.flatMap((pzts) =>
-      pzts.map((pzt) => pzt.PrintZones)
-    );
+    return pzTagQueryWithPrintZone
+      .flatMap((pzts) => pzts.map((pzt) => pzt.PrintZones))
+      .filter((pz) => pz.status === PrintZoneStatus.Registered); // 등록된 PrintZone 만 표시
   }
 
   async searchByCompany(keyword: string) {
@@ -193,6 +221,7 @@ class PrintZoneService {
         company: {
           search: `${keyword}*`,
         },
+        status: PrintZoneStatus.Registered,
       },
     });
     return queryResult;
@@ -211,6 +240,7 @@ class PrintZoneService {
               search: `${keyword}*`,
             },
           },
+          status: PrintZoneStatus.Registered,
         },
       })
     );
@@ -225,6 +255,7 @@ class PrintZoneService {
               search: `${keyword}*`,
             },
           },
+          status: PrintZoneStatus.Registered,
         },
       })
     );
@@ -234,6 +265,7 @@ class PrintZoneService {
           address_detail: {
             search: `${keyword}*`,
           },
+          status: PrintZoneStatus.Registered,
         },
       })
     );
@@ -246,6 +278,64 @@ class PrintZoneService {
     queries.push(this.searchByCompany(keyword));
     queries.push(this.searchByAddress(keyword));
     return (await Promise.all(queries)).flatMap((pz) => pz);
+  }
+
+  async pzInfomationOnMap() {
+    try {
+      const queryResult = await db.printZones.findMany({
+        where: {
+          status: PrintZoneStatus.Registered,
+        },
+        select: {
+          id: true,
+          latitude: true,
+          longitude: true,
+          Services: {
+            select: {
+              ServiceType: {
+                select: {
+                  type: true,
+                  type_en: true,
+                },
+              },
+              color_type: true,
+            },
+          },
+        },
+      });
+      return queryResult.map(({ id, latitude, longitude, Services }) => {
+        let bcnt = 0;
+        let ccnt = 0;
+        let color;
+        const color_type = Services.map(({ color_type }) => {
+          return color_type;
+        });
+        for (const c of color_type) {
+          if (c === "mono") {
+            bcnt++;
+          }
+          if (c === "color") {
+            ccnt++;
+          }
+        }
+        if (bcnt != 0 && ccnt == 0) {
+          color = { mono: true, color: false };
+        } else if (bcnt == 0 && ccnt != 0) {
+          color = { color: true, mono: false };
+        } else if (bcnt != 0 && ccnt != 0) {
+          color = { color: true, mono: true };
+        } else {
+          color = { color: false, mono: false };
+        }
+        const service = Services.map(({ ServiceType }) => {
+          const { type, type_en } = ServiceType;
+          return { type, type_en };
+        })[0];
+        return { id, latitude, longitude, color, service };
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 export const printZoneService = new PrintZoneService();

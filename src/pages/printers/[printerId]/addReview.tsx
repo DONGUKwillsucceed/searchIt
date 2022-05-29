@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IPrinterDetail } from "../../../common/types/interfaces";
-import { getPrinterDetail } from "../../../common/api/getPrinterDetail";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { printZoneService } from "../../../backend/service/PrintZone.service";
 import AddButton from "../../../common/components/buttonPrimary";
 import Image from "next/image";
 import AddFixInfo from "../../../common/components/addFixInfo";
@@ -20,7 +20,7 @@ export default function (
     <div className="min-h-screen bg-gray-100">
       <Header hasBack={true} isArrowBack={true} title="리뷰 남기기" />
       <div className="font-Suit mx-auto max-w-3xl rounded-b-md bg-white px-4 text-xl font-semibold">
-        <div className="font-Suit mb-4 w-full">{printerDetail.name}</div>
+        <div className="font-Suit mb-4 w-full">{printerDetail.company}</div>
         <form>
           <label className="text-sm text-gray-500">리뷰 작성</label>
           <textarea
@@ -63,7 +63,7 @@ export default function (
             {scanFixes}
             {copyFixes}
           </div>
-          <AddFixInfo
+          {/* <AddFixInfo
             fixType="인쇄"
             fixList={printFixes}
             setFixList={setPrintFixes}
@@ -83,7 +83,7 @@ export default function (
             setFixList={setCopyFixes}
             priceColor={printerDetail.priceColor}
             priceMono={printerDetail.priceMono}
-          ></AddFixInfo>
+          ></AddFixInfo> */}
         </div>
       )}
       <div className="mx-auto max-w-3xl bg-white p-4">
@@ -94,7 +94,9 @@ export default function (
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await getPrinterDetail(context.query.printerId);
-
-  return { props: { data } };
+  let data;
+  if (typeof context.query.printerId === "string") {
+    data = await printZoneService.findUnique(context.query.printerId);
+  }
+  return { props: { data: JSON.parse(JSON.stringify(data)) } };
 };

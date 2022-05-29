@@ -2,7 +2,7 @@ import AddFixInfo from "../../../common/components/addFixInfo";
 import { useState } from "react";
 import { IPrinterDetail } from "../../../common/types/interfaces";
 import { InferGetServerSidePropsType, GetServerSideProps } from "next";
-import { getPrinterDetail } from "../../../common/api/getPrinterDetail";
+import { printZoneService } from "../../../backend/service/PrintZone.service";
 import Header from "../../../common/components/header";
 
 export default function (
@@ -26,7 +26,7 @@ export default function (
           {scanFixes}
           {copyFixes}
         </div>
-        <AddFixInfo
+        {/* <AddFixInfo
           fixType="인쇄"
           fixList={printFixes}
           setFixList={setPrintFixes}
@@ -46,14 +46,16 @@ export default function (
           setFixList={setCopyFixes}
           priceColor={printerDetail.priceColor}
           priceMono={printerDetail.priceMono}
-        ></AddFixInfo>
+        ></AddFixInfo> */}
       </div>
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await getPrinterDetail(context.query.printerId);
-
-  return { props: { data } };
+  let data;
+  if (typeof context.query.printerId === "string") {
+    data = await printZoneService.findUnique(context.query.printerId);
+  }
+  return { props: { data: JSON.parse(JSON.stringify(data)) } };
 };

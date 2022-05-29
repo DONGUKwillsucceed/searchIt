@@ -25,91 +25,106 @@ export interface IDistanceOptions {
 
 export interface IPrinterDetail {
   address: string;
-  agentVersion?: string;
-  coordinate?: {
-    latitude?: number;
-    longitude?: number;
-  };
-
-  description?: string;
+  banner_html: string;
+  company: string;
+  created_at: string;
+  description: string;
   id: string;
-  imageUrl?: string;
-  lastConnectedAt?: string;
-  maintainer?: {
-    gmail?: string;
-    id?: string;
-    name?: string;
-    phoneNumber?: string;
+  images: string[];
+  latitude: number;
+  longitude: number;
+  phone_number: string;
+  priority: string;
+  services: Iservices[];
+  status: string;
+  tags: Array<{
+    TagType_id: string;
+    created_at: string;
+    id: string;
+    search_engine_expose: number;
+    value: string;
+    weight: number;
+  }>;
+  updated_at: string;
+}
+export interface Iservices {
+  PaperSize_id: string;
+  PaperSizes: {
+    created_at: string;
+    description: string;
+    id: string;
+    name: string;
+    name_en: string;
+    updated_at: string;
   };
-  name: string;
-  priceColor?: number;
-  priceMono?: number;
-  printer: {
-    duplex?: boolean;
-    id?: string;
-    name?: string;
-    ppm?: number;
-    imageUrl?: string;
-    resolution?: string;
+  paperType_id: string;
+  paperTypes: {
+    created_at: string;
+    description: string;
+    id: string;
+    paper: string;
+    paper_en: string;
+    updated_at: string;
   };
-  status?: string;
-  workHour?: string;
+  PrintZone_id: string;
+  ServiceType: {
+    created_at: string;
+    description: string;
+    id: string;
+    type: string;
+    type_en: string;
+    updated_at: string;
+  };
+  ServiceType_id: string;
+  color_type: string;
+  created_at: string;
+  id: string;
+  price: number;
+  price_duplex_explicit: number;
+  proposed_reply: string;
+  status: string;
+  updated_at: string;
 }
 
 export interface INearPrinter {
-  id: string;
-  name: string;
-  address: string;
+  AreaCode_id: string;
+  address_detail: string;
+  banner_html: null;
+  company: string;
+  created_at: string;
   description: string;
-  agentVersion: string;
-  lastConnectedAt: string;
-  imageURL: string;
-  status: string;
-  workHour: string;
-  priceMono: number;
-  priceColor: number;
-  coordinates: {
-    latitude: number;
-    longitude: number;
-  };
-  maintainterID: string;
-  printerId: string;
   distance: number;
+  id: string;
+  latitude: number;
+  longitude: number;
+  phone_number: string;
+  priority: string;
+  status: string;
+  updated_at: string;
+  writer_ip: string;
 }
 
 export interface IPrinterData {
-  c: boolean;
+  AreaCode_id: string;
+  address_detail: string;
+  company: string;
+  created_at: string;
   id: string;
-  lat: number;
-  lon: number;
-  m: boolean;
-  name: string;
-  stat: string;
+  latitude: number;
+  longitude: number;
+  priority: string;
+  status: string;
+  updated_at: string;
 }
 
 export interface IMousePosition {
   lat: number;
   lng: number;
 }
-
-export interface Areas {
-  서울시: string[];
-  부산시: string[];
-  인천시: string[];
-  대구시: string[];
-  광주시: string[];
-  대전시: string[];
-  울산시: string[];
-  세종시: string[];
-  경기도: string[];
-  강원도: string[];
-  충청북도: string[];
-  충청남도: string[];
-  경상북도: string[];
-  경상남도: string[];
-  전라북도: string[];
-  전라남도: string[];
-  제주도: string[];
+export interface UniList {
+  count: number;
+  id: string;
+  university: string;
 }
 export interface IArea {
   id: string;
