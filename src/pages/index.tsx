@@ -1,13 +1,43 @@
 import Advertism from "../common/components/advertisment";
+import PrinterList from "../common/components/printerList";
 import FindPrinter from "../common/components/findPrinter";
 import HeaderState from "../common/components/headerState";
 import Menu from "../common/components/menu";
 import Image from "next/image";
+import { INearPrinter } from "../common/types/interfaces";
 import { useEffect, useState } from "react";
+import getNearbyPrinter from "../common/api/getNearbyPrinter";
+import { useStoreActions, useStoreState } from "../common/utils/globalState";
 import Link from "next/link";
 
 export default function Index() {
   const [openMenu, setOpenMenu] = useState(false);
+  const nearbyDistance = useStoreState((state) => state.nearbyDistance);
+  const setNearbyDistance = useStoreActions(
+    (action) => action.setNearbyDistance
+  );
+
+  const [nearbyPrinter, setNearbyPrinter] = useState<INearPrinter[]>([]);
+  const [hasGeoLoc, setHasGeoLoc] = useState<boolean>(true);
+  
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          getNearbyPrinter(
+            position.coords.latitude,
+            position.coords.longitude,
+            nearbyDistance
+          ).then((res) => {
+            setNearbyPrinter(res);
+          });
+        },
+        () => {
+          setHasGeoLoc(false);
+        }
+      );
+    }
+  }, [nearbyDistance]);
 
   return (
     <div className="font-Suit min-h-screen bg-gray-100">
@@ -46,15 +76,18 @@ export default function Index() {
               </Link>
             </div>
 
-            
-            <div className="my-auto mt-20 flex w-full flex-col justify-center">
-              <Image src="/noGeoLocation.svg" width={140} height={103} />
-              <div className="mt-10 mb-2 text-center font-bold">
-                위치 정보 동의 필요
+            {hasGeoLoc ? (
+              <PrinterList nearbyPrinters={nearbyPrinter} />
+            ) : (
+              <div className="my-auto mt-20 flex w-full flex-col justify-center">
+                <Image src="/noGeoLocation.svg" width={140} height={103} />
+                <div className="mt-10 mb-2 text-center font-bold">
+                  위치 정보 동의 필요
+                </div>
+                <div className="text-center">내 주변 프린터를 보려면</div>
+                <div className="text-center">위치 정보 동의가 필요해요!</div>
               </div>
-              <div className="text-center">내 주변 프린터를 보려면</div>
-              <div className="text-center">위치 정보 동의가 필요해요!</div>
-            </div>
+            )}
           </div>
 
           <div className="mt-2 flex w-full justify-center rounded-md bg-white p-4 ">
