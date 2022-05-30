@@ -32,7 +32,9 @@ class NoticeService {
     if (!queryResult) {
       throw new NotFoundError("No PrintZone with id");
     }
-    return queryResult;
+    const { title, content_html, opengraph_url } = queryResult;
+    const created_at = queryResult.created_at.toString();
+    return { title, created_at, content_html, opengraph_url };
   }
 }
 
