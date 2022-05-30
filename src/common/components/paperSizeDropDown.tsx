@@ -1,13 +1,49 @@
 import Image from "next/image";
+import React from "react";
+import { Iservices } from "../types/interfaces";
 
-export default function PaperSizeDropDown() {
-  <button className="flex items-center rounded-md border-2 px-3 py-2">
-    <div className="mr-2">A4</div>
-    <Image
-      src="/dropDownArrow.svg"
-      className="rotate-180"
-      width={12}
-      height={8}
-    ></Image>
-  </button>;
+export default function PaperSizeDropDown(props: {
+  services: Iservices[];
+  showPaperSizeId: string;
+  setShowPaperSizeId: React.Dispatch<React.SetStateAction<string>>;
+  isDropDown: boolean;
+  setIsDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  disableScroll();
+  props.services.map((service) => {
+    console.log(service.PaperSizes.name);
+  });
+
+  const paperSizeSet = new Set(
+    props.services.map((service) => service.PaperSizes.name)
+  );
+  return (
+    <div
+      className="absolute z-20 h-screen w-full bg-black/20"
+      onClick={(e) => {
+        props.setIsDropDown(false);
+        enableScroll();
+      }}
+    >
+      <div className="w-full bg-white p-4">
+        <div className="mx-auto max-w-3xl">
+          <button className="h-6 w-6">
+            <Image src="/return.svg" width={6} height={12} />
+          </button>
+        </div>
+      </div>
+      <div
+        className="mx-auto max-w-3xl"
+        onClick={(e) => e.stopPropagation()}
+      ></div>
+    </div>
+  );
+}
+
+export function disableScroll() {
+  document.body.style.overflow = "hidden";
+}
+
+export function enableScroll() {
+  document.body.style.overflow = "auto";
 }

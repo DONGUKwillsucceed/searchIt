@@ -61,14 +61,16 @@ export default function (
         setArea3(area3Info);
       });
     }
-    axios
-      .get(`/api/print-zones/${areaId}`)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (searchArea2 != "") {
+      axios
+        .get(`/api/print-zones/${areaId}`)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [searchArea2]);
 
   function closeAllDropDown() {

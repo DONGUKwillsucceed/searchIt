@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Iservices } from "../types/interfaces";
 import { useEffect, useState, useRef } from "react";
+import PaperSizeDropDown from "./paperSizeDropDown";
 
 export default function PrinterDetail_Price(props: {
   services: Iservices[];
@@ -11,6 +12,7 @@ export default function PrinterDetail_Price(props: {
 }) {
   const isDouble = useRef(false);
   const isDuplex = useRef(false);
+  const serviceTypeAmount = useRef(0);
   const [displayPrice, setDisplayPrice] = useState<(JSX.Element | undefined)[]>(
     []
   );
@@ -19,17 +21,19 @@ export default function PrinterDetail_Price(props: {
   >([]);
 
   useEffect(() => {
-    const serviceAmount = props.services.map((service) => {
+    props.services.map((service) => {
       if (
         service.PaperSize_id === props.showPaperSizeId &&
         service.ServiceType.type === props.serviceType
       ) {
+        serviceTypeAmount.current += 1;
         if (service.price_duplex_explicit) {
           isDuplex.current = true;
         }
       }
     });
-    if (serviceAmount.length > 1) {
+    if (serviceTypeAmount.current >= 2) {
+      console.log("tru!");
       isDouble.current = true;
     }
 
@@ -38,6 +42,16 @@ export default function PrinterDetail_Price(props: {
         service.PaperSize_id === props.showPaperSizeId &&
         service.ServiceType.type === props.serviceType
       ) {
+        if (service.ServiceType.type === "스캔") {
+          return (
+            <Box
+              key={service.id}
+              double={isDouble.current}
+              type={service.ServiceType.type}
+              price={service.price}
+            />
+          );
+        }
         return (
           <Box
             key={service.id}
@@ -74,20 +88,30 @@ export default function PrinterDetail_Price(props: {
     setDisplayDuplexPrice(duplexList);
   }, []);
 
-  return (
-    <>
-      <div className="font-Suit my-4 flex w-full flex-col">
-        <div className=" mb-2 text-xs  font-semibold text-gray-500">
-          단면 · 한 페이지 당
+  if (serviceTypeAmount.current >= 1) {
+    return (
+      <>
+        <div className="font-Suit mb-1 flex w-full items-center justify-between font-semibold">
+          <div className="text-sm text-gray-500">{props.serviceType} 가격</div>
         </div>
-        <div className="flex">{displayPrice}</div>
-        <div className=" my-2 text-xs  font-semibold text-gray-500">
-          양면 · 두 페이지 당
+        <div className="font-Suit my-4 flex w-full flex-col">
+          <div className=" mb-2 text-xs  font-semibold text-gray-500">
+            단면 · 한 페이지 당
+          </div>
+          <div className="flex">{displayPrice}</div>
+          {props.serviceType === "인쇄" && isDuplex.current === true && (
+            <div>
+              <div className=" my-2 text-xs  font-semibold text-gray-500">
+                양면 · 두 페이지 당
+              </div>
+              <div className="flex">{displayDuplexPrice}</div>
+            </div>
+          )}
         </div>
-        <div className="flex">{displayDuplexPrice}</div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  return null;
 }
 
 export function Box(props: {
@@ -108,8 +132,13 @@ export function Box(props: {
           <Image src={`${props.Image}`} width={16} height={16} />
         ) : null}
         <div className="ml-2">
-          {`${props.colorType === "mono" ? "흑백 " : "컬러 "}`}
-          {props.type}
+          {props.colorType ? (
+            <div>{`${props.colorType == "color" ? "컬러" : "흑백"} ${
+              props.type
+            }`}</div>
+          ) : (
+            props.type + " 가격"
+          )}
         </div>
       </div>
       <div className="grid w-full justify-items-end">

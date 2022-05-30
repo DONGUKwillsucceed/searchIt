@@ -6,11 +6,16 @@ import PrinterMarker from "../common/components/printerMarker";
 import { MyLocationButton } from "../common/components/myLocationButton";
 import MapSearchbar from "../common/components/mapSearchbar";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { printZoneService } from "../backend/service/PrintZone.service";
 import HeaderMap from "../common/components/headerMap";
 import SearchAllDesktop from "../common/components/searchAllDesktop";
 import Search from "./search";
 
-export default function PrinterMap() {
+export default function (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
+  console.log(props);
   const [userLoc, setUserLoc] = React.useState<IUserLoc>({
     center: {
       lat: 37.566,
@@ -101,3 +106,8 @@ export default function PrinterMap() {
     </main>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await printZoneService.pzInfomationOnMap();
+  return { props: { data } };
+};

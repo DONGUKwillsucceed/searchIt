@@ -25,7 +25,6 @@ export default function Index() {
               `/api/print-zones/nearest?lat=${position.coords.latitude}&lon=${position.coords.longitude}&km=${nearbyDistance}`
             )
             .then((res) => {
-              console.log(res.data);
               setNearbyPrinter(res.data);
             })
             .catch((err) => {
@@ -91,9 +90,11 @@ export default function Index() {
             <button className="text-primary bg-primary/20 mr-4 rounded-md px-3 py-2 text-sm font-semibold">
               제휴문의
             </button>
-            <button className="rounded-md bg-gray-100 p-3 py-2 text-sm font-semibold text-gray-500">
-              제보하기
-            </button>
+            <Link href="/addPlace">
+              <button className="rounded-md bg-gray-100 p-3 py-2 text-sm font-semibold text-gray-500">
+                제보하기
+              </button>
+            </Link>
           </div>
         </div>
       </main>

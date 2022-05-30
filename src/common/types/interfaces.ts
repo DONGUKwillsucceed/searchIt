@@ -99,6 +99,7 @@ export interface INearPrinter {
   longitude: number;
   phone_number: string;
   priority: string;
+  services: Iservices[];
   status: string;
   updated_at: string;
   writer_ip: string;
@@ -126,6 +127,14 @@ export interface UniList {
   id: string;
   university: string;
 }
+
+export interface INoticeEvent {
+  created_at: string;
+  id: string;
+  title: string;
+  type: string;
+}
+
 export interface IArea {
   id: string;
   ko_area_1: string;

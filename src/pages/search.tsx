@@ -3,11 +3,12 @@ import AddNewPlace from "../common/components/addNewPlace";
 import HeaderMap from "../common/components/headerMap";
 import SearchBar from "../common/components/searchBar";
 import { printZoneService } from "../backend/service/PrintZone.service";
+import searchAll from "./api/print-zones/search/search";
 
 export default function () {
   const [search, setSearch] = useState("");
   useEffect(() => {
-    // const data = printZoneService.search(search);
+    // const data = searchAll(search);
   }, [search]);
   return (
     <div className="absolute z-20 h-screen w-screen bg-gray-100 xl:hidden">
