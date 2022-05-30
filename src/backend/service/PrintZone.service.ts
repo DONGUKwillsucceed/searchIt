@@ -298,6 +298,7 @@ class PrintZoneService {
                 },
               },
               color_type: true,
+              price: true,
             },
           },
         },
@@ -326,10 +327,11 @@ class PrintZoneService {
         } else {
           color = { color: false, mono: false };
         }
-        const service = Services.map(({ ServiceType }) => {
+        const service = Services.map(({ ServiceType, price }) => {
           const { type, type_en } = ServiceType;
-          return { type, type_en };
+          return { type, type_en, price };
         })[0];
+        const price = service.price;
         return { id, latitude, longitude, color, service };
       });
     } catch (e) {
