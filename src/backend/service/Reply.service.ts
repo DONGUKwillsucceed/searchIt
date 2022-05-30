@@ -60,7 +60,7 @@ class ReplyService {
           id: dto.printZoneId,
         },
       },
-      status
+      status,
     };
 
     await db.printZoneReplies.create({
@@ -138,10 +138,14 @@ class ReplyService {
     return this.toDto(relation);
   }
 
-  async findManyByPrintZoneId(pzId: string, skip?: number, take?: number) {
+  async findManyByPrintZoneId(
+    pzId: string,
+    skip?: number,
+    take?: number
+  ): Promise<PrintZoneReply[]> {
     const relations = await db.printZoneReplies.findMany({
       where: {
-        id: pzId,
+        PrintZone_id: pzId,
       },
       include: queryInclude,
       skip,
