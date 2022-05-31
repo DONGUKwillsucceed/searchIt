@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useStoreState } from "../common/utils/globalState";
 import PrinterList from "../common/components/printerList";
 import axios from "axios";
+import AddNewPlace from "../common/components/addNewPlace";
 
 export default function () {
   const nearbyDistance = useStoreState((state) => state.nearbyDistance);
@@ -42,7 +43,7 @@ export default function () {
         title={"내 주변 프린터"}
         rightButtonImage={"/map_black.svg"}
       ></Header>
-      <div className="mx-auto max-w-3xl rounded-b-md bg-white px-4">
+      <div className="mx-auto flex h-[calc(100vh-56px)] max-w-3xl flex-col justify-between rounded-b-md bg-white p-4">
         {hasGeoLoc ? (
           <PrinterList nearbyPrinters={nearbyPrinter} />
         ) : (
@@ -55,6 +56,7 @@ export default function () {
             <div className="text-center">위치 정보 동의가 필요해요!</div>
           </div>
         )}
+        <AddNewPlace></AddNewPlace>
       </div>
     </div>
   );

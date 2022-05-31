@@ -11,6 +11,7 @@ import {
 } from "../../../common/utils/globalState";
 import { printZoneService } from "../../../backend/service/PrintZone.service";
 import Link from "next/link";
+import PaperSizeDropDown from "../../../common/components/paperSizeDropDown";
 import Review from "../../../common/components/review";
 import Header from "../../../common/components/header";
 import Tags from "../../../common/components/tags";
@@ -28,6 +29,7 @@ export default function (
   const searchPrinterOnMap = useStoreState((store) => store.searchPrinterOnMap);
   const [hasMono, setHasMono] = useState<boolean>(false);
   const [hasColor, setHasColor] = useState<boolean>(false);
+  const [isDropDown, setIsDropDown] = useState(false);
   const [showPaperSizeId, setShowPaperSizeId] = useState<string>(
     "9c0394a8-f1a6-469b-be12-324f10e63e1e"
   );
@@ -45,11 +47,18 @@ export default function (
     });
   });
 
-  // console.log(printerDetail);
-  console.log(props);
-
   return (
     <div className="min-h-screen bg-gray-100">
+      {isDropDown && (
+        <PaperSizeDropDown
+          services={printerDetail.services}
+          showPaperSizeId={showPaperSizeId}
+          setShowPaperSizeId={setShowPaperSizeId}
+          isDropDown={isDropDown}
+          setIsDropDown={setIsDropDown}
+        />
+      )}
+
       <Header
         hasBack={true}
         hasRightButton={true}
@@ -132,17 +141,39 @@ export default function (
           </div>
 
           {/*Price*/}
-          <div className="font-Suit mb-1 flex w-full items-center justify-between font-semibold">
-            <div className="text-sm text-gray-500">인쇄 가격</div>
-
-            <div className="flex items-center space-x-4 text-xs">
-              <div className="text-gray-400">용지 사이즈</div>
-            </div>
+          <div className="flex w-full items-center justify-between space-x-4 text-xs">
+            <div className="text-gray-400">용지 사이즈</div>
+            <button
+              className="flex items-center rounded-md border-2 px-3 py-2"
+              onClick={() => setIsDropDown(!isDropDown)}
+            >
+              <div className="mr-2">A4</div>
+              <Image
+                src="/dropDownArrow.svg"
+                className="rotate-180"
+                width={12}
+                height={8}
+              ></Image>
+            </button>
           </div>
 
           <PrinterDetail_Price
             services={printerDetail.services}
             serviceType={"인쇄"}
+            showPaperSizeId={showPaperSizeId}
+            hasColor={hasColor}
+            hasMono={hasMono}
+          />
+          <PrinterDetail_Price
+            services={printerDetail.services}
+            serviceType={"복사"}
+            showPaperSizeId={showPaperSizeId}
+            hasColor={hasColor}
+            hasMono={hasMono}
+          />
+          <PrinterDetail_Price
+            services={printerDetail.services}
+            serviceType={"스캔"}
             showPaperSizeId={showPaperSizeId}
             hasColor={hasColor}
             hasMono={hasMono}
@@ -238,8 +269,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let review;
   if (typeof context.query.printerId === "string") {
     data = await printZoneService.findUnique(context.query.printerId);
-    review = replyService.findManyByPrintZoneId(context.query.printerId, 0, 3);
-    // review = replyService.findUnique("TestId");
+    review = await replyService.findManyByPrintZoneId(
+      context.query.printerId,
+      0,
+      3
+    );
   }
 
   return {

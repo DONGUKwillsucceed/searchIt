@@ -4,7 +4,7 @@ import ColorOptions from "./colorOptions";
 import Link from "next/link";
 
 export default function PrinterList(props: { nearbyPrinters: INearPrinter[] }) {
-
+  console.log("NearbyPrinter = ", props.nearbyPrinters);
   let Locations: JSX.IntrinsicAttributes[] = [];
   for (let i = 0; i < props.nearbyPrinters.length; i++) {
     if (i < 5) {
@@ -25,7 +25,7 @@ export default function PrinterList(props: { nearbyPrinters: INearPrinter[] }) {
               <div>{props.nearbyPrinters[i].address_detail}</div>
             </div>
             <div className="flex pt-2 text-xs text-gray-500">
-              <ColorOptions nearPrinter={props.nearbyPrinters[i]} />
+              <ColorOptions services={props.nearbyPrinters[i].services} />
             </div>
           </div>
         </Link>

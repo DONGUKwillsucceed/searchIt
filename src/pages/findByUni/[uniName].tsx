@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { useState } from "react";
 import { printZoneService } from "../../backend/service/PrintZone.service";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -16,6 +15,7 @@ export default function (
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState(false);
   const [printers] = useState<IPrinterData[]>(props.data);
+  console.log(printers);
 
   return (
     <div className="font-Suit min-h-screen bg-gray-100">
@@ -44,7 +44,7 @@ export default function (
                         <Image src="/file.svg" height={18} width={18}></Image>
                         Type
                       </div>
-                      <ColorOptions printer={printer} />
+                      {/* <ColorOptions printer={printer} />  */}
                     </div>
                   </div>
                 </div>

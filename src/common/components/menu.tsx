@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Menu(props: {
   setOpenMenu: Dispatch<SetStateAction<boolean>>;
@@ -50,9 +51,9 @@ export default function Menu(props: {
           </div>
 
           <div className="font-Suit fixed bottom-0 my-4 mx-8 flex w-full flex-col text-xl">
-            <button className="mb-6 w-fit text-left">
-              공지사항/이벤트
-              </button>
+            <Link href={"/notice"}>
+              <button className="mb-6 w-fit text-left">공지사항/이벤트</button>
+            </Link>
 
             <button
               className="mb-6 w-fit text-left"
