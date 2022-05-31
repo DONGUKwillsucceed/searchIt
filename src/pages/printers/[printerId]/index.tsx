@@ -33,6 +33,7 @@ export default function (
   const [showPaperSizeId, setShowPaperSizeId] = useState<string>(
     "9c0394a8-f1a6-469b-be12-324f10e63e1e"
   );
+  const [showPaperSize, setShowPaperSize] = useState<string>("A4");
   const tags = printerDetail.tags.map((tag) => (
     <Tags key={tag.id} tagName={tag.value} />
   ));
@@ -52,6 +53,7 @@ export default function (
       {isDropDown && (
         <PaperSizeDropDown
           services={printerDetail.services}
+          setShowPaperSize={setShowPaperSize}
           showPaperSizeId={showPaperSizeId}
           setShowPaperSizeId={setShowPaperSizeId}
           isDropDown={isDropDown}
@@ -142,12 +144,12 @@ export default function (
           {/*Price*/}
 
           <div className="flex w-full items-center justify-between space-x-4 text-xs">
-            <div className="text-gray-400">용지 사이즈</div>
+            <div className="font-semibold text-gray-500">용지 사이즈</div>
             <button
               className="flex items-center rounded-md border-2 px-3 py-2"
               onClick={() => setIsDropDown(!isDropDown)}
             >
-              <div className="mr-2">A4</div>
+              <div className="mr-2">{showPaperSize}</div>
               <Image
                 src="/dropDownArrow.svg"
                 className="rotate-180"

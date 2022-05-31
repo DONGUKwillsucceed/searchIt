@@ -4,23 +4,31 @@ import { Iservices } from "../types/interfaces";
 
 export default function PaperSizeDropDown(props: {
   services: Iservices[];
+  setShowPaperSize: React.Dispatch<React.SetStateAction<string>>;
   showPaperSizeId: string;
   setShowPaperSizeId: React.Dispatch<React.SetStateAction<string>>;
   isDropDown: boolean;
   setIsDropDown: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   disableScroll();
-  props.services.map((service) => {
-    console.log(service.PaperSizes.name);
-  });
 
   const paperSizeSet = new Set(
-    props.services.map((service) => service.PaperSizes.name)
+    props.services.map((service) => [
+      service.PaperSizes.id,
+      service.PaperSizes.name,
+    ])
   );
+  const paperSizeList = Array.from(paperSizeSet);
+  for (let i = 0; i < paperSizeList.length - 1; i++) {
+    if (paperSizeList[i][0] === paperSizeList[i + 1][0]) {
+      paperSizeList.splice(i, 1);
+      i--;
+    }
+  }
   return (
     <div
-      className="absolute z-20 h-screen w-full bg-black/20"
-      onClick={(e) => {
+      className="fixed z-20 h-screen w-full bg-black/20"
+      onClick={() => {
         props.setIsDropDown(false);
         enableScroll();
       }}
@@ -32,10 +40,21 @@ export default function PaperSizeDropDown(props: {
           </button>
         </div>
       </div>
-      <div
-        className="mx-auto max-w-3xl"
-        onClick={(e) => e.stopPropagation()}
-      ></div>
+      <div className="mx-auto max-w-3xl" onClick={(e) => e.stopPropagation()}>
+        {paperSizeList.map((paperSize) => (
+          <button
+            key={paperSize[0]}
+            className="flex w-full items-start bg-white p-4 active:bg-gray-100"
+            onClick={() => {
+              props.setShowPaperSizeId(paperSize[0]);
+              props.setShowPaperSize(paperSize[1]);
+              props.setIsDropDown(false);
+            }}
+          >
+            {paperSize[1]}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

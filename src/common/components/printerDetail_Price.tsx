@@ -20,7 +20,12 @@ export default function PrinterDetail_Price(props: {
     (JSX.Element | undefined)[]
   >([]);
 
+  console.log(props.serviceType, serviceTypeAmount.current);
   useEffect(() => {
+    serviceTypeAmount.current = 0;
+    isDouble.current = false;
+    isDuplex.current = false;
+
     props.services.map((service) => {
       if (
         service.PaperSize_id === props.showPaperSizeId &&
@@ -86,7 +91,7 @@ export default function PrinterDetail_Price(props: {
 
     setDisplayPrice(list);
     setDisplayDuplexPrice(duplexList);
-  }, []);
+  }, [props.showPaperSizeId]);
 
   if (serviceTypeAmount.current >= 1) {
     return (
