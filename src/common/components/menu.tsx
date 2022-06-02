@@ -57,7 +57,7 @@ export default function Menu(props: {
             <button
               className="mb-6 w-fit text-left"
               onClick={() => {
-                router.push("/addPlace"), enableScroll();
+                router.push("/addPlace/address"), enableScroll();
               }}
             >
               제보/문의

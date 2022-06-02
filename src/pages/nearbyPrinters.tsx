@@ -48,7 +48,7 @@ export default function () {
           <PrinterList nearbyPrinters={nearbyPrinter} />
         ) : (
           <div className="my-auto mt-20 flex w-full flex-col justify-center">
-            <Image src="/noGeoLocation.svg" width={140} height={103} />
+            <Image src="/noResult.svg" width={140} height={103} />
             <div className="mt-10 mb-2 text-center font-bold">
               위치 정보 동의 필요
             </div>

@@ -1,4 +1,4 @@
-import AddFixInfo from "../../../common/components/addFixInfo";
+import AddFixInfo from "../../../common/components/addInfo";
 import { useState } from "react";
 import { IPrinterDetail } from "../../../common/types/interfaces";
 import { InferGetServerSidePropsType, GetServerSideProps } from "next";

@@ -79,12 +79,14 @@ export default function (
           </div>
         </div>
         <MapSearchbar setIsSearching={setIsSearching} />
-        <MyLocationButton
-          userLoc={userLoc}
-          mapView={mapView}
-          setMapView={setMapView}
-          mapRef={map}
-        />
+        <div className="absolute bottom-0 z-10 flex w-full flex-row-reverse p-5">
+          <MyLocationButton
+            userLoc={userLoc}
+            mapView={mapView}
+            setMapView={setMapView}
+            mapRef={map}
+          />
+        </div>
         <Map
           center={mapView.center}
           style={{ width: "100%", height: "calc(var(--vh, 1vh) * 100" }}
@@ -99,7 +101,7 @@ export default function (
             setMap(map);
           }}
         >
-          <PrinterMarker />
+          <PrinterMarker locations={props.data} />
           {mapView.hasAllowedGeo ? <UserMarker userLoc={userLoc} /> : null}
         </Map>
       </div>

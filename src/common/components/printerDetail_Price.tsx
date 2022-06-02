@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Iservices } from "../types/interfaces";
 import { useEffect, useState, useRef } from "react";
+import { PriceBox } from "./PriceBox";
 import PaperSizeDropDown from "./paperSizeDropDown";
 
 export default function PrinterDetail_Price(props: {
@@ -49,7 +50,7 @@ export default function PrinterDetail_Price(props: {
       ) {
         if (service.ServiceType.type === "스캔") {
           return (
-            <Box
+            <PriceBox
               key={service.id}
               double={isDouble.current}
               type={service.ServiceType.type}
@@ -58,7 +59,7 @@ export default function PrinterDetail_Price(props: {
           );
         }
         return (
-          <Box
+          <PriceBox
             key={service.id}
             colorType={service.color_type}
             double={isDouble.current}
@@ -77,7 +78,7 @@ export default function PrinterDetail_Price(props: {
         isDuplex.current
       ) {
         return (
-          <Box
+          <PriceBox
             key={service.id}
             colorType={service.color_type}
             double={isDouble.current}
@@ -117,38 +118,4 @@ export default function PrinterDetail_Price(props: {
     );
   }
   return null;
-}
-
-export function Box(props: {
-  double?: boolean;
-  colorType?: string;
-  type?: string;
-  price?: number;
-  Image?: string;
-}) {
-  return (
-    <div
-      className={`bg-secondary flex flex-col items-center justify-between rounded-md p-3 ${
-        props.double ? "mr-2 w-1/2" : "w-full"
-      }`}
-    >
-      <div className="flex w-full text-xs">
-        {props.Image ? (
-          <Image src={`${props.Image}`} width={16} height={16} />
-        ) : null}
-        <div className="ml-2">
-          {props.colorType ? (
-            <div>{`${props.colorType == "color" ? "컬러" : "흑백"} ${
-              props.type
-            }`}</div>
-          ) : (
-            props.type + " 가격"
-          )}
-        </div>
-      </div>
-      <div className="grid w-full justify-items-end">
-        {props.price || "0"}원
-      </div>
-    </div>
-  );
 }

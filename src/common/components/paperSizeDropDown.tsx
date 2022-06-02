@@ -49,6 +49,7 @@ export default function PaperSizeDropDown(props: {
               props.setShowPaperSizeId(paperSize[0]);
               props.setShowPaperSize(paperSize[1]);
               props.setIsDropDown(false);
+              enableScroll();
             }}
           >
             {paperSize[1]}

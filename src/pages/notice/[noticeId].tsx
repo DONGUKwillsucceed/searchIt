@@ -41,5 +41,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     data = await noticeService.findUnique(context.query.id);
   }
   console.log(data);
-  return { props: { data: JSON.parse(JSON.stringify(data)) } };
+  return { props: { data } };
 };

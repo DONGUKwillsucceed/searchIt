@@ -6,6 +6,8 @@ import { IUserLoc } from "../../common/types/interfaces";
 import { MyLocationButton } from "../../common/components/myLocationButton";
 import Header from "../../common/components/header";
 import HeaderMap from "../../common/components/headerMap";
+import HeaderEvent from "../../common/components/headerEvent";
+import Link from "next/link";
 
 export default function () {
   const [map, setMap] = React.useState<kakao.maps.Map>();
@@ -43,25 +45,37 @@ export default function () {
   }, []);
 
   return (
-    <div>
-      <div className="max-w-3xlz flex justify-center">
+    <div className="min-h-screen bg-gray-100">
+      <div className="absolute w-full">
+        <Header
+          hasBack={true}
+          isImageTitle={false}
+          title="프린터 위치"
+        ></Header>
+      </div>
+      <div className="relative mx-auto flex max-w-3xl justify-center">
         <div className="absolute top-1/2 left-1/2 z-20">
-          <Image src="/currentAddress.svg" width={18} height={25} />
+          <Image src="/currentAddress.svg" width={30} height={30} />
         </div>
 
-        {/* <div className="relative bottom-0 z-40 w-full bg-red-300">
+        <div className="absolute z-20 mt-20 flex h-10 w-11/12 items-center justify-center rounded-md border-2 bg-white py-1 ">
+          {locationAddress}
+        </div>
+
+        <div className="absolute bottom-32 right-8 z-20 max-w-3xl ">
           <MyLocationButton
             userLoc={userLoc}
             mapView={mapView}
             setMapView={setMapView}
             mapRef={map}
           />
-        </div> */}
-        <div className="absolute bottom-0 z-20 w-full">
-          <div className="rel"></div>
-          <button className="bg-primary absolute bottom-0  z-20 h-12 w-11/12 text-white">
-            test
-          </button>
+        </div>
+        <div className="absolute bottom-0 z-20 flex w-full max-w-3xl justify-center pb-8">
+          <Link href={"/addPlace/details"}>
+            <button className="bg-primary font-Suit w-11/12 rounded-md p-4 text-white">
+              현위치로 지정
+            </button>
+          </Link>
         </div>
         <Map
           center={userLoc.center}
