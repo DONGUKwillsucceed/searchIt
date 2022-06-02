@@ -34,7 +34,6 @@ class NoticeService {
     }
     const { title, content_html, opengraph_url } = queryResult;
     const created_at = queryResult.created_at.toString();
-    console.log(typeof created_at);
     return { title, created_at, content_html, opengraph_url };
   }
 }

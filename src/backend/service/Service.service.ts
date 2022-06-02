@@ -1,4 +1,5 @@
 import { db } from "../db";
+import { NotFoundError } from "../errors";
 import { ServiceProposeStatus } from "../types/ServiceProposeStatus";
 
 class ServiceService {
@@ -12,6 +13,9 @@ class ServiceService {
         ServiceType: true,
       },
     });
+    if (!queryResult) {
+      throw new NotFoundError("Not applied Service with id");
+    }
     return queryResult.map((q) => q.ServiceType);
   }
 }
