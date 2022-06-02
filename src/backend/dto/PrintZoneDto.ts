@@ -20,3 +20,20 @@ export interface PrintZoneDto {
   images: Images[];
   services: ServiceDto[];
 }
+
+export interface PrintZoneSearchResultDto {
+  id: string;
+  created_at: Date;
+  updated_at: Date;
+  company: string;
+  latitude: number;
+  longitude: number;
+  phone_number: string | null;
+  address: string;
+  description: string;
+  banner_html: string | null;
+  priority: PrintZonePriorities;
+  status: PrintZoneStatus;
+  services: ServiceDto[];
+}
+

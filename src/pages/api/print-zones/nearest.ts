@@ -38,6 +38,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         PaperTypes: { id: OFFICE_PAPER_TYPE_ID },
         PaperSizes: { id: A4_PAPER_SIZE_ID },
       },
+      include: {
+        PaperTypes: true,
+        PaperSizes: true,
+        ServiceType: true,
+      }
     });
     return {
       ...pz,

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { printZoneService } from "../../backend/service/PrintZone.service";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps, Infer../../backend/service/PrintZone.service/PrintZone.service
 import { IPrinterData } from "../../common/types/interfaces";
 import Menu from "../../common/components/menu";
 import Header from "../../common/components/header";
