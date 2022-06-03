@@ -49,7 +49,8 @@ export default function (
     </div>
   ));
 
-  console.log(printerDetail.images);
+  // console.log(printerDetail.images);
+  console.log(printerDetail);
 
   useState(() => {
     printerDetail.services.forEach((service) => {

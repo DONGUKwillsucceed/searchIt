@@ -5,8 +5,6 @@ import Image from "next/image";
 import { IUserLoc } from "../../common/types/interfaces";
 import { MyLocationButton } from "../../common/components/myLocationButton";
 import Header from "../../common/components/header";
-import HeaderMap from "../../common/components/headerMap";
-import HeaderEvent from "../../common/components/headerEvent";
 import Link from "next/link";
 
 export default function () {
