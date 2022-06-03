@@ -2,10 +2,49 @@ import SearchBar from "./searchBar";
 import Menu from "./menu";
 import AddNewPlace from "./addNewPlace";
 import { useState } from "react";
+import { IPaperSize, IPrinterDetail } from "../types/interfaces";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import axios from "axios";
+import PrinterList from "./printerList";
+import ColorOptions from "./colorOptions";
 
-export default function SearchAllDesktop() {
+export default function SearchAllDesktop(props: { paperSize: IPaperSize[] }) {
   const [openMenu, setOpenMenu] = useState(false);
   const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState<IPrinterDetail[]>([]);
+
+  const [paperSize, setPaperSize] = useState<string[]>([]);
+  const serviceType = ["인쇄", "스캔", "복사", "팩스"];
+  const [repPaperSize, setRepPaperSize] = useState("A4");
+  const [repServiceType, setRepServiceType] = useState("인쇄");
+
+  const router = useRouter();
+  useEffect(() => {
+    props.paperSize.map((paper) => {
+      setPaperSize((prev) => [...prev, paper.name]);
+    });
+  }, []);
+  useEffect(() => {
+    const delayDebonce = setTimeout(() => {
+      console.log(search);
+      axios
+        .get(`/api/print-zones?q=${search}`)
+        .then((res) => {
+          setSearchResult(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 500);
+    if (search === "") {
+      setSearchResult([]);
+    }
+
+    return () => clearTimeout(delayDebonce);
+  }, [search]);
+
   return (
     <div className="font-Suit relative z-10 h-screen bg-white px-4 pt-14">
       <div className="my-4 text-lg font-bold">프린터 찾기</div>
@@ -27,7 +66,30 @@ export default function SearchAllDesktop() {
               </div>
             </div>
           ) : (
-            <div></div>
+            <div
+              className={`${searchResult.length > 0 ? "w-full" : "my-auto"}`}
+            >
+              {searchResult.length > 0 ? (
+                <div className="">
+                  {searchResult.map((printer: IPrinterDetail) => (
+                    <PrinterList
+                      key={printer.id}
+                      printer={printer}
+                      services={printer.services}
+                      paperSize={paperSize}
+                      serviceType={serviceType}
+                      repPaperSize={repPaperSize}
+                      repServiceType={repServiceType}
+                    ></PrinterList>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Image src={"/noResult.svg"} width={140} height={104}></Image>
+                  <div className="text-center">검색 결과가 없습니다</div>
+                </div>
+              )}
+            </div>
           )}
           <AddNewPlace />
         </div>

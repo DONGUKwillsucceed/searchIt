@@ -10,6 +10,7 @@ export default function SearchBar(props: {
         type="text"
         className="flex w-full bg-gray-100 focus:outline-none "
         placeholder="장소를 입력하세요"
+        spellCheck={false}
         onChange={(e) => props.setSearch(e.target.value)}
         {...(props.isAutoFocus ? { autoFocus: true } : {})}
       ></input>

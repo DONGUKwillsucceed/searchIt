@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "../../common/components/header";
 import { tagService } from "../../backend/service/Tag.service";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import UniPrinterList from "../../common/components/uniPrinterList";
 
 export default function University(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -13,6 +14,7 @@ export default function University(
   const [openMenu, setOpenMenu] = useState(false);
   const [search, setSearch] = useState("");
 
+  console.log(props);
   return (
     <div className="min-h-screen bg-gray-100">
       {openMenu ? <Menu setOpenMenu={setOpenMenu} /> : null}

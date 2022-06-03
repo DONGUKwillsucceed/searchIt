@@ -8,6 +8,7 @@ import MapSearchbar from "../common/components/mapSearchbar";
 import { useStoreActions, useStoreState } from "../common/utils/globalState";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { printZoneService } from "../backend/service/PrintZone.service";
+import { paperService } from "../backend/service/Paper.service";
 import HeaderMap from "../common/components/headerMap";
 import SearchAllDesktop from "../common/components/searchAllDesktop";
 import Search from "./search";
@@ -66,7 +67,7 @@ export default function (
 
   return (
     <main>
-      {isSearching === true && <Search />}
+      {isSearching === true && <Search paperSize={props.paperSize} />}
       <div className="mx-auto">
         <div>
           <HeaderMap
@@ -75,7 +76,7 @@ export default function (
             setIsSearching={setIsSearching}
           />
           <div className="absolute right-0 hidden h-screen w-1/4 xl:block">
-            <SearchAllDesktop />
+            <SearchAllDesktop paperSize={props.paperSize} />
           </div>
         </div>
         <MapSearchbar setIsSearching={setIsSearching} />
@@ -111,5 +112,11 @@ export default function (
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await printZoneService.pzInfomationOnMap();
-  return { props: { data } };
+  const paperSize = await paperService.findPaperSizeMany();
+  return {
+    props: {
+      data,
+      paperSize: JSON.parse(JSON.stringify(paperSize)),
+    },
+  };
 };

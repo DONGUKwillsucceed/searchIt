@@ -6,15 +6,16 @@ import AddButton from "../../../common/components/buttonPrimary";
 import Image from "next/image";
 import AddFixInfo from "../../../common/components/addInfo";
 import Header from "../../../common/components/header";
+import Link from "next/link";
+import createReply from "../../../common/utils/createReply";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const [printerDetail] = useState<IPrinterDetail>(props.data);
-  const [printFixes, setPrintFixes] = useState<JSX.Element[]>([]);
-  const [scanFixes, setScanFixes] = useState<JSX.Element[]>([]);
-  const [copyFixes, setCopyFixes] = useState<JSX.Element[]>([]);
   const [isChangingInfo, setIsChangingInfo] = useState<boolean>(true);
+  const [comment, setComment] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -27,6 +28,7 @@ export default function (
             required
             placeholder="내용 입력"
             className="h-40 w-full resize-none rounded-md border-none bg-gray-100 p-2 text-sm"
+            onChange={(e) => setComment(e.target.value)}
           ></textarea>
         </form>
         <div className="py-2">
@@ -38,6 +40,7 @@ export default function (
             <input
               placeholder="삶은계란"
               className="w-full rounded-md bg-gray-100 p-2 text-sm"
+              onChange={(e) => setUserName(e.target.value)}
             ></input>
           </div>
         </div>
@@ -56,7 +59,14 @@ export default function (
           </div>
         </div>
         <div className="mx-auto max-w-3xl bg-white p-4">
-          <AddButton linkTo="/" content="등록하기"></AddButton>
+          <button
+            onClick={() =>
+              createReply("test", userName, comment, printerDetail.id)
+            }
+            className="bg-primary w-full rounded py-4 px-3 text-sm text-white "
+          >
+            {"등록하기"}
+          </button>
         </div>
       </div>
     </div>

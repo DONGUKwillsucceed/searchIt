@@ -4,6 +4,7 @@ import Header from "../../common/components/header";
 import { PriceBox } from "../../common/components/PriceBox";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function () {
   const [isDuplex, setIsDuplex] = useState(false);
@@ -12,6 +13,8 @@ export default function () {
   const [colorPrice, setColorPrice] = useState("");
   const [duplexMonoPrice, setDuplexMonoPrice] = useState("");
   const [duplexColorPrice, setDuplexColorPrice] = useState("");
+
+  const router = useRouter();
 
   console.log(monoPrice);
   // console.log(colorPrice);
@@ -68,11 +71,14 @@ export default function () {
           </div>
         </div>
         <input
-          className="bg-primary w-full rounded-md p-4 text-white"
+          className="bg-primary w-full rounded-md p-4 text-white hover:cursor-pointer"
           type="submit"
           value={"제출하기"}
           onClick={() => {
             if (!placeName) alert("장소명을 입력해주세요");
+            else {
+              router.push("/addPlace/submit");
+            }
           }}
         ></input>
       </div>

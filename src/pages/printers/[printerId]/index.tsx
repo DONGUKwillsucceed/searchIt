@@ -205,9 +205,11 @@ export default function (
           </div>
 
           {/* banner */}
-          <div className="bg-primary flex h-40 w-full items-center justify-center font-bold text-white">
-            가맹점주 커스텀 배너
-          </div>
+          {printerDetail.banner_html ? (
+            <div className="bg-primary flex h-40 w-full items-center justify-center font-bold text-white">
+              가맹점주 커스텀 배너
+            </div>
+          ) : null}
 
           {/*Introduction*/}
           <PrinterDetail_Introduction

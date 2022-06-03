@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default function (companyName: string) {
   const location = {
-    id: uuid(),
+    // id: uuid(),
     company: "",
     latitude: 0,
     longitude: 0,

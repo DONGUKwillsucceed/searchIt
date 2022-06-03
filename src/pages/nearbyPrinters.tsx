@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { INearPrinter } from "../common/types/interfaces";
 import Image from "next/image";
 import { useStoreState } from "../common/utils/globalState";
-import PrinterList from "../common/components/printerList";
+import PrinterList from "../common/components/nearbyPrinterList";
 import axios from "axios";
 import AddNewPlace from "../common/components/addNewPlace";
 
@@ -33,6 +33,9 @@ export default function () {
       );
     }
   }, [nearbyDistance]);
+
+  console.log(nearbyPrinter.length);
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header
@@ -45,8 +48,24 @@ export default function () {
       ></Header>
       <div className="mx-auto flex h-[calc(100vh-56px)] max-w-3xl flex-col justify-between rounded-b-md bg-white p-4">
         {hasGeoLoc ? (
-          <PrinterList nearbyPrinters={nearbyPrinter} />
+          <div className={`${nearbyPrinter.length > 0 ? "" : "my-auto"}`}>
+            {nearbyPrinter.length > 0 ? (
+              <div
+                className={` max-h-printerList flex flex-col overflow-hidden hover:cursor-pointer  md:max-h-96`}
+              >
+                {nearbyPrinter.map((printer) => (
+                  <PrinterList printer={printer} key={printer.id} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                <Image src={"/noResult.svg"} width={140} height={104}></Image>
+                <div className="text-center">주변에 프린터가 없습니다</div>
+              </div>
+            )}
+          </div>
         ) : (
+          // <PrinterList nearbyPrinters={nearbyPrinter} />
           <div className="my-auto mt-20 flex w-full flex-col justify-center">
             <Image src="/noResult.svg" width={140} height={103} />
             <div className="mt-10 mb-2 text-center font-bold">
