@@ -22,11 +22,11 @@ export default function Advertism() {
       </div>
 
       {/* Current bar */}
-      <div className="mt-1 flex">
+      {/* <div className="mt-1 flex">
         <div className=" mr-1 h-2 w-2 rounded-full bg-gray-300"></div>
         <div className=" mr-1 h-2 w-2 rounded-full bg-gray-300"></div>
         <div className=" h-2 w-2 rounded-full bg-gray-300"></div>
-      </div>
+      </div> */}
     </>
   );
 }

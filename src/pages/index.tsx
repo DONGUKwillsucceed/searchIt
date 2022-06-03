@@ -1,5 +1,5 @@
 import Advertism from "../common/components/advertisment";
-import PrinterList from "../common/components/printerList";
+import PrinterList from "../common/components/nearbyPrinterList";
 import FindPrinter from "../common/components/findPrinter";
 import HeaderState from "../common/components/headerState";
 import Menu from "../common/components/menu";
@@ -73,7 +73,26 @@ export default function Index() {
               </Link>
             </div>
             {hasGeoLoc ? (
-              <PrinterList nearbyPrinters={nearbyPrinter} />
+              <div>
+                {nearbyPrinter.length > 0 ? (
+                  <div
+                    className={` max-h-printerList flex flex-col overflow-hidden hover:cursor-pointer  md:max-h-96`}
+                  >
+                    {nearbyPrinter.map((printer) => (
+                      <PrinterList printer={printer} key={printer.id} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex flex-col space-y-2">
+                    <Image
+                      src={"/noResult.svg"}
+                      width={140}
+                      height={104}
+                    ></Image>
+                    <div className="text-center">주변에 프린터가 없습니다</div>
+                  </div>
+                )}
+              </div>
             ) : (
               <div className="my-auto mt-20 flex w-full flex-col justify-center">
                 <Image src="/noResult.svg" width={140} height={103} />

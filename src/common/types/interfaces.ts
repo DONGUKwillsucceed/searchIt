@@ -96,6 +96,20 @@ export interface INearPrinter {
   writer_ip: string;
 }
 
+export interface IUniPrinter {
+  AreaCode_id: string;
+  Services: Iservices[];
+  address_detail: string;
+  company: string;
+  created_at: Date;
+  id: string;
+  latitude: number;
+  longitude: number;
+  priority: string;
+  status: string;
+  updated_at: string;
+}
+
 export interface IPrinterData {
   AreaCode_id: string;
   address_detail: string;
@@ -137,6 +151,23 @@ export interface IMapMarker {
   };
 }
 
+export interface IPaperSize {
+  created_at: string;
+  description: string;
+  id: string;
+  name: string;
+  name_en: string;
+  updated_at: string;
+}
+
+export interface IServiceType {
+  created_at: string;
+  description: string;
+  id: string;
+  paper: string;
+  paper_en: string;
+  updated_at: string;
+}
 export interface IMousePosition {
   lat: number;
   lng: number;

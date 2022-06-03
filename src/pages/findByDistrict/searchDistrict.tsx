@@ -62,8 +62,9 @@ export default function (
       });
     }
     if (searchArea2 != "") {
+      console.log("ran");
       axios
-        .get(`/api/print-zones/${areaId}`)
+        .get(`/api/print-zones`, areaId)
         .then((res) => {
           console.log(res.data);
         })
