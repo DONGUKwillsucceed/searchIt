@@ -63,7 +63,7 @@ export default function (
     }
     if (searchArea2 != "") {
       axios
-        .get(`/api/print-zones/${areaId}`)
+        .get(`/api/print-zones?areacode=${areaId}`)
         .then((res) => {
           console.log(res.data);
         })
