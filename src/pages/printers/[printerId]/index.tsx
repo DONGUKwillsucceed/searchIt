@@ -1,21 +1,21 @@
 import { useState } from "react";
-import { IPrinterDetail } from "../../../common/types/interfaces";
+import { IPrinterDetail, IReply } from "../../../common/types/interfaces";
 import Image from "next/image";
-import PrinterDetail_Introduction from "../../../common/components/printerDetail_Introduction";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import PrinterDetail_Price from "../../../common/components/printerDetail_Price";
 import { useRouter } from "next/router";
 import {
   useStoreActions,
   useStoreState,
 } from "../../../common/utils/globalState";
 import { printZoneService } from "../../../backend/service/PrintZone.service";
+import { replyService } from "../../../backend/service/Reply.service";
+import PrinterDetail_Introduction from "../../../common/components/printerDetail_Introduction";
 import Link from "next/link";
+import PrinterDetail_Price from "../../../common/components/printerDetail_Price";
 import PaperSizeDropDown from "../../../common/components/paperSizeDropDown";
 import Review from "../../../common/components/review";
 import Header from "../../../common/components/header";
 import Tags from "../../../common/components/tags";
-import { replyService } from "../../../backend/service/Reply.service";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -33,9 +33,24 @@ export default function (
   const [showPaperSizeId, setShowPaperSizeId] = useState<string>(
     "9c0394a8-f1a6-469b-be12-324f10e63e1e"
   );
+  const [showPaperSize, setShowPaperSize] = useState<string>("A4");
   const tags = printerDetail.tags.map((tag) => (
     <Tags key={tag.id} tagName={tag.value} />
   ));
+
+  const reviews = props.review.map((review: IReply) => (
+    <div key={review.id}>
+      <Review
+        name={review.writer_name}
+        content={review.comment}
+        date={review.created_at}
+        state={review.status}
+      />
+    </div>
+  ));
+
+  // console.log(printerDetail.images);
+  console.log(printerDetail);
 
   useState(() => {
     printerDetail.services.forEach((service) => {
@@ -52,6 +67,7 @@ export default function (
       {isDropDown && (
         <PaperSizeDropDown
           services={printerDetail.services}
+          setShowPaperSize={setShowPaperSize}
           showPaperSizeId={showPaperSizeId}
           setShowPaperSizeId={setShowPaperSizeId}
           isDropDown={isDropDown}
@@ -66,7 +82,7 @@ export default function (
       />
 
       <main className="mx-auto max-w-3xl">
-        <div className="rounded-b-md bg-white px-4">
+        <div className="min-h-[calc(100vh-56px)] rounded-b-md bg-white px-4">
           <div className="font-Suit mb-2 w-full text-lg font-bold">
             {printerDetail.company}
           </div>
@@ -80,13 +96,15 @@ export default function (
           <div className="mt-2 flex w-full space-x-2">{tags}</div>
           <div className="mx-auto w-full rounded-md">
             <div className="bg-secondary flex justify-center">
-              {/* <Image
-                alt="printer"
-                src={printerDetail?.imageUrl}
-                width={292}
-                height={194}
-                className="rounded-md "
-              ></Image> */}
+              {/* {printerDetail.images.length > 0 ? (
+                <Image
+                  alt="printer"
+                  src={printerDetail.images}
+                  width={292}
+                  height={194}
+                  className="rounded-md "
+                ></Image>
+              ) : null} */}
             </div>
           </div>
           {/*Address / PhoneNum */}
@@ -142,12 +160,12 @@ export default function (
           {/*Price*/}
 
           <div className="flex w-full items-center justify-between space-x-4 text-xs">
-            <div className="text-gray-400">용지 사이즈</div>
+            <div className="font-semibold text-gray-500">용지 사이즈</div>
             <button
               className="flex items-center rounded-md border-2 px-3 py-2"
               onClick={() => setIsDropDown(!isDropDown)}
             >
-              <div className="mr-2">A4</div>
+              <div className="mr-2">{showPaperSize}</div>
               <Image
                 src="/dropDownArrow.svg"
                 className="rotate-180"
@@ -214,18 +232,22 @@ export default function (
             <div className="mb-3 flex w-full items-center justify-between">
               <div className="text-sm font-semibold text-gray-500">리뷰</div>
               <Link href={`${printerDetail.id}/addReview`}>
-                <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs ">
+                <button className="bg-primary/20 text-primary rounded-md px-3 py-2 text-xs font-semibold ">
                   리뷰 작성
                 </button>
               </Link>
             </div>
-            {/* example */}
-            <Review
-              name={"심혁"}
-              content={"좋아요"}
-              date={"2022.05.03"}
-              state={"정보 변경 요청"}
-            />
+            <div>
+              {reviews.length > 0 ? (
+                reviews
+              ) : (
+                <div className="font-Suit mb-4 flex flex-col rounded-md p-4 text-sm">
+                  <div className="flex justify-center text-xs ">
+                    아직 등록된 리뷰가 없습니다
+                  </div>
+                </div>
+              )}
+            </div>
 
             <Link href={`/printers/${printerDetail?.id}/reviews`}>
               <button className="my-4 flex w-full items-center justify-center">

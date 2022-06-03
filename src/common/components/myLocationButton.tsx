@@ -11,7 +11,7 @@ export function MyLocationButton(props: {
   mapRef?: kakao.maps.Map;
 }) {
   return (
-    <div className="absolute bottom-0 z-10 flex w-full flex-row-reverse p-5">
+    <div>
       <button
         className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg"
         onClick={() => {

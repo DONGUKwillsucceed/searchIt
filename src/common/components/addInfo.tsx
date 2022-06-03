@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
-import FixPrinterInfo from "./fixPrinterInfo";
+import AddPrinterInfo from "./addPrinterInfo";
 
 export default function AddFixInfo(props: {
   fixType: string;
@@ -21,11 +21,9 @@ export default function AddFixInfo(props: {
       onClick={() => {
         props.setFixList([
           ...props.fixList,
-          <FixPrinterInfo
+          <AddPrinterInfo
             key={props.fixList.length + 1}
-            fixIndex={props.fixList.length}
             fixType={props.fixType}
-            remove={removeItem}
             priceMono={props?.priceMono}
             priceColor={props?.priceColor}
           />,

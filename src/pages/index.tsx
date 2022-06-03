@@ -76,7 +76,7 @@ export default function Index() {
               <PrinterList nearbyPrinters={nearbyPrinter} />
             ) : (
               <div className="my-auto mt-20 flex w-full flex-col justify-center">
-                <Image src="/noGeoLocation.svg" width={140} height={103} />
+                <Image src="/noResult.svg" width={140} height={103} />
                 <div className="mt-10 mb-2 text-center font-bold">
                   위치 정보 동의 필요
                 </div>
@@ -90,7 +90,7 @@ export default function Index() {
             <button className="text-primary bg-primary/20 mr-4 rounded-md px-3 py-2 text-sm font-semibold">
               제휴문의
             </button>
-            <Link href="/addPlace">
+            <Link href="/addPlace/address">
               <button className="rounded-md bg-gray-100 p-3 py-2 text-sm font-semibold text-gray-500">
                 제보하기
               </button>

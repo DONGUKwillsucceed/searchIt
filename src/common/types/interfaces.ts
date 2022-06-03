@@ -14,15 +14,6 @@ export interface mapView {
   hasAllowedGeo?: boolean;
 }
 
-export interface ISlider {
-  top: number;
-  left: number;
-}
-
-export interface IDistanceOptions {
-  option: string;
-}
-
 export interface IPrinterDetail {
   address: string;
   banner_html: string;
@@ -116,6 +107,34 @@ export interface IPrinterData {
   priority: string;
   status: string;
   updated_at: string;
+}
+
+export interface IReply {
+  PrintZone_id: string;
+  comment: string;
+  created_at: string;
+  id: string;
+  images: string[];
+  reportCnt: number;
+  status: string;
+  tags: string[];
+  writer_emoji: string;
+  writer_name: string;
+}
+
+export interface IMapMarker {
+  color: {
+    color: boolean;
+    mono: boolean;
+  };
+  id: string;
+  latitude: number;
+  longitude: number;
+  service: {
+    price: number;
+    type: string;
+    type_en: string;
+  };
 }
 
 export interface IMousePosition {

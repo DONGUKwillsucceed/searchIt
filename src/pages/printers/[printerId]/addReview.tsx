@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { printZoneService } from "../../../backend/service/PrintZone.service";
 import AddButton from "../../../common/components/buttonPrimary";
 import Image from "next/image";
-import AddFixInfo from "../../../common/components/addFixInfo";
+import AddFixInfo from "../../../common/components/addInfo";
 import Header from "../../../common/components/header";
 
 export default function (
@@ -19,7 +19,7 @@ export default function (
   return (
     <div className="min-h-screen bg-gray-100">
       <Header hasBack={true} isArrowBack={true} title="리뷰 남기기" />
-      <div className="font-Suit mx-auto max-w-3xl rounded-b-md bg-white px-4 text-xl font-semibold">
+      <div className="font-Suit mx-auto min-h-[calc(100vh-56px)] max-w-3xl rounded-b-md bg-white px-4 text-xl font-semibold">
         <div className="font-Suit mb-4 w-full">{printerDetail.company}</div>
         <form>
           <label className="text-sm text-gray-500">리뷰 작성</label>
@@ -55,39 +55,9 @@ export default function (
             <div className="text-sm text-gray-500">정보 변경 요청</div>
           </div>
         </div>
-      </div>
-      {isChangingInfo && (
-        <div className="mx-auto max-w-3xl">
-          <div>
-            {printFixes}
-            {scanFixes}
-            {copyFixes}
-          </div>
-          {/* <AddFixInfo
-            fixType="인쇄"
-            fixList={printFixes}
-            setFixList={setPrintFixes}
-            priceColor={printerDetail.priceColor}
-            priceMono={printerDetail.priceMono}
-          ></AddFixInfo>
-          <AddFixInfo
-            fixType="스캔"
-            fixList={scanFixes}
-            setFixList={setScanFixes}
-            priceColor={printerDetail.priceColor}
-            priceMono={printerDetail.priceMono}
-          ></AddFixInfo>
-          <AddFixInfo
-            fixType="복사"
-            fixList={copyFixes}
-            setFixList={setCopyFixes}
-            priceColor={printerDetail.priceColor}
-            priceMono={printerDetail.priceMono}
-          ></AddFixInfo> */}
+        <div className="mx-auto max-w-3xl bg-white p-4">
+          <AddButton linkTo="/" content="등록하기"></AddButton>
         </div>
-      )}
-      <div className="mx-auto max-w-3xl bg-white p-4">
-        <AddButton linkTo="/" content="등록하기"></AddButton>
       </div>
     </div>
   );

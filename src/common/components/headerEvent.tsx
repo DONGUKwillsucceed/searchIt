@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { SetStateAction, Dispatch } from "react";
 
-export default function Header(props: {
+export default function HeaderEvent(props: {
   title?: string | string[] | undefined;
   isNotice: boolean;
   setIsNotice: Dispatch<SetStateAction<boolean>>;
