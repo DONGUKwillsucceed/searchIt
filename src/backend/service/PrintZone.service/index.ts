@@ -166,6 +166,9 @@ class PrintZoneService {
           latitude: true,
           longitude: true,
           Services: {
+            where: {
+              status: ServiceProposeStatus.Applied,
+            },
             select: {
               ServiceType: {
                 select: {
@@ -179,6 +182,9 @@ class PrintZoneService {
           },
         },
       });
+      if (!queryResult) {
+        throw new NotFoundError("Not found printzone!!");
+      }
       return queryResult.map(({ id, latitude, longitude, Services }) => {
         let bcnt = 0;
         let ccnt = 0;
@@ -208,7 +214,7 @@ class PrintZoneService {
           return { type, type_en, price };
         })[0];
         const price = service.price;
-        return { id, latitude, longitude, color, service };
+        return { id, latitude, longitude, color, service, price };
       });
     } catch (e) {
       console.log(e);
