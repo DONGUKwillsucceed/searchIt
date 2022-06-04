@@ -42,8 +42,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   // area code 를 통해 쿼리
-  if (req.method === "GET" && req.query["area-code"]) {
-    const query = req.query["area-code"];
+  if (req.method === "GET" && req.query.areacode) {
+    const query = req.query.areacode;
 
     let areaCode: string;
     if (typeof query !== "string") {
