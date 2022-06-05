@@ -1,8 +1,14 @@
-<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2.5 14.667H14.5" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M4.5 11.9997V7.33301" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.16675 11.9997V7.33301" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9.83325 11.9997V7.33301" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12.5 11.9997V7.33301" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8.50008 1.33301L13.8334 4.66634H3.16675L8.50008 1.33301Z" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 17 16" style="enable-background:new 0 0 17 16;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#ED3317;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<path class="st0" d="M2.5,14.7h12"/>
+<path class="st0" d="M4.5,12V7.3"/>
+<path class="st0" d="M7.2,12V7.3"/>
+<path class="st0" d="M9.8,12V7.3"/>
+<path class="st0" d="M12.5,12V7.3"/>
+<path class="st0" d="M8.5,1.3l5.3,3.3H3.2L8.5,1.3z"/>
 </svg>

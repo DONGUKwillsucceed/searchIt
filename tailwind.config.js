@@ -1,67 +1,63 @@
 module.exports = {
-  mode: 'jit',
+  mode: "jit",
   content: [
     // "./pages/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
-      keyframes:{
-        'slide-in': {
-          '0%': {
-            transform: 'translateY(200%)',
+      keyframes: {
+        "slide-in": {
+          "0%": {
+            transform: "translateY(200%)",
           },
-          '50%':{
-            transform: 'translateY(150%)',
+          "50%": {
+            transform: "translateY(150%)",
           },
-          '100%': {
-            transform: 'translateY(100%)',
+          "100%": {
+            transform: "translateY(100%)",
           },
         },
       },
-      animation:{
-        'slide-in': 'slide-in 0.5s ease-in-out',
+      animation: {
+        "slide-in": "slide-in 0.5s ease-in-out",
       },
-      colors:{
-        'primary': '#2784FF',
-        'primary-light':'#F0FFFF',
-        'Location-text' :'#595959',
-        'secondary': '#FAFAFA',
+      colors: {
+        primary: "#ED3317",
+        "primary-light": "#FFF1F0",
+        "Location-text": "#595959",
+        secondary: "#FAFAFA",
       },
-      width:{
-        'advertisement':'338px',
-        '3xl':'768px',
-        'image': '120px',
-        '49p': '49%'
+      width: {
+        advertisement: "338px",
+        "3xl": "768px",
+        image: "120px",
+        "49p": "49%",
       },
-      height:{
-        'advertisment':'80px',
-        'image': '120px',
-        'printerList':'576px',
+      height: {
+        advertisment: "80px",
+        image: "120px",
+        printerList: "576px",
       },
-      maxHeight:{
-        'printerList':'666px',
+      maxHeight: {
+        printerList: "666px",
       },
-      maxWidth:{
-        'addressBox' : '560px',
+      maxWidth: {
+        addressBox: "560px",
       },
-      fontFamily:{
-        'Suit': ['Suit'],
-      }
-
+      fontFamily: {
+        Suit: ["Suit"],
+      },
     },
-    screens:{
-      'sm': '460px',
-      'xsm':'330px',
-      'lg':'1024px',
-      'xl':'1280px',
-    }
+    screens: {
+      sm: "460px",
+      xsm: "330px",
+      lg: "1024px",
+      xl: "1280px",
+    },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-    require('tw-elements/dist/plugin'),
-  ],
-  variants:{
-    scrollbar:['rounded']
+  plugins: [require("tailwind-scrollbar"), require("tw-elements/dist/plugin")],
+  variants: {
+    scrollbar: ["rounded"],
   },
-}
+};
