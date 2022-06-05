@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Iservices } from "../types/interfaces";
 import { useEffect, useState, useRef } from "react";
-import { PriceBox } from "./PriceBox";
+import { PriceBox } from "./priceBox";
 import PaperSizeDropDown from "./paperSizeDropDown";
 
 export default function PrinterDetail_Price(props: {

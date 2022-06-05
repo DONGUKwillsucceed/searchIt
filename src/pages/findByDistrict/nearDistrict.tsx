@@ -1,6 +1,6 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import getPrinterCoords from "../../common/api/getPrinterCoords";
-import { Areas, IPrinterData } from "../../common/types/interfaces";
+import { IPrinterData } from "../../common/types/interfaces";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ColorOptions from "../../common/components/colorOptions";
@@ -37,7 +37,7 @@ export default function (
 
         <div className="flex flex-col rounded-b-md bg-white p-4">
           <div className="my-2">
-            <SearchBar setSearch={setSearch} />
+            <SearchBar setSearch={setSearch} isAutoFocus={true} />
           </div>
 
           <div className="mx-auto h-fit w-full">
@@ -50,13 +50,13 @@ export default function (
                 }}
               >
                 <div className="p-2">
-                  <div className="font-bold">{printer.name}</div>
+                  <div className="font-bold">{printer.company}</div>
                   <div className="text-xs font-semibold text-gray-400">
                     Address
                   </div>
                   <div className="flex text-xs">
                     <div className="mr-4">Type</div>
-                    <ColorOptions printer={printer} />
+                    <ColorOptions printer={printer.} />
                   </div>
                 </div>
               </div>

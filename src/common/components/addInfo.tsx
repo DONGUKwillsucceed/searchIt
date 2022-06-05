@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import AddPrinterInfo from "./addPrinterInfo";
 
 export default function AddFixInfo(props: {
@@ -15,6 +15,9 @@ export default function AddFixInfo(props: {
     console.log("affter", props.fixList.splice(index - 1, 1));
     // props.setFixList(props.fixList.splice(index, 1));
   }
+  const [monoPrice, setMonoPrice] = useState('');
+  const [colorPrice, setColorPrice] = useState('');
+
   return (
     <button
       className="my-1 flex w-full items-center space-x-2 bg-white p-4 text-sm font-semibold text-gray-500"
@@ -24,6 +27,8 @@ export default function AddFixInfo(props: {
           <AddPrinterInfo
             key={props.fixList.length + 1}
             fixType={props.fixType}
+            setColorPrice={setColorPrice}
+            setMonoPrice={setMonoPrice}
             priceMono={props?.priceMono}
             priceColor={props?.priceColor}
           />,

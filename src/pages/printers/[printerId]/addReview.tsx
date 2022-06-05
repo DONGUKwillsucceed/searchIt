@@ -8,14 +8,18 @@ import AddFixInfo from "../../../common/components/addInfo";
 import Header from "../../../common/components/header";
 import Link from "next/link";
 import createReply from "../../../common/utils/createReply";
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/router";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
   const [printerDetail] = useState<IPrinterDetail>(props.data);
-  const [isChangingInfo, setIsChangingInfo] = useState<boolean>(true);
+  const [isChangingInfo, setIsChangingInfo] = useState<boolean>(false);
   const [comment, setComment] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
+
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -60,9 +64,12 @@ export default function (
         </div>
         <div className="mx-auto max-w-3xl bg-white p-4">
           <button
-            onClick={() =>
-              createReply("test", userName, comment, printerDetail.id)
-            }
+            onClick={async () => {
+              await createReply(uuidv4(), userName, comment, printerDetail.id);
+              router.push(
+                `/printers/${printerDetail.id}/reviews`
+              );
+            }}
             className="bg-primary w-full rounded py-4 px-3 text-sm text-white "
           >
             {"등록하기"}

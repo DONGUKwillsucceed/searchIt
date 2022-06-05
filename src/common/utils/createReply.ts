@@ -21,12 +21,12 @@ export default function (
 
     printZoneId: printZoneId,
 
-    // tags: tags,
+    tags: [],
 
-    // services: services,
+    services: [],
 
-    // images: images,
+    images: [],
   };
 
-  axios.post(`/api/printzones/${printZoneId}/reply`, review);
+  axios.post(`/api/print-zones/${printZoneId}/reply`, review);
 }

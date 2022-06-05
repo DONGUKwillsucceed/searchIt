@@ -10,10 +10,13 @@ import { printZoneSearchService } from "../../../backend/service/PrintZone.servi
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // 새로운 print zone 추가
   if (req.method === "POST") {
+    console.log("🚀 ~ file: index.ts ~ line 14 ~ req.body", req.body);
+
     const pzCreateDto = plainToClass(PrintZoneCreateDto, req.body);
 
     const errors = await validate(pzCreateDto);
     if (errors.length > 0) {
+      console.log(errors);
       return res.status(400).json(errors[0]);
     }
 

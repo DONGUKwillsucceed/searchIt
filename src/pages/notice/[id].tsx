@@ -4,6 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { noticeService } from "../../backend/service/Notice.service";
 import { INoticeEvent } from "../../common/types/interfaces";
 
+type Notice = Awaited<ReturnType<typeof noticeService.findUnique>>
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
@@ -13,23 +14,23 @@ export default function (
   const [noticeList, setNoticeList] = useState<INoticeEvent[]>([]);
   const [eventList, setEventList] = useState<INoticeEvent[]>([]);
 
-  useEffect(() => {
-    props.data.map((noticeEvent: INoticeEvent) => {
-      if (noticeEvent.type === "notice") {
-        setNoticeList((noticeList) => [...noticeList, noticeEvent]);
-      } else {
-        setEventList((eventList) => [...eventList, noticeEvent]);
-      }
-    });
-  }, []);
+  const notice = props.data as Notice;
 
-  console.log(JSON.parse(props.data));
+  // useEffect(() => {
+  //   props.data.map((noticeEvent: INoticeEvent) => {
+  //     if (noticeEvent.type === "notice") {
+  //       setNoticeList((noticeList) => [...noticeList, noticeEvent]);
+  //     } else {
+  //       setEventList((eventList) => [...eventList, noticeEvent]);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header hasBack={true}></Header>
+      <Header hasBack={true} title={notice.title}></Header>
       <div className="mx-auto h-[calc(100vh-56px)] max-w-3xl bg-white">
-        test
+        {notice.content_html}
       </div>
     </div>
   );
@@ -40,6 +41,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (typeof context.query.id === "string") {
     data = await noticeService.findUnique(context.query.id);
   }
-  console.log(data);
   return { props: { data } };
 };

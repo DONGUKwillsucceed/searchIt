@@ -38,9 +38,9 @@ export default function NearbyPrinterList(props: { printer: INearPrinter }) {
           <div className="font-bold">{props.printer.company}</div>
           <div className="flex text-sm font-semibold text-gray-500">
             <div className="text-primary mr-2">
-              {props.printer.distance / 1000 > 1
-                ? Math.round(props.printer.distance / 10) / 100 + "km"
-                : Math.round(props.printer.distance) + "m"}
+              {props.printer.distance > 1
+                ? Math.round(props.printer.distance * 10) / 10 + "km"
+                : Math.round(props.printer.distance * 1000) + "m"}
             </div>
             <div>{props.printer.address_detail}</div>
           </div>

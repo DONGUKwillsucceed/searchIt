@@ -22,6 +22,15 @@ export default function () {
       lng: 126.978,
     },
   });
+  const [areacode, setAreacode] = React.useState("");
+  const [pinCoord, setPinCoord] = React.useState({
+    lat: 37.566,
+    lng: 126.978,
+  });
+
+  useEffect(() => {
+    console.log(areacode);
+  });
 
   let geoCoder: kakao.maps.services.Geocoder;
   if (typeof window !== "undefined") {
@@ -69,7 +78,13 @@ export default function () {
           />
         </div>
         <div className="absolute bottom-0 z-20 flex w-full max-w-3xl justify-center pb-8">
-          <Link href={"/addPlace/details"}>
+          <Link
+            href={`/addPlace/details?d=${JSON.stringify({
+              locationAddress,
+              pinCoord,
+              areacode,
+            })}`}
+          >
             <button className="bg-primary font-Suit w-11/12 rounded-md p-4 text-white">
               현위치로 지정
             </button>
@@ -92,15 +107,23 @@ export default function () {
             setMap(map);
           }}
           onIdle={(e) => {
-            geoCoder.coord2Address(
-              e.getCenter().getLng(),
-              e.getCenter().getLat(),
-              (result, status) => {
-                if (status === kakao.maps.services.Status.OK) {
-                  setLocationAddress(result[0].address.address_name);
-                }
+            const lat = e.getCenter().getLng();
+            const lng = e.getCenter().getLat();
+
+            setPinCoord({ lat, lng });
+
+            geoCoder.coord2Address(lat, lng, (result, status) => {
+              console.log("🚀 ~ file: address.tsx ~ line 111 ~ result", result);
+              if (status === kakao.maps.services.Status.OK) {
+                setLocationAddress(result[0].address.address_name);
               }
-            );
+            });
+
+            geoCoder.coord2RegionCode(lat, lng, (result, status) => {
+              if (status === kakao.maps.services.Status.OK) {
+                setAreacode(result[0].code);
+              }
+            });
           }}
         ></Map>
       </div>

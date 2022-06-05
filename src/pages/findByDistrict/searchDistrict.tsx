@@ -1,12 +1,14 @@
 import DropDown from "../../common/components/dropDown";
 import { useEffect, useState } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useRouter } from "next/router";
 import { areaService } from "../../backend/service/Area.service";
-import { IArea } from "../../common/types/interfaces";
+import { IArea, IPrinterData } from "../../common/types/interfaces";
 import Header from "../../common/components/header";
 import { db } from "../../backend/db";
 import axios, { Axios } from "axios";
 import AddNewPlace from "../../common/components/addNewPlace";
+import ColorOptions from "../../common/components/colorOptions";
 
 export default function (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -21,6 +23,11 @@ export default function (
   const [area1, setArea1] = useState<string[]>([]);
   const [area2, setArea2] = useState<string[]>([]);
   const [area3, setArea3] = useState<string[]>([]);
+
+  const [printZones, setPrintZones] = useState<IPrinterData[]>([])
+  const [area3Metadata, setArea3Metadata] = useState<IArea[]>([]);
+
+    const router = useRouter();
 
   useEffect(() => {
     let area1Set = new Set<string>(
@@ -58,7 +65,10 @@ export default function (
         res.data.map((area: IArea) => {
           area3Info.push(area.ko_area_3);
         });
+        console.log(res.data);
+
         setArea3(area3Info);
+        setArea3Metadata(res.data);
       });
     }
     if (searchArea2 != "") {
@@ -73,6 +83,32 @@ export default function (
         });
     }
   }, [searchArea2]);
+
+  useEffect(() => {
+    let areaId;
+    area3Metadata.map((area: IArea) => {
+      if (
+        area.ko_area_1 == searchArea1 &&
+        area.ko_area_2 === searchArea2 &&
+        area.ko_area_3 === searchArea3
+      ) {
+        areaId = area.id;
+        console.log(
+          "🚀 ~ file: searchDistrict.tsx ~ line 87 ~ props.data.map ~ areaId",
+          areaId
+        );
+
+        axios
+          .get(`/api/print-zones?areacode=${areaId}`)
+          .then((res) => {
+            setPrintZones(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  }, [searchArea3]);
 
   function closeAllDropDown() {
     setIsArea1Open(false);
@@ -136,6 +172,28 @@ export default function (
               </div>
             </div>
           ) : null}
+          <div className="mx-auto h-fit w-full">
+            {printZones.map((printer: IPrinterData) => (
+              <div
+                key={printer.id}
+                className="mb-2 flex w-full items-center justify-between border-b-2 last:mb-0 last:border-b-0 hover:cursor-pointer"
+                onClick={() => {
+                  router.push(`/printers/${printer.id}`);
+                }}
+              >
+                <div className="p-2">
+                  <div className="font-bold">{printer.company}</div>
+                  <div className="text-xs font-semibold text-gray-400">
+                    {printer.address_detail}
+                  </div>
+                  <div className="flex text-xs">
+                    <div className="mr-4"></div>
+                    <ColorOptions services={[]} paperSize={[]} serviceType={[]} repPaperSize={"A4"} repServiceType={"인쇄"} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
           <AddNewPlace />
         </div>
       </div>
