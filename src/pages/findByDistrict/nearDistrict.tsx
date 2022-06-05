@@ -56,7 +56,13 @@ export default function (
                   </div>
                   <div className="flex text-xs">
                     <div className="mr-4">Type</div>
-                    <ColorOptions printer={printer.} />
+                    <ColorOptions
+                      services={[]}
+                      paperSize={[]}
+                      serviceType={[]}
+                      repPaperSize=""
+                      repServiceType=""
+                    />
                   </div>
                 </div>
               </div>
