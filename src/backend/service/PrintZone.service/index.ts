@@ -212,12 +212,12 @@ class PrintZoneService {
         const service = Services.map(({ ServiceType, price }) => {
           const { type, type_en } = ServiceType;
           return { type, type_en, price };
-        })[0];
-        const price = service.price;
-        return { id, latitude, longitude, color, service, price };
+        })[0] ?? { type: ""};
+        return { id, latitude, longitude, color, service };
       });
     } catch (e) {
       console.log(e);
+      throw e;
     }
   }
 

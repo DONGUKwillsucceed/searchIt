@@ -112,6 +112,7 @@ export default function (
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await printZoneService.pzInfomationOnMap();
+  console.log("🚀 ~ file: map.tsx ~ line 115 ~ constgetServerSideProps:GetServerSideProps= ~ data", data)
   const paperSize = await paperService.findPaperSizeMany();
   return {
     props: {
